@@ -1,75 +1,55 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
-  "private": true,
+  "name": "building-dynamic-envmaps",
+  "version": "1.0.0",
+  "description": "Shows how to form self-contained components with their own state and user interaction.",
+  "keywords": [
+    "ssr",
+    "reflections",
+    "glow",
+    "environment",
+    "bloom",
+    "lut"
+  ],
+  "main": "src/index.js",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.8.6",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/react": "^18.0.19",
-    "@types/react-dom": "^18.0.6",
-    "@types/react-redux": "^7.1.24",
-    "@types/react-router-dom": "^5.3.3",
-    "buffer": "^6.0.3",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^8.5.0",
+    "@react-three/drei": "9.17.3",
+    "@react-three/fiber": "8.2.2",
+    "@react-three/postprocessing": "2.6.0",
+    "@types/three": "0.143.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-prettier": "^4.2.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.6.0",
-    "react-loading-skeleton": "^3.1.0",
-    "react-redux": "^8.0.4",
-    "react-router-dom": "^6.4.2",
-    "react-scripts": "5.0.1",
+    "lamina": "1.1.20",
+    "leva": "0.9.28",
+    "postprocessing": "^6.29.1",
+    "prop-types": "^15.8.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-scripts": "^5.0.1",
+    "react-transition-group": "^4.4.5",
     "redux": "^4.2.0",
-    "sass": "^1.54.9",
-    "typescript": "^4.8.3",
-    "web-vitals": "^2.1.4"
+    "sass": "^1.57.1",
+    "three": "0.142.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest src",
-    "eject": "react-scripts eject",
-    "lint": "eslint --ext .tsx,.ts src",
-    "lint:fix": "eslint --ext .tsx,.ts --fix src"
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm lint",
-      "pre-push": "npm-test"
-    }
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "devDependencies": {
-    "eslint": "^8.23.1",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-plugin-react": "^7.31.8",
+    "eslint": "^8.30.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "file-saver": "^2.0.5",
-    "husky": "^8.0.1",
-    "prettier": "^2.7.1",
-    "redux-persist": "^6.0.0"
+    "prettier": "^2.8.1"
   }
 }

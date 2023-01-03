@@ -1,3 +1,3 @@
-# Portfolio website
+# Portfolio
 
-Hi there, here i'm working on my porfolio website.
+Hi, here I'm working on my portfolio website
