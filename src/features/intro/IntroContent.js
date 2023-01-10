@@ -1,8 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import PropTypes from 'prop-types'
+import SceneContext from '../../context/SceneContext'
 import { useTimeout } from '../../hooks'
-import StartEngine from '../scene/StartEngine'
 import './IntroContent.scss'
 
 const DURATION = {
@@ -17,24 +16,21 @@ const DURATION = {
     },
     THIRD: {
       START: 11000,
-      END: 12000
-    },
-    BUTTON: {
-      START: 14000
+      END: 13000
     }
   },
   ANIMATION: 2000
 }
 
-const IntroContent = ({ handleStartEngine }) => {
+const IntroContent = () => {
   const welcomeTextFirstRef = useRef(null)
   const welcomeTextSecondRef = useRef(null)
   const welcomeTextThirdRef = useRef(null)
-  const buttonRef = useRef(null)
+
+  const { action } = useContext(SceneContext)
   const [inTextFirst, setInTextFirst] = useState(false)
   const [inTextSecond, setInTextSecond] = useState(false)
   const [inTextThird, setInTextThird] = useState(false)
-  const [inButton, setInButton] = useState(false)
 
   useTimeout(() => {
     setInTextFirst(true)
@@ -56,13 +52,20 @@ const IntroContent = ({ handleStartEngine }) => {
     setInTextThird(true)
   }, DURATION.TEXT.THIRD.START)
 
-  useTimeout(() => {
-    setInTextThird(false)
-  }, DURATION.TEXT.THIRD.END)
+  function hideIntro() {
+    action.setIsIntro(false)
+  }
+
+  function showSceneSetup() {
+    action.setIsSetup(true)
+  }
 
   useTimeout(() => {
-    setInButton(true)
-  }, DURATION.TEXT.BUTTON.START)
+    setInTextThird(false)
+
+    hideIntro()
+    showSceneSetup()
+  }, DURATION.TEXT.THIRD.END)
 
   return (
     <>
@@ -101,28 +104,11 @@ const IntroContent = ({ handleStartEngine }) => {
         onEnter={() => setInTextThird(true)}
         onExited={() => setInTextThird(false)}>
         <div ref={welcomeTextThirdRef}>
-          <p>so, please try...</p>
-        </div>
-      </CSSTransition>
-
-      <CSSTransition
-        in={inButton}
-        nodeRef={buttonRef}
-        timeout={DURATION.ANIMATION}
-        classNames="fade"
-        unmountOnExit
-        onEnter={() => setInButton(true)}
-        onExited={() => setInButton(false)}>
-        <div ref={buttonRef}>
-          <StartEngine handleStartEngine={handleStartEngine} />
+          <p>please, setup the scene</p>
         </div>
       </CSSTransition>
     </>
   )
-}
-
-IntroContent.propTypes = {
-  handleStartEngine: PropTypes.func.isRequired
 }
 
 export default IntroContent
