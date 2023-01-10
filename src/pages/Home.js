@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/no-unknown-property */
-import React, { Suspense, useEffect, useRef, useState } from 'react'
+import React, { Suspense, useContext, useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import {
   ContactShadows,
@@ -14,8 +14,13 @@ import {
   Overlay,
   Lamborghini,
   SceneLights,
-  EffectsColor
-} from '../features/index'
+  EffectsColor,
+  CarNavigation,
+  Logo,
+  Navigation
+} from '../features'
+
+import SceneContext from '../context/SceneContext'
 
 const initialState = {
   emmisiveValue: {
@@ -24,8 +29,6 @@ const initialState = {
   },
   maxEmissiveCarLight: 4,
   maxEmissiveSceneLight: 0.3,
-  lightsOn: false,
-  isIntro: true,
   sceneBg: 'black',
   surfaceColor: '#212121',
   delayEngineSound: 600,
@@ -40,12 +43,10 @@ const Home = () => {
     front: initialState.emmisiveValue.front,
     back: initialState.emmisiveValue.back
   })
-  const [sceneLightEmissive, setSceneLightEmissive] = useState(0)
-  const [lightsOn, setLightsOn] = useState(initialState.lightsOn)
-  const [isIntro, seIsIntro] = useState(initialState.isIntro)
+  const [isStartEngine, setIsStartEngine] = useState(false)
+  const { scene, action } = useContext(SceneContext)
 
   const intervalRef = useRef()
-  const intervalRef2 = useRef()
 
   // state of animation camera
   const [active] = useState(false)
@@ -54,22 +55,16 @@ const Home = () => {
   useEffect(() => {
     if (
       carLightEmissive.front > initialState.maxEmissiveCarLight &&
-      !lightsOn
+      !isStartEngine
     ) {
       clearInterval(intervalRef.current)
       turnOnEngineSound()
-      turnOnSceneLights()
+      startEngine()
     }
-
-    if (lightsOn && sceneLightEmissive === 0) {
-      increaseSceneLightEmissive()
-    } else if (sceneLightEmissive >= initialState.maxEmissiveSceneLight) {
-      clearInterval(intervalRef2.current)
-    }
-  }, [carLightEmissive.front, lightsOn, sceneLightEmissive])
+  }, [carLightEmissive.front, isStartEngine])
 
   function hideIntro() {
-    seIsIntro(false)
+    action.seIsIntro(false)
   }
 
   function turnOnEngineSound() {
@@ -78,19 +73,10 @@ const Home = () => {
     }, initialState.delayEngineSound)
   }
 
-  function turnOnSceneLights() {
+  function startEngine() {
     setTimeout(() => {
-      setLightsOn(true)
+      setIsStartEngine(true)
     }, initialState.delayLightsOn)
-  }
-
-  function increaseSceneLightEmissive() {
-    if (sceneLightEmissive === 0) {
-      const interval = setInterval(() => {
-        setSceneLightEmissive((prev) => prev + 0.03)
-      }, 10)
-      intervalRef2.current = interval
-    }
   }
 
   function increaseCarLightsEmissive() {
@@ -111,21 +97,33 @@ const Home = () => {
   }
 
   const homeStyle = {
-    height: '100%',
-    background: lightsOn
-      ? 'radial-gradient(circle,rgba(38,102,177,1) 32%, rgba(19,72,135,1) 100%)'
-      : 'black'
+    position: 'relative',
+    height: '100%'
+    // background: isStartEngine
+    //   ? 'radial-gradient(circle,rgba(38,102,177,1) 32%, rgba(19,72,135,1) 100%)'
+    //   : 'black'
   }
 
   return (
     <div className="Home" style={homeStyle}>
-      {isIntro && (
+      {scene.steps.isIntro && (
         <Intro>
-          <IntroContent handleStartEngine={handleStartEngine} />
+          <IntroContent />
         </Intro>
       )}
 
-      {lightsOn && <Overlay />}
+      {scene.steps.isSetup ? (
+        <Overlay>
+          <CarNavigation handleStartEngine={handleStartEngine} />
+        </Overlay>
+      ) : null}
+
+      {scene.steps.isOverview ? (
+        <Overlay>
+          <Logo />
+          <Navigation />
+        </Overlay>
+      ) : null}
 
       <Canvas
         gl={{ logarithmicDepthBuffer: true, antialias: false }}
@@ -139,7 +137,7 @@ const Home = () => {
             scale={0.015}
             active={active}
             zoom={zoom}
-            lightsOn={lightsOn}
+            lightsOn={isStartEngine}
           />
 
           <ContactShadows
@@ -152,9 +150,9 @@ const Home = () => {
             far={20}
           />
 
-          {lightsOn && (
+          {scene.steps.isSetup && (
             <Environment resolution={512}>
-              <SceneLights sceneLightEmissive={sceneLightEmissive} />
+              <SceneLights scene={scene} />
             </Environment>
           )}
           <EffectsColor />

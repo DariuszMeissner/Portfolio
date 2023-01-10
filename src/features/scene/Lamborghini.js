@@ -23,23 +23,22 @@ const Lamborghini = (props) => {
   useCursor(props.active)
 
   useFrame((state) => {
-    if (props.lightsOn && !stop) {
-      state.camera.fov = THREE.MathUtils.lerp(
-        state.camera.fov,
-        props.zoom ? 20 : 42,
-        0.05
-      )
-      state.camera.position.lerp(
-        v.set(props.zoom ? 24 : 0, props.zoom ? 1 : 0, props.zoom ? 0 : 15),
-        0.05
-      )
-      state.camera.lookAt(0, 0, 0)
-      state.camera.updateProjectionMatrix()
-    }
-
-    if (state.camera.position.x >= 23) {
-      setStop(true)
-    }
+    // if (props.lightsOn && !stop) {
+    //   state.camera.fov = THREE.MathUtils.lerp(
+    //     state.camera.fov,
+    //     props.zoom ? 20 : 42,
+    //     0.05
+    //   )
+    //   state.camera.position.lerp(
+    //     v.set(props.zoom ? 24 : 0, props.zoom ? 1 : 0, props.zoom ? 0 : 15),
+    //     0.05
+    //   )
+    //   state.camera.lookAt(0, 0, 0)
+    //   state.camera.updateProjectionMatrix()
+    // }
+    // if (state.camera.position.x >= 23) {
+    //   setStop(true)
+    // }
   })
 
   useMemo(() => {

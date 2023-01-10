@@ -4,21 +4,22 @@ import PropTypes from 'prop-types'
 const style = {
   container: {
     position: 'absolute',
-    zIndex: 3,
-    top: 0
+    zIndex: 4,
+    height: '100vh',
+    width: '100vw'
   }
 }
 
-const Overlay = ({ children }) => {
+const PageContainer = ({ children }) => {
   return (
-    <div className="overlay" style={style.container}>
+    <div className="page-container" style={style.container}>
       {children}
     </div>
   )
 }
 
-Overlay.propTypes = {
+PageContainer.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export default Overlay
+export default PageContainer

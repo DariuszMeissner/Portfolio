@@ -8,6 +8,7 @@ import Navigation from './overlay/navigation/Navigation'
 import Logo from './overlay/logo/Logo'
 import Lamborghini from './scene/Lamborghini'
 import EffectsColor from './scene/EffectsColor'
+import CarNavigation from './scene/CarNavigation'
 
 export {
   // intro
@@ -21,5 +22,6 @@ export {
   StartEngine,
   SceneLights,
   Lamborghini,
-  EffectsColor
+  EffectsColor,
+  CarNavigation
 }
