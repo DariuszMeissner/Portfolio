@@ -1,0 +1,14 @@
+/* caveat-600 - latin */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../assets/fonts/caveat-v17-latin-600.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('../assets/fonts/caveat-v17-latin-600.eot?#iefix')
+      format('embedded-opentype'),
+    url('../assets/fonts/caveat-v17-latin-600.woff2') format('woff2'),
+    url('../assets/fonts/caveat-v17-latin-600.woff') format('woff'),
+    url('../assets/fonts/caveat-v17-latin-600.ttf') format('truetype'),
+    url('../assets/fonts/caveat-v17-latin-600.svg#Caveat') format('svg');
+}
