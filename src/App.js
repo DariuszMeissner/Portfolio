@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import SceneContext from './context/SceneContext'
 import { Home } from './pages'
-import './app.scss'
+import './App.scss'
 
 const App = () => {
   const [lightTop, switchLightTop] = useState(false)
