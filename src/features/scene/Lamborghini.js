@@ -72,11 +72,11 @@ const Lamborghini = (props) => {
     applyProps(materials.GreyElements, { metalness: 0, color: '#292929' })
     // Make front and tail LEDs emit light
     applyProps(materials.emitbrake, {
-      emissiveIntensity: props.lightBackEmmit,
+      emissiveIntensity: props.lightEmmit,
       toneMapped: false
     })
     applyProps(materials.LightsFrontLed, {
-      emissiveIntensity: props.lightFrontEmmit,
+      emissiveIntensity: props.lightEmmit,
       toneMapped: false
     })
     // Paint, from yellow to black
@@ -95,8 +95,7 @@ const Lamborghini = (props) => {
 }
 
 Lamborghini.propTypes = {
-  lightBackEmmit: PropTypes.number.isRequired,
-  lightFrontEmmit: PropTypes.number.isRequired,
+  lightEmmit: PropTypes.number.isRequired,
   active: PropTypes.bool.isRequired,
   zoom: PropTypes.bool.isRequired,
   lightsOn: PropTypes.bool.isRequired

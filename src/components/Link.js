@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const style = {
-  cursor: 'pointer'
+  cursor: 'pointer',
+  textDecoration: 'none',
+  color: 'black'
 }
 
 const Link = ({ icon, title, href }) => {

@@ -2,7 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const style = {
-  cursor: 'pointer'
+  cursor: 'pointer',
+  border: 'none',
+  background: 'transparent',
+  textTransform: 'uppercase'
 }
 
 const Button = ({ onClick, title }) => {

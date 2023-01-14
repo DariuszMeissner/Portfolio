@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import SceneContext from './context/SceneContext'
 import { Home } from './pages'
 import './app.scss'
@@ -10,6 +10,24 @@ const App = () => {
   const [isIntro, setIsIntro] = useState(true)
   const [isSetup, setIsSetup] = useState(false)
   const [isOverview, setIsOverview] = useState(false)
+  const [isStartEngine, setIsStartEngine] = useState(false)
+  const [isAllLightsOn, setIsAllLightsOn] = useState(false)
+  const [isWorksPage, setIsWorksPage] = useState(false)
+  const [isAboutPage, setIsAboutPage] = useState(false)
+
+  useEffect(() => {
+    const allLightsOn = lightTop && lightSide && lightFront
+
+    if (allLightsOn) {
+      setIsAllLightsOn(true)
+    } else {
+      setIsAllLightsOn(false)
+    }
+
+    if (isStartEngine) {
+      setIsOverview(true)
+    }
+  }, [lightTop, lightFront, lightSide, isStartEngine, isAllLightsOn])
 
   const value = useMemo(
     () => ({
@@ -17,10 +35,16 @@ const App = () => {
         lightTop,
         lightSide,
         lightFront,
+        isAllLightsOn,
+        isStartEngine,
         steps: {
           isIntro,
           isSetup,
           isOverview
+        },
+        pages: {
+          isAboutPage,
+          isWorksPage
         }
       },
       action: {
@@ -29,10 +53,25 @@ const App = () => {
         switchLightFront,
         setIsIntro,
         setIsSetup,
-        setIsOverview
+        setIsOverview,
+        setIsStartEngine,
+        setIsAllLightsOn,
+        setIsAboutPage,
+        setIsWorksPage
       }
     }),
-    [lightTop, lightSide, lightFront, isIntro, isSetup, isOverview]
+    [
+      lightTop,
+      lightSide,
+      lightFront,
+      isIntro,
+      isSetup,
+      isOverview,
+      isStartEngine,
+      isAllLightsOn,
+      isAboutPage,
+      isWorksPage
+    ]
   )
   return (
     <SceneContext.Provider value={value}>

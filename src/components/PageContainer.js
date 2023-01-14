@@ -1,12 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { node } from 'prop-types'
 
 const style = {
   container: {
-    position: 'absolute',
-    zIndex: 4,
+    position: 'relative',
+    zIndex: 5,
     height: '100vh',
-    width: '100vw'
+    width: '100vw',
+    display: 'flex'
   }
 }
 
@@ -19,7 +20,7 @@ const PageContainer = ({ children }) => {
 }
 
 PageContainer.propTypes = {
-  children: PropTypes.node.isRequired
+  children: node.isRequired
 }
 
 export default PageContainer

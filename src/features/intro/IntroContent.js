@@ -2,7 +2,6 @@ import React, { useContext, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import SceneContext from '../../context/SceneContext'
 import { useTimeout } from '../../hooks'
-import './IntroContent.scss'
 
 const DURATION = {
   TEXT: {
@@ -16,7 +15,7 @@ const DURATION = {
     },
     THIRD: {
       START: 11000,
-      END: 13000
+      END: 14000
     }
   },
   ANIMATION: 2000
@@ -52,6 +51,15 @@ const IntroContent = () => {
     setInTextThird(true)
   }, DURATION.TEXT.THIRD.START)
 
+  useTimeout(() => {
+    setInTextThird(false)
+
+    // eslint-disable-next-line no-use-before-define
+    hideIntro()
+    // eslint-disable-next-line no-use-before-define
+    showSceneSetup()
+  }, DURATION.TEXT.THIRD.END)
+
   function hideIntro() {
     action.setIsIntro(false)
   }
@@ -59,13 +67,6 @@ const IntroContent = () => {
   function showSceneSetup() {
     action.setIsSetup(true)
   }
-
-  useTimeout(() => {
-    setInTextThird(false)
-
-    hideIntro()
-    showSceneSetup()
-  }, DURATION.TEXT.THIRD.END)
 
   return (
     <>
@@ -104,7 +105,7 @@ const IntroContent = () => {
         onEnter={() => setInTextThird(true)}
         onExited={() => setInTextThird(false)}>
         <div ref={welcomeTextThirdRef}>
-          <p>please, setup the scene</p>
+          <p>please, turn on all lights...</p>
         </div>
       </CSSTransition>
     </>

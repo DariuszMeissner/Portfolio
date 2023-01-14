@@ -1,5 +1,4 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable react/no-unknown-property */
+/* eslint-disable jsx-a11y/media-has-caption */
 import React, { Suspense, useContext, useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import {
@@ -7,7 +6,8 @@ import {
   // OrbitControls,
   Environment
 } from '@react-three/drei'
-import EngineSound from '../assets/lambo-engine-sound-MP3.mp3'
+import EngineOn from '../assets/audio/lamboEngineOn.mp3'
+import EngineOff from '../assets/audio/lamboEngineOff.mp3'
 import {
   Intro,
   IntroContent,
@@ -17,34 +17,34 @@ import {
   EffectsColor,
   CarNavigation,
   Logo,
-  Navigation
+  NavigationWrap
 } from '../features'
-
 import SceneContext from '../context/SceneContext'
 
 const initialState = {
-  emmisiveValue: {
-    front: 0,
-    back: 0
-  },
+  emmisiveValue: 0,
   maxEmissiveCarLight: 4,
   maxEmissiveSceneLight: 0.3,
   sceneBg: 'black',
   surfaceColor: '#212121',
   delayEngineSound: 600,
-  delayLightsOn: 1000
+  delayCarLightsOn: 1000
+}
+
+const audioClips = {
+  engine: {
+    on: new Audio(EngineOn),
+    off: new Audio(EngineOff)
+  }
 }
 
 const Home = () => {
-  // eslint-disable-next-line no-undef
-  const audio = new Audio(EngineSound)
-
-  const [carLightEmissive, setCarLightEmissive] = useState({
-    front: initialState.emmisiveValue.front,
-    back: initialState.emmisiveValue.back
-  })
-  const [isStartEngine, setIsStartEngine] = useState(false)
+  const [carLightEmissive, setCarLightEmissive] = useState(
+    initialState.emmisiveValue
+  )
   const { scene, action } = useContext(SceneContext)
+  const [isEngineOn, setIsEngineOn] = useState(false)
+  const [audio] = useState(audioClips)
 
   const intervalRef = useRef()
 
@@ -52,48 +52,74 @@ const Home = () => {
   const [active] = useState(false)
   const [zoom] = useState(true)
 
-  useEffect(() => {
-    if (
-      carLightEmissive.front > initialState.maxEmissiveCarLight &&
-      !isStartEngine
-    ) {
-      clearInterval(intervalRef.current)
-      turnOnEngineSound()
-      startEngine()
-    }
-  }, [carLightEmissive.front, isStartEngine])
-
-  function hideIntro() {
-    action.seIsIntro(false)
-  }
-
   function turnOnEngineSound() {
-    setTimeout(() => {
-      audio.play()
-    }, initialState.delayEngineSound)
+    if (!isEngineOn) {
+      setTimeout(() => {
+        audio.engine.on.play()
+      }, initialState.delayEngineSound)
+
+      setIsEngineOn(true)
+    }
   }
 
-  function startEngine() {
-    setTimeout(() => {
-      setIsStartEngine(true)
-    }, initialState.delayLightsOn)
+  function turnOffEngineSound() {
+    if (isEngineOn) {
+      audio.engine.on.currentTime = 0
+      audio.engine.on.pause()
+
+      audio.engine.off.play()
+
+      setIsEngineOn(false)
+    }
   }
 
   function increaseCarLightsEmissive() {
-    if (carLightEmissive.front === 0) {
+    if (carLightEmissive === 0) {
       const interval = setInterval(() => {
-        setCarLightEmissive((prev) => ({
-          front: prev.front + 1,
-          back: prev.back + 1
-        }))
+        setCarLightEmissive((prev) => prev + 1)
       }, 50)
       intervalRef.current = interval
     }
   }
 
-  const handleStartEngine = () => {
+  function stopEngine() {
+    action.setIsStartEngine(false)
+    setCarLightEmissive(0)
+    turnOffEngineSound()
+  }
+
+  function startEngine() {
+    setTimeout(() => {
+      action.setIsStartEngine(true)
+    }, initialState.delayCarLightsOn)
+
     increaseCarLightsEmissive()
-    hideIntro()
+    turnOnEngineSound()
+  }
+
+  function startStopEngine() {
+    if (scene.isStartEngine) {
+      stopEngine()
+    } else {
+      startEngine()
+    }
+  }
+
+  function stopIncreaseCarLight() {
+    if (
+      carLightEmissive > initialState.maxEmissiveCarLight &&
+      !scene.isStartEngine
+    ) {
+      clearInterval(intervalRef.current)
+    }
+  }
+
+  useEffect(() => {
+    stopIncreaseCarLight()
+  }, [carLightEmissive, scene.isStartEngine])
+
+  const handleStartEngine = () => {
+    startStopEngine()
   }
 
   const homeStyle = {
@@ -112,18 +138,18 @@ const Home = () => {
         </Intro>
       )}
 
-      {scene.steps.isSetup ? (
-        <Overlay>
-          <CarNavigation handleStartEngine={handleStartEngine} />
-        </Overlay>
-      ) : null}
+      <Overlay>
+        {scene.steps.isOverview ? (
+          <>
+            <Logo />
+            <NavigationWrap />
+          </>
+        ) : null}
 
-      {scene.steps.isOverview ? (
-        <Overlay>
-          <Logo />
-          <Navigation />
-        </Overlay>
-      ) : null}
+        {scene.steps.isSetup ? (
+          <CarNavigation handleStartEngine={handleStartEngine} />
+        ) : null}
+      </Overlay>
 
       <Canvas
         gl={{ logarithmicDepthBuffer: true, antialias: false }}
@@ -131,13 +157,12 @@ const Home = () => {
         camera={{ position: [0, 0, 15], fov: 25 }}>
         <Suspense fallback={null}>
           <Lamborghini
-            lightFrontEmmit={carLightEmissive.front}
-            lightBackEmmit={carLightEmissive.back}
+            lightEmmit={carLightEmissive}
             rotation={[0, 0, 0]}
             scale={0.015}
             active={active}
             zoom={zoom}
-            lightsOn={isStartEngine}
+            lightsOn={scene.isStartEngine}
           />
 
           <ContactShadows
@@ -165,6 +190,10 @@ const Home = () => {
           /> */}
         </Suspense>
       </Canvas>
+
+      <audio>
+        <source src={EngineOn} type="audio/mpeg" />
+      </audio>
     </div>
   )
 }
