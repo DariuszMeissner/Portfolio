@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { func } from 'prop-types'
 import { GrClose } from 'react-icons/gr'
 
 const Close = ({ onClick }) => {
@@ -23,7 +23,7 @@ const Close = ({ onClick }) => {
 }
 
 Close.propTypes = {
-  onClick: PropTypes.func.isRequired
+  onClick: func.isRequired
 }
 
 export default Close

@@ -1,6 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Close, Layout } from '../components'
+import { pageType } from '../types'
 
 const style = {
   container: {
@@ -28,8 +28,6 @@ const About = ({ closePage }) => {
   )
 }
 
-About.propTypes = {
-  closePage: PropTypes.func.isRequired
-}
+About.propTypes = pageType
 
 export default About

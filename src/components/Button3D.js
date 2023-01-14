@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import { buttonType } from '../types'
 
 const Button3D = ({ onClick, title }) => {
   const [isActive, setIsActive] = useState(false)
@@ -78,9 +78,6 @@ const Button3D = ({ onClick, title }) => {
   )
 }
 
-Button3D.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
-}
+Button3D.propTypes = buttonType
 
 export default Button3D

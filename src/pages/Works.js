@@ -1,7 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Close, Layout } from '../components'
 import { WorksTimeLine } from '../features'
+import { pageType } from '../types'
 
 const style = {
   container: {
@@ -31,8 +31,6 @@ const Works = ({ closePage }) => {
   )
 }
 
-Works.propTypes = {
-  closePage: PropTypes.func.isRequired
-}
+Works.propTypes = pageType
 
 export default Works

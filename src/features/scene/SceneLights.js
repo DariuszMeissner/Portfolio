@@ -1,6 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Lightformer } from '@react-three/drei'
+import { sceneLightsType } from '../../types'
 
 const SceneLights = ({ scene }) => {
   return (
@@ -52,11 +52,7 @@ const SceneLights = ({ scene }) => {
 }
 
 SceneLights.propTypes = {
-  scene: PropTypes.shape({
-    lightTop: PropTypes.bool,
-    lightSide: PropTypes.bool,
-    lightFront: PropTypes.bool
-  }).isRequired
+  scene: sceneLightsType.isRequired
 }
 
 export default SceneLights

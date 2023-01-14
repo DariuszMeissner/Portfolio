@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { linkType } from '../types'
 
 const style = {
   cursor: 'pointer',
@@ -21,10 +21,6 @@ Link.defaultProps = {
   title: null
 }
 
-Link.propTypes = {
-  icon: PropTypes.element,
-  title: PropTypes.string,
-  href: PropTypes.string.isRequired
-}
+Link.propTypes = linkType
 
 export default Link

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { shape, string } from 'prop-types'
 import { Link } from '../../components'
 import { useTimeout } from '../../hooks'
+import { worksItemType } from '../../types'
 
 const WorksItem = ({ item }) => {
   const [inItem, setInItem] = useState(false)
@@ -34,13 +34,7 @@ const WorksItem = ({ item }) => {
 }
 
 WorksItem.propTypes = {
-  item: shape({
-    id: string,
-    image: string,
-    title: string,
-    linkDemo: string,
-    description: string
-  }).isRequired
+  item: worksItemType.isRequired
 }
 
 export default WorksItem

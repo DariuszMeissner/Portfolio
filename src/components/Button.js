@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { buttonType } from '../types'
 
 const style = {
   cursor: 'pointer',
@@ -16,9 +16,6 @@ const Button = ({ onClick, title }) => {
   )
 }
 
-Button.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
-}
+Button.propTypes = buttonType
 
 export default Button

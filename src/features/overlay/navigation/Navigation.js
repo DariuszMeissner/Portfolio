@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { func } from 'prop-types'
 import { AiOutlineGithub, AiFillLinkedin } from 'react-icons/ai'
 import { Button, Layout, Link } from '../../../components'
 
@@ -46,8 +46,8 @@ const Navigation = ({ openAboutPage, openWorksPage }) => {
 }
 
 Navigation.propTypes = {
-  openAboutPage: PropTypes.func.isRequired,
-  openWorksPage: PropTypes.func.isRequired
+  openAboutPage: func.isRequired,
+  openWorksPage: func.isRequired
 }
 
 export default Navigation
