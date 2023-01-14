@@ -1,14 +1,17 @@
 /* eslint-disable import/prefer-default-export */
 import Intro from './intro/Intro'
 import IntroContent from './intro/IntroContent'
-import StartEngine from './scene/StartEngine'
+import StartStopEngine from './scene/StartStopEngine'
 import SceneLights from './scene/SceneLights'
 import Overlay from './overlay/Overlay'
 import Navigation from './overlay/navigation/Navigation'
+import NavigationWrap from './overlay/navigation/NavigationWrap'
 import Logo from './overlay/logo/Logo'
 import Lamborghini from './scene/Lamborghini'
 import EffectsColor from './scene/EffectsColor'
 import CarNavigation from './scene/CarNavigation'
+import WorksItem from './works/WorksItem'
+import WorksTimeLine from './works/WorksTimeLine'
 
 export {
   // intro
@@ -17,11 +20,15 @@ export {
   // overlay
   Overlay,
   Navigation,
+  NavigationWrap,
   Logo,
   // scene
-  StartEngine,
+  StartStopEngine,
   SceneLights,
   Lamborghini,
   EffectsColor,
-  CarNavigation
+  CarNavigation,
+  // works
+  WorksItem,
+  WorksTimeLine
 }

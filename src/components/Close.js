@@ -8,7 +8,15 @@ const Close = ({ onClick }) => {
       className="close"
       type="button"
       onClick={onClick}
-      style={{ cursor: 'pointer' }}>
+      style={{
+        cursor: 'pointer',
+        border: 'none',
+        background: 'transparent',
+        fontSize: 20,
+        position: 'absolute',
+        top: 20,
+        right: 20
+      }}>
       <GrClose />
     </button>
   )

@@ -1,74 +1,53 @@
-import React, { useState } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { AiOutlineGithub, AiFillLinkedin } from 'react-icons/ai'
-import { Button, Layout, Link, PageContainer } from '../../../components'
-import { About, Works } from '../../../pages'
+import { Button, Layout, Link } from '../../../components'
 
 const style = {
   container: {
-    position: 'absolute',
-    zIndex: 4,
-    bottom: 0,
-    left: 0,
-    padding: '10px 20px',
-    width: '100%',
+    width: '100vw',
     background: 'white'
   },
   nav: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  info: {
+    display: 'flex',
+    alignItems: 'center'
   }
 }
-const Navigation = () => {
-  const [isAboutPage, setAboutPage] = useState(false)
-  const [isWorksPage, setWorksPage] = useState(false)
-
-  function openPage(statePage) {
-    statePage(true)
-  }
-
-  function closePage(statePage) {
-    statePage(false)
-  }
-
+const Navigation = ({ openAboutPage, openWorksPage }) => {
   return (
-    <>
-      <nav style={style.container}>
-        <Layout>
-          <div style={style.nav}>
-            <div>
-              <Button title="About" onClick={() => openPage(setAboutPage)} />
-              <Link
-                href="mailto:dariusz.r.meissner@gmail.com"
-                title="dariusz.r.meissner@gmail.com"
-              />
-              <Link
-                href="https://www.linkedin.com/in/dariusz-robert-meissner/"
-                icon={<AiFillLinkedin />}
-              />
-              <Link
-                href="https://github.com/DariuszMeissner"
-                icon={<AiOutlineGithub />}
-              />
-            </div>
-            <Button title="Works" onClick={() => openPage(setWorksPage)} />
+    <nav style={style.container}>
+      <Layout>
+        <div style={style.nav}>
+          <div style={style.info}>
+            <Button title="About" onClick={openAboutPage} />
+            <Link
+              href="mailto:dariusz.r.meissner@gmail.com"
+              title="dariusz.r.meissner@gmail.com"
+            />
+            <Link
+              href="https://www.linkedin.com/in/dariusz-robert-meissner/"
+              icon={<AiFillLinkedin />}
+            />
+            <Link
+              href="https://github.com/DariuszMeissner"
+              icon={<AiOutlineGithub />}
+            />
           </div>
-        </Layout>
-      </nav>
-
-      {isAboutPage ? (
-        <PageContainer>
-          <About closePage={() => closePage(setAboutPage)} />
-        </PageContainer>
-      ) : null}
-
-      {isWorksPage ? (
-        <PageContainer>
-          <Works closePage={() => closePage(setWorksPage)} />
-        </PageContainer>
-      ) : null}
-    </>
+          <Button title="Works" onClick={openWorksPage} />
+        </div>
+      </Layout>
+    </nav>
   )
+}
+
+Navigation.propTypes = {
+  openAboutPage: PropTypes.func.isRequired,
+  openWorksPage: PropTypes.func.isRequired
 }
 
 export default Navigation

@@ -5,7 +5,10 @@ const style = {
   container: {
     position: 'absolute',
     zIndex: 3,
-    top: 0
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh'
   }
 }
 
