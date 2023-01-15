@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { node } from 'prop-types'
 
 const style = {
   position: 'absolute',
@@ -19,7 +19,7 @@ const Intro = ({ children }) => {
 }
 
 Intro.propTypes = {
-  children: PropTypes.node.isRequired
+  children: node.isRequired
 }
 
 export default Intro

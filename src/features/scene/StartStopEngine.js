@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import { func } from 'prop-types'
 
 const StartStopEngine = ({ handleStartEngine }) => {
   const [isActive, setIsActive] = useState(false)
@@ -58,7 +58,7 @@ const StartStopEngine = ({ handleStartEngine }) => {
 }
 
 StartStopEngine.propTypes = {
-  handleStartEngine: PropTypes.func.isRequired
+  handleStartEngine: func.isRequired
 }
 
 export default StartStopEngine

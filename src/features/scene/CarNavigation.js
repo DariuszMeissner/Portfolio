@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef } from 'react'
-import PropTypes from 'prop-types'
+import { func } from 'prop-types'
 import { CSSTransition } from 'react-transition-group'
 import { Button3D, Layout } from '../../components'
 import { StartStopEngine } from '../index'
@@ -53,7 +53,7 @@ const CarNavigation = ({ handleStartEngine }) => {
 }
 
 CarNavigation.propTypes = {
-  handleStartEngine: PropTypes.func.isRequired
+  handleStartEngine: func.isRequired
 }
 
 export default CarNavigation

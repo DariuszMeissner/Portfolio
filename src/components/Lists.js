@@ -1,6 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react'
-import { shape, string, arrayOf, func, objectOf } from 'prop-types'
+import { string, func, objectOf } from 'prop-types'
+import { listsType } from '../types'
 
 const style = {
   padding: 0,
@@ -16,15 +17,7 @@ const Lists = ({ data, renderItem, styles }) => {
 }
 
 Lists.propTypes = {
-  data: arrayOf(
-    shape({
-      id: string,
-      image: string,
-      title: string,
-      linkDemo: string,
-      description: string
-    })
-  ).isRequired,
+  data: listsType.isRequired,
   renderItem: func.isRequired,
   styles: objectOf(string)
 }
