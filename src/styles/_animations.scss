@@ -11,14 +11,14 @@
 }
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 1000ms;
+  transition: opacity 600ms;
 }
 .fade-exit {
   opacity: 1;
 }
 .fade-exit-active {
   opacity: 0;
-  transition: opacity 1000ms;
+  transition: opacity 600ms;
 }
 
 // slide from down to up

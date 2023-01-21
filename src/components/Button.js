@@ -5,7 +5,9 @@ const style = {
   cursor: 'pointer',
   border: 'none',
   background: 'transparent',
-  textTransform: 'uppercase'
+  textTransform: 'uppercase',
+  fontFamily: 'Quicksand',
+  fontSize: 16
 }
 
 const Button = ({ onClick, title }) => {

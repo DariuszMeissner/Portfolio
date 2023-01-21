@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import * as THREE from 'three'
 import { applyProps, useFrame } from '@react-three/fiber'
 import { useGLTF, useCursor } from '@react-three/drei'
+import { useSizeScreen } from '../../hooks'
 
 /*
 Author: Steven Grey (https://sketchfab.com/Steven007)
@@ -18,27 +19,30 @@ Title: Lamborghini Urus
 const Lamborghini = (props) => {
   const { scene, nodes, materials } = useGLTF('/lambo.glb')
   const [stop, setStop] = useState(false)
+  const screen = useSizeScreen()
+
+  const setZoomScreen = screen.isXS || screen.isS ? 38 : 20
 
   const v = new THREE.Vector3()
   useCursor(props.active)
 
   useFrame((state) => {
-    // if (props.lightsOn && !stop) {
-    //   state.camera.fov = THREE.MathUtils.lerp(
-    //     state.camera.fov,
-    //     props.zoom ? 20 : 42,
-    //     0.05
-    //   )
-    //   state.camera.position.lerp(
-    //     v.set(props.zoom ? 24 : 0, props.zoom ? 1 : 0, props.zoom ? 0 : 15),
-    //     0.05
-    //   )
-    //   state.camera.lookAt(0, 0, 0)
-    //   state.camera.updateProjectionMatrix()
-    // }
-    // if (state.camera.position.x >= 23) {
-    //   setStop(true)
-    // }
+    if (props.lightsOn && !stop) {
+      state.camera.fov = THREE.MathUtils.lerp(
+        state.camera.fov,
+        props.zoom ? setZoomScreen : 42,
+        0.05
+      )
+      state.camera.position.lerp(
+        v.set(props.zoom ? 24 : 0, props.zoom ? 1 : 0, props.zoom ? 0 : 15),
+        0.05
+      )
+      state.camera.lookAt(0, 0, 0)
+      state.camera.updateProjectionMatrix()
+    }
+    if (state.camera.position.x >= 23) {
+      setStop(true)
+    }
   })
 
   useMemo(() => {

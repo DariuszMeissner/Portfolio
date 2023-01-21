@@ -1,14 +1,12 @@
 import React, { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-// import { Stats } from '@react-three/drei'
-// import { Leva } from 'leva'
-import './styles.scss'
 import App from './App'
+import './styles.scss'
 
 createRoot(document.getElementById('root')).render(
-  <Suspense fallback={null}>
-    <App />
-    {/* <Stats /> */}
-    {/* <Leva collapsed /> */}
-  </Suspense>
+  <React.StrictMode>
+    <Suspense fallback={null}>
+      <App />
+    </Suspense>
+  </React.StrictMode>
 )

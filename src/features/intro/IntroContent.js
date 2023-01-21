@@ -78,7 +78,7 @@ const IntroContent = () => {
         unmountOnExit
         onEnter={() => setInTextFirst(true)}
         onExited={() => setInTextFirst(false)}>
-        <div ref={welcomeTextFirstRef}>
+        <div ref={welcomeTextFirstRef} style={{ padding: '0 20px' }}>
           <p>Everyone from us dreaming about something big</p>
         </div>
       </CSSTransition>
@@ -91,7 +91,7 @@ const IntroContent = () => {
         unmountOnExit
         onEnter={() => setInTextSecond(true)}
         onExited={() => setInTextSecond(false)}>
-        <div ref={welcomeTextSecondRef}>
+        <div ref={welcomeTextSecondRef} style={{ padding: '0 20px' }}>
           <p>but sometimes we only got substitute</p>
         </div>
       </CSSTransition>
@@ -104,7 +104,7 @@ const IntroContent = () => {
         unmountOnExit
         onEnter={() => setInTextThird(true)}
         onExited={() => setInTextThird(false)}>
-        <div ref={welcomeTextThirdRef}>
+        <div ref={welcomeTextThirdRef} style={{ padding: '0 20px' }}>
           <p>please, turn on all lights...</p>
         </div>
       </CSSTransition>

@@ -14,8 +14,10 @@ const Close = ({ onClick }) => {
         background: 'transparent',
         fontSize: 20,
         position: 'absolute',
+        zIndex: 5,
         top: 20,
-        right: 20
+        right: 20,
+        padding: 5
       }}>
       <GrClose />
     </button>

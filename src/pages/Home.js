@@ -66,10 +66,9 @@ const Home = () => {
     if (isEngineOn) {
       audio.engine.on.currentTime = 0
       audio.engine.on.pause()
+      setIsEngineOn(false)
 
       audio.engine.off.play()
-
-      setIsEngineOn(false)
     }
   }
 
@@ -124,10 +123,10 @@ const Home = () => {
 
   const homeStyle = {
     position: 'relative',
-    height: '100%'
-    // background: isStartEngine
-    //   ? 'radial-gradient(circle,rgba(38,102,177,1) 32%, rgba(19,72,135,1) 100%)'
-    //   : 'black'
+    height: '100%',
+    background: scene.isStartEngine
+      ? 'radial-gradient(circle,rgba(38,102,177,1) 32%, rgba(19,72,135,1) 100%)'
+      : 'black'
   }
 
   return (
@@ -164,7 +163,6 @@ const Home = () => {
             zoom={zoom}
             lightsOn={scene.isStartEngine}
           />
-
           <ContactShadows
             resolution={768}
             frames={1}

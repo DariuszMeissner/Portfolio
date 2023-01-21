@@ -1,26 +1,26 @@
 const WORKS_DATA = [
-  {
-    id: 1,
-    thumbnail: 'images/thumbnails/bestshop-thumbnail.png',
-    images: [],
-    linkDemo: '/',
-    linkGithub: 'https://github.com/DariuszMeissner/Portfolio',
-    title: 'Portfolio',
-    subtitle: 'subtitle',
-    description:
-      'My own portfolio website.\nI played with connecting React with 3D effects. To typechecking i used Prop-types library.',
-    features: ['mini game', '3d model'],
-    customHooks: ['useTimeout', 'useImageLoad'],
-    techStack: [
-      'React',
-      'Prop types',
-      'React three fiber',
-      'Context api',
-      'React transition group'
-    ],
-    date: 'January 2023',
-    tag: 'web'
-  },
+  // {
+  //   id: 1,
+  //   thumbnail: 'images/thumbnails/bestshop-thumbnail.png',
+  //   images: [],
+  //   linkDemo: '/',
+  //   linkGithub: 'https://github.com/DariuszMeissner/Portfolio',
+  //   title: 'Portfolio',
+  //   subtitle: 'subtitle',
+  //   description:
+  //     'My own portfolio website.\nI played with connecting React with 3D effects. To typechecking i used Prop-types library.',
+  //   features: ['mini game', '3d model'],
+  //   customHooks: ['useTimeout', 'useImageLoad'],
+  //   techStack: [
+  //     'React',
+  //     'Prop types',
+  //     'React three fiber',
+  //     'Context api',
+  //     'React transition group'
+  //   ],
+  //   date: 'January 2023',
+  //   tag: 'web'
+  // },
   {
     id: 2,
     thumbnail: 'images/thumbnails/store-thumbnail.png',

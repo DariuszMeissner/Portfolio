@@ -1,11 +1,9 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react'
-import { string, func, objectOf } from 'prop-types'
-import { listsType } from '../types'
+import { string, func, objectOf, any } from 'prop-types'
 
 const style = {
-  padding: 0,
-  paddingTop: 20
+  padding: 0
 }
 
 const Lists = ({ data, renderItem, styles }) => {
@@ -17,7 +15,7 @@ const Lists = ({ data, renderItem, styles }) => {
 }
 
 Lists.propTypes = {
-  data: listsType.isRequired,
+  data: any.isRequired,
   renderItem: func.isRequired,
   styles: objectOf(string)
 }

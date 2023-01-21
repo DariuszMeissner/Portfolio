@@ -14,7 +14,8 @@ const StartStopEngine = ({ handleStartEngine }) => {
       width: 100,
       height: 100,
       borderRadius: '50%',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      marginLeft: 40
     },
     button: {
       color: 'white',

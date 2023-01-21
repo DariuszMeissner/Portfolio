@@ -6,12 +6,14 @@ import { StartStopEngine } from '../index'
 import SceneContext from '../../context/SceneContext'
 
 const style = {
-  position: 'absolute',
-  top: '10%',
-  left: '50%',
-  transform: 'translateX(-50%)',
-  zIndex: '3',
-  display: 'flex'
+  container: {
+    position: 'absolute',
+    top: '10%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    display: 'flex',
+    zIndex: '3'
+  }
 }
 
 const CarNavigation = ({ handleStartEngine }) => {
@@ -21,7 +23,7 @@ const CarNavigation = ({ handleStartEngine }) => {
 
   return (
     <div className="car-navigation">
-      <Layout styles={style}>
+      <Layout styles={style.container}>
         <Button3D
           title="light top"
           onClick={() => action.switchLightTop((prev) => !prev)}
