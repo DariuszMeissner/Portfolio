@@ -1,33 +1,82 @@
-import React, { useState } from 'react'
-import { Link } from '../../components'
+import React, { useState, useContext } from 'react'
+import SceneContext from '../../context/SceneContext'
 import { useTimeout } from '../../hooks'
 import { worksItemType } from '../../types'
 
+const style = {
+  item: {
+    cursor: 'pointer',
+    listStyle: 'none',
+    border: '3px solid',
+    transition: 'all 500ms ease'
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    maxWidth: '100%',
+    maxHeight: '100%',
+    minWidth: '100%',
+    minHeight: '100%',
+    display: 'block',
+    objectFit: 'cover'
+  },
+  imageContainer: {
+    position: 'relative'
+  },
+  infoBar: {
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    background: 'rgba(0,0,0, 70%)',
+    width: '100%',
+    color: 'white',
+    padding: 10,
+    display: 'flex',
+    justifyContent: 'space-between'
+  }
+}
+
 const WorksItem = ({ item }) => {
   const [inItem, setInItem] = useState(false)
+  const [isHover, setIsHover] = useState(false)
+  const { action } = useContext(SceneContext)
 
-  const style = {
-    container: {
-      opacity: inItem ? 1 : 0,
-      transition: 'all 1000ms ease',
-      listStyle: 'none'
-    },
-    data: {
-      padding: 20
-    }
+  const styleAnimations = {
+    borderColor: isHover ? '#c11111' : 'transparent',
+    opacity: inItem ? 1 : 0,
+    transform: isHover ? 'scale(1.01)' : 'scale(1)'
+  }
+
+  function openModal() {
+    action.setIsModalOpen(true)
+    action.setDataProject(item)
+  }
+
+  function delayShowingItem() {
+    setInItem(true)
   }
 
   useTimeout(() => {
-    setInItem(true)
-  }, Number(item.id) * 300)
+    delayShowingItem()
+  }, item.id * 150)
 
   return (
-    <li style={style.container}>
-      <img src={item.image} alt={item.title} />
-      <div style={style.data}>
-        <h3>{item.title}</h3>
-        <Link title="demo" href={item.linkDemo} />
-        <p>{item.description}</p>
+    <li style={{ ...style.item, ...styleAnimations }}>
+      <div
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        onClick={() => openModal()}
+        onKeyDown={() => null}
+        tabIndex={0}
+        role="button">
+        {/* thumbnail */}
+        <div style={style.imageContainer}>
+          <img src={item.thumbnail} alt={item.title} style={style.image} />
+          <div style={style.infoBar}>
+            <span>{item.title}</span>
+            <span>{item.tag}</span>
+          </div>
+        </div>
       </div>
     </li>
   )

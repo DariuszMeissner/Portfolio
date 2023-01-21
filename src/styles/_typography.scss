@@ -12,3 +12,19 @@
     url('../assets/fonts/caveat-v17-latin-600.ttf') format('truetype'),
     url('../assets/fonts/caveat-v17-latin-600.svg#Caveat') format('svg');
 }
+
+/* quicksand-regular - latin */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/quicksand-v30-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('../assets/fonts/quicksand-v30-latin-regular.eot?#iefix')
+      format('embedded-opentype'),
+    url('../assets/fonts/quicksand-v30-latin-regular.woff2') format('woff2'),
+    url('../assets/fonts/quicksand-v30-latin-regular.woff') format('woff'),
+    url('../assets/fonts/quicksand-v30-latin-regular.ttf') format('truetype'),
+    url('../assets/fonts/quicksand-v30-latin-regular.svg#Quicksand')
+      format('svg');
+}

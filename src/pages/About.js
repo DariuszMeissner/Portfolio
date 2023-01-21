@@ -19,7 +19,7 @@ const About = ({ closePage }) => {
   return (
     <div className="about" style={style.container}>
       <Layout styles={style.layout}>
-        <h2>About</h2>
+        <h2>About me</h2>
         <h3>Hi, Im Dariusz Meissner</h3>
         <Close onClick={closePage} />
         <p>description</p>

@@ -14,6 +14,8 @@ const App = () => {
   const [isAllLightsOn, setIsAllLightsOn] = useState(false)
   const [isWorksPage, setIsWorksPage] = useState(false)
   const [isAboutPage, setIsAboutPage] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [dataProject, setDataProject] = useState(null)
 
   useEffect(() => {
     const allLightsOn = lightTop && lightSide && lightFront
@@ -37,6 +39,8 @@ const App = () => {
         lightFront,
         isAllLightsOn,
         isStartEngine,
+        isModalOpen,
+        dataProject,
         steps: {
           isIntro,
           isSetup,
@@ -57,7 +61,9 @@ const App = () => {
         setIsStartEngine,
         setIsAllLightsOn,
         setIsAboutPage,
-        setIsWorksPage
+        setIsWorksPage,
+        setIsModalOpen,
+        setDataProject
       }
     }),
     [
@@ -70,7 +76,9 @@ const App = () => {
       isStartEngine,
       isAllLightsOn,
       isAboutPage,
-      isWorksPage
+      isWorksPage,
+      isModalOpen,
+      dataProject
     ]
   )
   return (

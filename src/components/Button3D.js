@@ -29,8 +29,8 @@ const Button3D = ({ onClick, title }) => {
       cursor: 'pointer',
       marginLeft: 5,
       marginBottom: 15,
-      height: 65,
-      width: 65,
+      height: 60,
+      width: 60,
       borderRadius: 5,
       background:
         'linear-gradient(180deg, rgba(229,152,102,1) 25%, rgb(144 85 47) 100%)',
@@ -52,8 +52,8 @@ const Button3D = ({ onClick, title }) => {
       top: 10,
       borderRadius: 5,
       border: '1px solid rgb(85 35 1)',
-      height: 65,
-      width: 65,
+      height: 60,
+      width: 60,
       transition: 'all 0.3s ease',
       marginLeft: 5
     }

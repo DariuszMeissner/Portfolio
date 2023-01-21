@@ -1,13 +1,20 @@
 /* eslint-disable import/prefer-default-export */
-import { element, func, shape, string, arrayOf, bool } from 'prop-types'
+import { element, func, shape, string, arrayOf, bool, number } from 'prop-types'
 
 export const worksItemType = shape({
-  id: string,
-  image: arrayOf(string),
+  id: number,
+  thumbnail: string,
+  images: arrayOf(string),
   title: string,
-  linkDemo: string,
+  subtitle: string,
   description: string,
-  techStack: string
+  linkDemo: string,
+  linkGithub: string,
+  features: arrayOf(string),
+  customHooks: arrayOf(string),
+  techStack: arrayOf(string),
+  tag: string,
+  date: string
 })
 
 export const listsType = arrayOf(worksItemType)
@@ -20,7 +27,7 @@ export const buttonType = {
 export const linkType = {
   icon: element,
   title: string,
-  href: string.isRequired
+  href: string
 }
 
 export const sceneLightsType = shape({

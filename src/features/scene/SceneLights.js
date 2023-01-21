@@ -25,26 +25,26 @@ const SceneLights = ({ scene }) => {
       {scene.lightSide && (
         <>
           <Lightformer
-            intensity={2}
-            rotation-y={Math.PI / 2}
-            position={[-50, 2, 0]}
-            scale={[100, 2, 1]}
+            intensity={0.5}
+            rotation-y={-Math.PI / 2}
+            position={[5, 0, 0]}
+            scale={[50, 3, 1]}
           />
           <Lightformer
-            intensity={2}
+            intensity={0.3}
             rotation-y={-Math.PI / 2}
-            position={[50, 2, 0]}
-            scale={[100, 2, 1]}
+            position={[-5, 0, 0]}
+            scale={[50, 3, 1]}
           />
         </>
       )}
 
       {scene.lightFront && (
         <Lightformer
-          intensity={2}
-          rotation-x={Math.PI / 2}
-          position={[0, 0, 15]}
-          scale={[10, 1, 1]}
+          intensity={0.5}
+          rotation-y={-Math.PI / 2}
+          position={[1, 0, 0]}
+          scale={[50, 3, 1]}
         />
       )}
     </>

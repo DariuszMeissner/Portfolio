@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const style = {
-  maxWidth: 1440,
+  position: 'relative',
+  maxWidth: 1400,
   padding: '10px 20px',
   margin: '0 auto'
 }

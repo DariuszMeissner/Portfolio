@@ -2,6 +2,7 @@ import React from 'react'
 import { func } from 'prop-types'
 import { AiOutlineGithub, AiFillLinkedin } from 'react-icons/ai'
 import { Button, Layout, Link } from '../../../components'
+import { useSizeScreen } from '../../../hooks'
 
 const style = {
   container: {
@@ -16,19 +17,47 @@ const style = {
   info: {
     display: 'flex',
     alignItems: 'center'
+  },
+  infoOnS: {
+    marginTop: 20,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 }
+
 const Navigation = ({ openAboutPage, openWorksPage }) => {
+  const screen = useSizeScreen()
+
   return (
     <nav style={style.container}>
       <Layout>
         <div style={style.nav}>
           <div style={style.info}>
             <Button title="About" onClick={openAboutPage} />
-            <Link
-              href="mailto:dariusz.r.meissner@gmail.com"
-              title="dariusz.r.meissner@gmail.com"
-            />
+
+            {!screen.isXS && (
+              <>
+                <Link
+                  href="mailto:dariusz.r.meissner@gmail.com"
+                  title="dariusz.r.meissner@gmail.com"
+                />
+                <Link
+                  href="https://www.linkedin.com/in/dariusz-robert-meissner/"
+                  icon={<AiFillLinkedin />}
+                />
+                <Link
+                  href="https://github.com/DariuszMeissner"
+                  icon={<AiOutlineGithub />}
+                />
+              </>
+            )}
+          </div>
+          <Button title="Works" onClick={openWorksPage} />
+        </div>
+
+        {screen.isXS && (
+          <div style={style.infoOnS}>
             <Link
               href="https://www.linkedin.com/in/dariusz-robert-meissner/"
               icon={<AiFillLinkedin />}
@@ -37,9 +66,12 @@ const Navigation = ({ openAboutPage, openWorksPage }) => {
               href="https://github.com/DariuszMeissner"
               icon={<AiOutlineGithub />}
             />
+            <Link
+              href="mailto:dariusz.r.meissner@gmail.com"
+              title="dariusz.r.meissner@gmail.com"
+            />
           </div>
-          <Button title="Works" onClick={openWorksPage} />
-        </div>
+        )}
       </Layout>
     </nav>
   )

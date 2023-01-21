@@ -11,7 +11,14 @@ import Lamborghini from './scene/Lamborghini'
 import EffectsColor from './scene/EffectsColor'
 import CarNavigation from './scene/CarNavigation'
 import WorksItem from './works/WorksItem'
-import WorksTimeLine from './works/WorksTimeLine'
+import WorksContent from './works/WorksContent'
+import WorksModal from './works/WorksModal'
+import DetailsTitle from './works/details/DetailsTitle'
+import DetailsThumb from './works/details/DetailsThumb'
+import DetailsDescription from './works/details/DetailsDescription'
+import DetailsLinks from './works/details/DetailsLinks'
+import Details from './works/details/Details'
+import DetailsButtonBack from './works/details/DetailsButtonBack'
 
 export {
   // intro
@@ -30,5 +37,13 @@ export {
   CarNavigation,
   // works
   WorksItem,
-  WorksTimeLine
+  WorksContent,
+  WorksModal,
+  //
+  Details,
+  DetailsTitle,
+  DetailsThumb,
+  DetailsDescription,
+  DetailsLinks,
+  DetailsButtonBack
 }
