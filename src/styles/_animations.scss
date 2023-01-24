@@ -40,20 +40,26 @@
 
 // slide page to up
 .slide-page-up-enter {
-  transform: translateY(200%);
+  transform: translateY(0);
 }
 .slide-page-up-enter-active {
   position: relative;
-  z-index: 5;
-  transform: translateY(0);
+  z-index: 10;
+  transform: translateY(-93%);
   transition: transform 500ms ease-out;
 }
 .slide-page-up-exit {
-  transform: translateY(0);
+  transform: translateY(-93%);
 }
 .slide-page-up-exit-active {
   position: relative;
-  z-index: 5;
+  z-index: 10;
   transform: translateY(100%);
   transition: transform 500ms ease-out;
+}
+
+.slide-page-up-enter-done {
+  transform: translateY(-93%);
+  position: relative;
+  z-index: 10;
 }
