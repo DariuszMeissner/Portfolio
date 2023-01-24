@@ -4,7 +4,9 @@ import {
   DetailsThumb,
   DetailsTitle,
   DetailsDescription,
-  DetailsLinks
+  DetailsLinks,
+  DetailsFeatures,
+  DetailsTechStack
 } from '../..'
 
 const style = {
@@ -33,6 +35,8 @@ const Details = () => {
           subtitle={scene.dataProject.subtitle}
         />
         <DetailsDescription description={scene.dataProject.description} />
+        <DetailsFeatures features={scene.dataProject.features} />
+        <DetailsTechStack techStack={scene.dataProject.techStack} />
         <DetailsLinks
           links={{
             demo: scene.dataProject.linkDemo,

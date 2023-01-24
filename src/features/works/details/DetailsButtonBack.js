@@ -19,7 +19,7 @@ const style = {
     fontSize: 30
   },
   title: {
-    fontSize: 13,
+    fontSize: 14,
     textTransform: 'uppercase'
   }
 }
