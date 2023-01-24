@@ -3,7 +3,9 @@ import React from 'react'
 import { string, func, objectOf, any } from 'prop-types'
 
 const style = {
-  padding: 0
+  padding: 0,
+  margin: 0,
+  listStyle: 'none'
 }
 
 const Lists = ({ data, renderItem, styles }) => {

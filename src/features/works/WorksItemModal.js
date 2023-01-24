@@ -16,11 +16,11 @@ const style = {
     overflowY: 'auto'
   },
   layout: {
-    maxWidth: '700px'
+    maxWidth: '750px'
   }
 }
 
-const WorksModal = ({ closeModal }) => {
+const WorksItemModal = ({ closeModal }) => {
   const [isOpen, setIsOpen] = useState(false)
   const contentRef = useRef(null)
   const modalRef = useRef(null)
@@ -30,7 +30,7 @@ const WorksModal = ({ closeModal }) => {
   }, [isOpen])
 
   return (
-    <div className="modal" style={style.container} ref={modalRef}>
+    <div className="worksItem-modal" style={style.container} ref={modalRef}>
       <Layout styles={style.layout}>
         <CSSTransition
           in={isOpen}
@@ -53,8 +53,8 @@ const WorksModal = ({ closeModal }) => {
   )
 }
 
-WorksModal.propTypes = {
+WorksItemModal.propTypes = {
   closeModal: func.isRequired
 }
 
-export default WorksModal
+export default WorksItemModal
