@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export */
 import BREAKPOINTS from './brekpoints'
+import TECH_STACK_LIST from './techStackData'
 
-export { BREAKPOINTS }
+export { BREAKPOINTS, TECH_STACK_LIST }

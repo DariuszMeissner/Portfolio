@@ -1,15 +1,13 @@
 /* eslint-disable react/no-unknown-property */
 import React, { Suspense, useContext, useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import { Canvas, extend } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import {
   ContactShadows,
   Environment,
   OrbitControls,
-  MeshReflectorMaterial,
-  Text3D
+  MeshReflectorMaterial
 } from '@react-three/drei'
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import EngineOn from '../assets/audio/lamboEngineOn.mp3'
 import EngineOff from '../assets/audio/lamboEngineOff.mp3'
 import {
@@ -21,13 +19,12 @@ import {
   EffectsColor,
   CarNavigation,
   Logo,
-  NavigationWrap
+  NavigationWrap,
+  TechStackList
 } from '../features'
 import { PageContainer } from '../components'
 import { About, Works } from '.'
 import SceneContext from '../context/SceneContext'
-
-extend({ TextGeometry })
 
 const initialState = {
   emmisiveValue: 0,
@@ -205,14 +202,7 @@ const Home = () => {
           )}
 
           {scene.steps.isOverview && scene.isCarHover ? (
-            <Text3D
-              font="./fonts/Open Sans_Regular.json"
-              scale={0.16}
-              position={[4.5, -1.9, 1.2]}
-              rotation={[0, 20.4, 0]}>
-              SWIPE LAMBORGHINI
-              <meshNormalMaterial />
-            </Text3D>
+            <TechStackList />
           ) : null}
 
           {scene.steps.isOverview && (
@@ -242,7 +232,10 @@ const Home = () => {
         onExited={() => action.setIsAboutPage(false)}>
         <div ref={aboutPageRef}>
           <PageContainer>
-            <About closePage={() => action.setIsAboutPage(false)} />
+            <About
+              closePage={() => action.setIsAboutPage(false)}
+              openWorksPage={() => action.setIsWorksPage(true)}
+            />
           </PageContainer>
         </div>
       </CSSTransition>
