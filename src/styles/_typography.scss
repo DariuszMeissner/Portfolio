@@ -28,3 +28,41 @@
     url('../assets/fonts/quicksand-v30-latin-regular.svg#Quicksand')
       format('svg');
 }
+
+/* ubuntu-regular - latin */
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/ubuntu-v20-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('../assets/fonts/ubuntu-v20-latin-regular.eot?#iefix')
+      format('embedded-opentype'),
+    /* IE6-IE8 */ url('../assets/fonts/ubuntu-v20-latin-regular.woff2')
+      format('woff2'),
+    /* Super Modern Browsers */
+      url('../assets/fonts/ubuntu-v20-latin-regular.woff') format('woff'),
+    /* Modern Browsers */ url('../assets/fonts/ubuntu-v20-latin-regular.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */
+      url('../assets/fonts/ubuntu-v20-latin-regular.svg#Ubuntu') format('svg'); /* Legacy iOS */
+}
+
+/* ubuntu-300 - latin */
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../assets/fonts/ubuntu-v20-latin-300.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('../assets/fonts/ubuntu-v20-latin-300.eot?#iefix')
+      format('embedded-opentype'),
+    /* IE6-IE8 */ url('../assets/fonts/ubuntu-v20-latin-300.woff2')
+      format('woff2'),
+    /* Super Modern Browsers */ url('../assets/fonts/ubuntu-v20-latin-300.woff')
+      format('woff'),
+    /* Modern Browsers */ url('../assets/fonts/ubuntu-v20-latin-300.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */
+      url('../assets/fonts/ubuntu-v20-latin-300.svg#Ubuntu') format('svg'); /* Legacy iOS */
+}

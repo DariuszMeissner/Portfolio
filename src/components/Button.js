@@ -6,7 +6,8 @@ const style = {
   border: 'none',
   background: 'transparent',
   textTransform: 'uppercase',
-  fontFamily: 'Quicksand',
+  fontFamily: 'Ubuntu',
+  fontWeight: 300,
   fontSize: 16
 }
 

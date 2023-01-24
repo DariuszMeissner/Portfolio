@@ -36,4 +36,7 @@ export const sceneLightsType = shape({
   lightFront: bool
 })
 
-export const pageType = { closePage: func.isRequired }
+export const pageType = {
+  closePage: func.isRequired,
+  openWorksPage: func
+}

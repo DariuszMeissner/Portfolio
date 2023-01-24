@@ -21,6 +21,7 @@ import Details from './works/details/Details'
 import DetailsButtonBack from './works/details/DetailsButtonBack'
 import DetailsFeatures from './works/details/DetailsFeatures'
 import DetailsTechStack from './works/details/DetailsTechStack'
+import TechStackList from './scene/TechStackList'
 
 export {
   // intro
@@ -37,6 +38,7 @@ export {
   Lamborghini,
   EffectsColor,
   CarNavigation,
+  TechStackList,
   // works
   WorksItem,
   WorksContent,
