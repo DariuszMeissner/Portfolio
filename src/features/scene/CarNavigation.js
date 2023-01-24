@@ -8,7 +8,7 @@ import SceneContext from '../../context/SceneContext'
 const style = {
   container: {
     position: 'absolute',
-    top: '10%',
+    bottom: '0px',
     left: '50%',
     transform: 'translateX(-50%)',
     display: 'flex',

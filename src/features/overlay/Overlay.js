@@ -1,28 +1,33 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { node, objectOf, string } from 'prop-types'
 
 const style = {
   container: {
     position: 'absolute',
-    zIndex: 3,
-    top: 0,
+    zIndex: 10,
     left: 0,
     width: '100%',
-    height: '100%',
+    height: '32%',
     overflow: 'hidden'
   }
 }
 
-const Overlay = ({ children }) => {
+const Overlay = ({ children, styles }) => {
   return (
-    <div className="overlay" style={style.container}>
+    <div className="overlay" style={{ ...style.container, ...styles }}>
       {children}
     </div>
   )
 }
 
+Overlay.defaultProps = {
+  children: null,
+  styles: {}
+}
+
 Overlay.propTypes = {
-  children: PropTypes.node.isRequired
+  children: node,
+  styles: objectOf(string)
 }
 
 export default Overlay

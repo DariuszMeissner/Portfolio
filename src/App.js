@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import SceneContext from './context/SceneContext'
 import { Home } from './pages'
 import './App.scss'
+import { useSizeScreen } from './hooks'
 
 const App = () => {
   const [lightTop, switchLightTop] = useState(false)
@@ -16,6 +17,8 @@ const App = () => {
   const [isAboutPage, setIsAboutPage] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [dataProject, setDataProject] = useState(null)
+  const [isCarHover, setIsCarHover] = useState(false)
+  const screen = useSizeScreen()
 
   useEffect(() => {
     const allLightsOn = lightTop && lightSide && lightFront
@@ -29,7 +32,11 @@ const App = () => {
     if (isStartEngine) {
       setIsOverview(true)
     }
-  }, [lightTop, lightFront, lightSide, isStartEngine, isAllLightsOn])
+
+    if (screen.isM || screen.isS || screen.isXS) {
+      setIsCarHover(true)
+    }
+  }, [lightTop, lightFront, lightSide, isStartEngine, isAllLightsOn, screen])
 
   const value = useMemo(
     () => ({
@@ -41,6 +48,7 @@ const App = () => {
         isStartEngine,
         isModalOpen,
         dataProject,
+        isCarHover,
         steps: {
           isIntro,
           isSetup,
@@ -63,7 +71,8 @@ const App = () => {
         setIsAboutPage,
         setIsWorksPage,
         setIsModalOpen,
-        setDataProject
+        setDataProject,
+        setIsCarHover
       }
     }),
     [
@@ -78,7 +87,8 @@ const App = () => {
       isAboutPage,
       isWorksPage,
       isModalOpen,
-      dataProject
+      dataProject,
+      isCarHover
     ]
   )
   return (

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Close, Layout } from '../components'
 import SceneContext from '../context/SceneContext'
-import { WorksContent, WorksModal } from '../features'
+import { WorksContent, WorksItemModal } from '../features'
 import { pageType } from '../types'
 
 const style = {
@@ -35,7 +35,7 @@ const Works = ({ closePage }) => {
       ) : null}
 
       {scene.isModalOpen ? (
-        <WorksModal closeModal={() => action.setIsModalOpen(false)} />
+        <WorksItemModal closeModal={() => action.setIsModalOpen(false)} />
       ) : null}
     </>
   )

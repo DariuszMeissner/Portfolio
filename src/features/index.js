@@ -12,13 +12,15 @@ import EffectsColor from './scene/EffectsColor'
 import CarNavigation from './scene/CarNavigation'
 import WorksItem from './works/WorksItem'
 import WorksContent from './works/WorksContent'
-import WorksModal from './works/WorksModal'
+import WorksItemModal from './works/WorksItemModal'
 import DetailsTitle from './works/details/DetailsTitle'
 import DetailsThumb from './works/details/DetailsThumb'
 import DetailsDescription from './works/details/DetailsDescription'
 import DetailsLinks from './works/details/DetailsLinks'
 import Details from './works/details/Details'
 import DetailsButtonBack from './works/details/DetailsButtonBack'
+import DetailsFeatures from './works/details/DetailsFeatures'
+import DetailsTechStack from './works/details/DetailsTechStack'
 
 export {
   // intro
@@ -38,12 +40,14 @@ export {
   // works
   WorksItem,
   WorksContent,
-  WorksModal,
+  WorksItemModal,
   //
   Details,
   DetailsTitle,
   DetailsThumb,
   DetailsDescription,
   DetailsLinks,
-  DetailsButtonBack
+  DetailsButtonBack,
+  DetailsFeatures,
+  DetailsTechStack
 }

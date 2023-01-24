@@ -1,9 +1,10 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/destructuring-assignment */
-import React, { useMemo, useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { bool, number, func } from 'prop-types'
 import * as THREE from 'three'
 import { applyProps, useFrame } from '@react-three/fiber'
 import { useGLTF, useCursor } from '@react-three/drei'
@@ -19,18 +20,46 @@ Title: Lamborghini Urus
 const Lamborghini = (props) => {
   const { scene, nodes, materials } = useGLTF('/lambo.glb')
   const [stop, setStop] = useState(false)
+  const [hovered, setHovered] = useState()
+
   const screen = useSizeScreen()
 
-  const setZoomScreen = screen.isXS || screen.isS ? 38 : 20
-
   const v = new THREE.Vector3()
-  useCursor(props.active)
+
+  function setZoomOnScreen() {
+    let zoom
+    if (screen.isXS) {
+      zoom = 40
+      return zoom
+    }
+
+    if (screen.isS) {
+      zoom = 27
+      return zoom
+    }
+
+    return 20
+  }
+
+  function showSwipeHint() {
+    props.handleCarHover(true)
+  }
+
+  function hideSwipeHint() {
+    if (screen.isX || screen.isL) {
+      props.handleCarHover(false)
+    } else {
+      props.handleCarHover(true)
+    }
+  }
+
+  useCursor(hovered)
 
   useFrame((state) => {
     if (props.lightsOn && !stop) {
       state.camera.fov = THREE.MathUtils.lerp(
         state.camera.fov,
-        props.zoom ? setZoomScreen : 42,
+        props.zoom ? setZoomOnScreen() : 42,
         0.05
       )
       state.camera.position.lerp(
@@ -94,15 +123,25 @@ const Lamborghini = (props) => {
     })
   }, [nodes, materials, props])
 
-  // eslint-disable-next-line react/no-unknown-property
-  return <primitive object={scene} {...props} />
+  return (
+    <primitive
+      object={scene}
+      {...props}
+      position={[0, -0.5, -0.2]}
+      onPointerEnter={() => showSwipeHint()}
+      onPointerLeave={() => hideSwipeHint()}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+    />
+  )
 }
 
 Lamborghini.propTypes = {
-  lightEmmit: PropTypes.number.isRequired,
-  active: PropTypes.bool.isRequired,
-  zoom: PropTypes.bool.isRequired,
-  lightsOn: PropTypes.bool.isRequired
+  lightEmmit: number.isRequired,
+  active: bool.isRequired,
+  zoom: bool.isRequired,
+  lightsOn: bool.isRequired,
+  handleCarHover: func.isRequired
 }
 
 export default Lamborghini

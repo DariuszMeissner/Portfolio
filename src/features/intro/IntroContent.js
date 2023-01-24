@@ -79,7 +79,7 @@ const IntroContent = () => {
         onEnter={() => setInTextFirst(true)}
         onExited={() => setInTextFirst(false)}>
         <div ref={welcomeTextFirstRef} style={{ padding: '0 20px' }}>
-          <p>Everyone from us dreaming about something big</p>
+          <p>{`Everyone from us dreaming\n about something big`}</p>
         </div>
       </CSSTransition>
 
@@ -92,7 +92,7 @@ const IntroContent = () => {
         onEnter={() => setInTextSecond(true)}
         onExited={() => setInTextSecond(false)}>
         <div ref={welcomeTextSecondRef} style={{ padding: '0 20px' }}>
-          <p>but sometimes we only got substitute</p>
+          <p>{`but sometimes we only got\nsubstitute`}</p>
         </div>
       </CSSTransition>
 
@@ -105,7 +105,7 @@ const IntroContent = () => {
         onEnter={() => setInTextThird(true)}
         onExited={() => setInTextThird(false)}>
         <div ref={welcomeTextThirdRef} style={{ padding: '0 20px' }}>
-          <p>please, turn on all lights...</p>
+          <p>{`please,\n turn on all lights...`}</p>
         </div>
       </CSSTransition>
     </>
