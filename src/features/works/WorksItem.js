@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import SceneContext from '../../context/SceneContext'
-import { useTimeout } from '../../hooks'
+import { useImageLoad, useTimeout } from '../../hooks'
 import { worksItemType } from '../../types'
 
 const style = {
@@ -39,6 +39,7 @@ const style = {
 const WorksItem = ({ item }) => {
   const [inItem, setInItem] = useState(false)
   const [isHover, setIsHover] = useState(false)
+  const [isImage] = useImageLoad(item.thumbnail)
   const { action } = useContext(SceneContext)
 
   const styleAnimations = {
@@ -71,7 +72,11 @@ const WorksItem = ({ item }) => {
         role="button">
         {/* thumbnail */}
         <div style={style.imageContainer}>
-          <img src={item.thumbnail} alt={item.title} style={style.image} />
+          {isImage ? (
+            <img src={item.thumbnail} alt={item.title} style={style.image} />
+          ) : (
+            <span>loading image...</span>
+          )}
           <div style={style.infoBar}>
             <span>{item.title}</span>
             <span>{item.tag}</span>

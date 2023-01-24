@@ -208,9 +208,9 @@ const Home = () => {
             <Text3D
               font="./fonts/Open Sans_Regular.json"
               scale={0.16}
-              position={[4.5, -1.9, 0.5]}
+              position={[4.5, -1.9, 1.2]}
               rotation={[0, 20.4, 0]}>
-              SWIPE A CAR
+              SWIPE LAMBORGHINI
               <meshNormalMaterial />
             </Text3D>
           ) : null}
