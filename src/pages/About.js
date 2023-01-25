@@ -20,8 +20,19 @@ const style = {
       padding: 10,
       paddingLeft: 40
     },
+    image: {
+      width: 'auto',
+      height: 300
+    },
     subtitle: {
       marginBottom: 40
+    },
+    cv: {
+      display: 'flex',
+      marginBottom: 40
+    },
+    projects: {
+      display: 'flex'
     }
   }
 }
@@ -35,7 +46,11 @@ const About = ({ closePage, openWorksPage }) => {
         <Close onClick={closePage} />
 
         {isImage ? (
-          <img src="./profile_cv.png" alt="profile_image" />
+          <img
+            src="./profile_cv.png"
+            alt="profile_image"
+            style={style.info.image}
+          />
         ) : (
           <span>loading image...</span>
         )}
@@ -45,20 +60,26 @@ const About = ({ closePage, openWorksPage }) => {
           <h2>{`I'm Dariusz Meissner`}</h2>
           <h3 style={style.info.subtitle}>{`I'm Front-End Developer`}</h3>
           <p>I like builde something by code with library React.</p>
-          <p>{`I'm interesting web development, games, ux/ui design and computer graphics`}</p>
-          <p>If you want to see about me more,</p>
-          <Link
-            href="https://www.linkedin.com/in/dariusz-robert-meissner/"
-            title="My CV."
-          />
-          <p>To see my projects, click in button</p>
-          <Button
-            title="WORKS"
-            onClick={() => {
-              closePage()
-              openWorksPage()
-            }}
-          />
+          <p>{`I'm interesting web development, games, ux/ui design and computer graphics.`}</p>
+
+          <div style={style.info.cv}>
+            <p>If you want to read about me more,&nbsp;</p>
+            <Link
+              href="https://www.linkedin.com/in/dariusz-robert-meissner/"
+              title="My CV."
+            />
+          </div>
+
+          <div style={style.info.projects}>
+            <p>To see my projects,&nbsp;</p>
+            <Button
+              title="click here"
+              onClick={() => {
+                closePage()
+                openWorksPage()
+              }}
+            />
+          </div>
         </div>
       </Layout>
     </div>
