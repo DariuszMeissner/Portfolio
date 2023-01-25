@@ -32,12 +32,6 @@
         "unnamedComponents": "arrow-function"
       }
     ],
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto"
-      }
-    ]
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   }
 }
