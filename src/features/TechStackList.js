@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text3D } from '@react-three/drei'
-import { TECH_STACK_LIST } from '../../utils'
+import { TECH_STACK_LIST } from '../utils'
 
 const TechStackList = () => {
   return (

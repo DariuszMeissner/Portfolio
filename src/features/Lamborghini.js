@@ -8,7 +8,7 @@ import { bool, number, func } from 'prop-types'
 import * as THREE from 'three'
 import { applyProps, useFrame } from '@react-three/fiber'
 import { useGLTF, useCursor } from '@react-three/drei'
-import { useSizeScreen } from '../../hooks'
+import { useSizeScreen } from '../hooks'
 
 /*
 Author: Steven Grey (https://sketchfab.com/Steven007)

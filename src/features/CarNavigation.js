@@ -1,9 +1,9 @@
 import React, { useContext, useState, useRef } from 'react'
 import { func } from 'prop-types'
 import { CSSTransition } from 'react-transition-group'
-import { Button3D, Layout } from '../../components'
-import { StartStopEngine } from '../index'
-import SceneContext from '../../context/SceneContext'
+import { Button3D, Layout } from '../components'
+import { StartStopEngine } from './index'
+import SceneContext from '../context/SceneContext'
 
 const style = {
   container: {
