@@ -23,7 +23,9 @@ export const worksItemType = shape({
   customHooks: arrayOf(string),
   techStack: arrayOf(string),
   tag: string,
-  date: string
+  date: string,
+  position: arrayOf(number),
+  rotation: arrayOf(number)
 })
 
 export const listsType = arrayOf(worksItemType)

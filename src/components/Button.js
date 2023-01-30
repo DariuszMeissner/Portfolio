@@ -2,21 +2,30 @@ import React from 'react'
 import { buttonType } from '../types'
 
 const style = {
-  cursor: 'pointer',
-  border: 'none',
-  background: 'transparent',
-  textTransform: 'uppercase',
-  fontFamily: 'Ubuntu',
-  fontWeight: 300,
-  fontSize: 16
+  button: {
+    cursor: 'pointer',
+    border: 'none',
+    background: 'transparent',
+    textTransform: 'uppercase',
+    fontFamily: 'Ubuntu',
+    fontWeight: 300,
+    fontSize: 16
+  }
 }
 
-const Button = ({ onClick, title }) => {
+const Button = ({ onClick, title, styles }) => {
   return (
-    <button type="button" onClick={onClick} style={style}>
+    <button
+      type="button"
+      onClick={onClick}
+      style={{ ...style.button, ...styles }}>
       {title}
     </button>
   )
+}
+
+Button.defaultProps = {
+  styles: {}
 }
 
 Button.propTypes = buttonType

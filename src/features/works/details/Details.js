@@ -6,7 +6,8 @@ import {
   DetailsDescription,
   DetailsLinks,
   DetailsFeatures,
-  DetailsTechStack
+  DetailsTechStack,
+  DeatailsDate
 } from '../..'
 
 const style = {
@@ -34,6 +35,7 @@ const Details = () => {
           title={scene.dataProject.title}
           subtitle={scene.dataProject.subtitle}
         />
+        <DeatailsDate date={scene.dataProject.date} />
         <DetailsDescription description={scene.dataProject.description} />
         <DetailsFeatures features={scene.dataProject.features} />
         <DetailsTechStack techStack={scene.dataProject.techStack} />

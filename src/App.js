@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import SceneContext from './context/SceneContext'
 import { Home } from './pages'
+import { fetchWorksData } from './utils/client'
 import './App.scss'
-import { useSizeScreen } from './hooks'
 
 const App = () => {
   const [lightTop, switchLightTop] = useState(false)
@@ -18,7 +18,8 @@ const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [dataProject, setDataProject] = useState(null)
   const [isCarHover, setIsCarHover] = useState(false)
-  const screen = useSizeScreen()
+  const [isZoomGallery, setIsZoomGallery] = useState(false)
+  const [works, setWorks] = useState(null)
 
   useEffect(() => {
     const allLightsOn = lightTop && lightSide && lightFront
@@ -32,11 +33,11 @@ const App = () => {
     if (isStartEngine) {
       setIsOverview(true)
     }
+  }, [lightTop, lightFront, lightSide, isStartEngine, isAllLightsOn])
 
-    if (screen.isM || screen.isS || screen.isXS) {
-      setIsCarHover(true)
-    }
-  }, [lightTop, lightFront, lightSide, isStartEngine, isAllLightsOn, screen])
+  useEffect(() => {
+    fetchWorksData().then((data) => setWorks(data))
+  }, [fetchWorksData])
 
   const value = useMemo(
     () => ({
@@ -49,6 +50,8 @@ const App = () => {
         isModalOpen,
         dataProject,
         isCarHover,
+        isZoomGallery,
+        works,
         steps: {
           isIntro,
           isSetup,
@@ -72,7 +75,8 @@ const App = () => {
         setIsWorksPage,
         setIsModalOpen,
         setDataProject,
-        setIsCarHover
+        setIsCarHover,
+        setIsZoomGallery
       }
     }),
     [
@@ -88,7 +92,8 @@ const App = () => {
       isWorksPage,
       isModalOpen,
       dataProject,
-      isCarHover
+      isCarHover,
+      isZoomGallery
     ]
   )
   return (

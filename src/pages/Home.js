@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import React, { Suspense, useContext, useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
@@ -6,7 +7,8 @@ import {
   ContactShadows,
   Environment,
   OrbitControls,
-  MeshReflectorMaterial
+  MeshReflectorMaterial,
+  Html
 } from '@react-three/drei'
 import EngineOn from '../assets/audio/lamboEngineOn.mp3'
 import EngineOff from '../assets/audio/lamboEngineOff.mp3'
@@ -20,11 +22,13 @@ import {
   CarNavigation,
   Logo,
   NavigationWrap,
-  TechStackList
+  TechStackList,
+  Gallery3D
 } from '../features'
 import { PageContainer } from '../components'
 import { About, Works } from '.'
 import SceneContext from '../context/SceneContext'
+import { useSizeScreen } from '../hooks'
 
 const initialState = {
   emmisiveValue: 0,
@@ -50,6 +54,7 @@ const Home = () => {
   const { scene, action } = useContext(SceneContext)
   const [isEngineOn, setIsEngineOn] = useState(false)
   const [audio] = useState(audioClips)
+  const screen = useSizeScreen()
 
   const intervalRef = useRef(null)
   const aboutPageRef = useRef(null)
@@ -58,6 +63,9 @@ const Home = () => {
   // state of animation camera
   const [active] = useState(false)
   const [zoom] = useState(true)
+
+  const showGalleryTechStack =
+    scene.steps.isOverview && scene.isAllLightsOn && scene.isStartEngine
 
   function turnOnEngineSound() {
     if (!isEngineOn) {
@@ -131,11 +139,7 @@ const Home = () => {
   const homeStyle = {
     overflow: 'hidden',
     position: 'relative',
-    height: '100%',
-    background:
-      scene.isStartEngine && scene.isAllLightsOn
-        ? 'radial-gradient(circle,rgba(38,102,177,1) 32%, rgba(19,72,135,1) 100%)'
-        : 'black'
+    height: '100%'
   }
 
   return (
@@ -146,16 +150,33 @@ const Home = () => {
         </Intro>
       )}
 
-      <Overlay styles={{ top: '0px' }}>
+      <Overlay
+        styles={{ top: '0px', height: scene.steps.isSetup ? '30%' : '10%' }}>
         {scene.steps.isOverview ? <Logo /> : null}
 
-        {scene.steps.isSetup ? (
-          <CarNavigation handleStartEngine={handleStartEngine} />
+        {scene.steps.isSetup && !scene.steps.isOverview ? (
+          <CarNavigation
+            handleStartEngine={handleStartEngine}
+            action={{
+              switchLightTop: action.switchLightTop,
+              switchLightSide: action.switchLightSide,
+              switchLightFront: action.switchLightFront
+            }}
+            scene={{
+              isAllLightsOn: scene.isAllLightsOn,
+              isOverview: scene.steps.isOverview
+            }}
+          />
         ) : null}
       </Overlay>
 
       <Canvas
-        gl={{ logarithmicDepthBuffer: true, antialias: false }}
+        flat
+        gl={{
+          logarithmicDepthBuffer: true,
+          antialias: false,
+          toneMapping: false
+        }}
         dpr={[1, 1.5]}
         camera={{ position: [0, 0, 15], fov: 25 }}>
         <Suspense fallback={null}>
@@ -167,10 +188,11 @@ const Home = () => {
             lightEmmit={carLightEmissive}
             lightsOn={scene.isStartEngine}
             handleCarHover={action.setIsCarHover}
+            isCarHover={scene.isCarHover}
           />
 
           {/* car's platform */}
-          <mesh visible position={[0, -1.82, 0]}>
+          <mesh position={[0, -1.82, 0]}>
             <cylinderGeometry args={[4.5, 4.5, 0.3, 64]} />
             <MeshReflectorMaterial
               blur={[400, 100]}
@@ -183,7 +205,36 @@ const Home = () => {
               metalness={0.6}
               roughness={1}
             />
+
+            {/* {scene.steps.isOverview && (
+              <Html
+                zIndexRange={2}
+                transform
+                position={[4.6, -1.2, 0]}
+                rotation={[0, Math.PI / 2, 0]}
+                scale={0.35}>
+                <div>
+                  <p style={{ color: 'white' }}>test</p>
+                  <CarNavigation
+                    handleStartEngine={handleStartEngine}
+                    action={{
+                      switchLightTop: action.switchLightTop,
+                      switchLightSide: action.switchLightSide,
+                      switchLightFront: action.switchLightFront
+                    }}
+                    scene={{
+                      isAllLightsOn: scene.isAllLightsOn,
+                      isOverview: scene.steps.isOverview
+                    }}
+                  />
+                </div>
+              </Html>
+            )} */}
           </mesh>
+
+          {scene.steps.isOverview ? (
+            <ambientLight intensity={0.45} position={[3, 0, 0]} />
+          ) : null}
 
           <ContactShadows
             resolution={768}
@@ -201,18 +252,27 @@ const Home = () => {
             </Environment>
           )}
 
-          {scene.steps.isOverview && scene.isCarHover ? (
-            <TechStackList />
+          {showGalleryTechStack ? (
+            <>
+              <Gallery3D
+                setIsZoomGallery={action.setIsZoomGallery}
+                worksData={scene.works.data}
+                setIsModalOpen={action.setIsModalOpen}
+                setDataProject={action.setDataProject}
+                setIsWorksPage={action.setIsWorksPage}
+                isZoomGallery={scene.isZoomGallery}
+              />
+              <TechStackList />
+            </>
           ) : null}
 
-          {scene.steps.isOverview && (
-            <OrbitControls
-              enablePan={false}
-              enableZoom={false}
-              minPolarAngle={Math.PI / 2}
-              maxPolarAngle={Math.PI / 2}
-            />
-          )}
+          <OrbitControls
+            enabled={scene.steps.isOverview && !scene.isZoomGallery}
+            enablePan={false}
+            enableZoom={false}
+            minPolarAngle={Math.PI / 2.105}
+            maxPolarAngle={Math.PI / 2.105}
+          />
 
           <EffectsColor />
         </Suspense>
