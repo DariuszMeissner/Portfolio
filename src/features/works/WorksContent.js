@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { WorksItem } from '..'
 import { Lists } from '../../components'
+import SceneContext from '../../context/SceneContext'
 import { useSizeScreen } from '../../hooks'
 
 const style = {
@@ -10,7 +11,7 @@ const style = {
 }
 
 const WorksContent = () => {
-  const [works, setWorks] = useState()
+  const { scene } = useContext(SceneContext)
   const screen = useSizeScreen()
 
   const gridColumns = screen.isX || screen.isL || screen.isM ? 2 : 1
@@ -18,23 +19,13 @@ const WorksContent = () => {
     gridTemplateColumns: `repeat(${gridColumns}, 1fr)`
   }
 
-  useEffect(() => {
-    const fetchWorksData = async () => {
-      let data = await fetch('./data/works.json')
-      data = await data.json()
-      setWorks(data)
-    }
-
-    fetchWorksData()
-  }, [])
-
   const renderWorkItem = (item) => {
     return <WorksItem item={item} key={item.id} />
   }
 
-  return works ? (
+  return scene.works ? (
     <Lists
-      data={works.data}
+      data={scene.works.data}
       renderItem={renderWorkItem}
       styles={{ ...style, ...styleGridColumns }}
     />

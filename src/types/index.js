@@ -1,5 +1,14 @@
 /* eslint-disable import/prefer-default-export */
-import { element, func, shape, string, arrayOf, bool, number } from 'prop-types'
+import {
+  element,
+  func,
+  shape,
+  string,
+  arrayOf,
+  bool,
+  number,
+  objectOf
+} from 'prop-types'
 
 export const worksItemType = shape({
   id: number,
@@ -14,14 +23,17 @@ export const worksItemType = shape({
   customHooks: arrayOf(string),
   techStack: arrayOf(string),
   tag: string,
-  date: string
+  date: string,
+  position: arrayOf(number),
+  rotation: arrayOf(number)
 })
 
 export const listsType = arrayOf(worksItemType)
 
 export const buttonType = {
   onClick: func.isRequired,
-  title: string.isRequired
+  title: string.isRequired,
+  styles: objectOf(string)
 }
 
 export const linkType = {

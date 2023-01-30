@@ -1,15 +1,15 @@
 /* eslint-disable import/prefer-default-export */
 import Intro from './intro/Intro'
 import IntroContent from './intro/IntroContent'
-import StartStopEngine from './scene/StartStopEngine'
-import SceneLights from './scene/SceneLights'
+import StartStopEngine from './StartStopEngine'
+import SceneLights from './SceneLights'
 import Overlay from './overlay/Overlay'
 import Navigation from './overlay/navigation/Navigation'
 import NavigationWrap from './overlay/navigation/NavigationWrap'
 import Logo from './overlay/logo/Logo'
-import Lamborghini from './scene/Lamborghini'
-import EffectsColor from './scene/EffectsColor'
-import CarNavigation from './scene/CarNavigation'
+import Lamborghini from './Lamborghini'
+import EffectsColor from './EffectsColor'
+import CarNavigation from './CarNavigation'
 import WorksItem from './works/WorksItem'
 import WorksContent from './works/WorksContent'
 import WorksItemModal from './works/WorksItemModal'
@@ -21,7 +21,10 @@ import Details from './works/details/Details'
 import DetailsButtonBack from './works/details/DetailsButtonBack'
 import DetailsFeatures from './works/details/DetailsFeatures'
 import DetailsTechStack from './works/details/DetailsTechStack'
-import TechStackList from './scene/TechStackList'
+import DeatailsDate from './works/details/DeatailsDate'
+import TechStackList from './TechStackList'
+import Gallery3D from './gallery/Gallery3D'
+import Gallery3DItem from './gallery/Gallery3DItem'
 
 export {
   // intro
@@ -39,6 +42,9 @@ export {
   EffectsColor,
   CarNavigation,
   TechStackList,
+  // gallery
+  Gallery3D,
+  Gallery3DItem,
   // works
   WorksItem,
   WorksContent,
@@ -51,5 +57,6 @@ export {
   DetailsLinks,
   DetailsButtonBack,
   DetailsFeatures,
-  DetailsTechStack
+  DetailsTechStack,
+  DeatailsDate
 }

@@ -1,9 +1,8 @@
-import React, { useContext, useState, useRef } from 'react'
-import { func } from 'prop-types'
+import React, { useState, useRef } from 'react'
+import { bool, func, shape } from 'prop-types'
 import { CSSTransition } from 'react-transition-group'
-import { Button3D, Layout } from '../../components'
-import { StartStopEngine } from '../index'
-import SceneContext from '../../context/SceneContext'
+import { Button3D, Layout } from '../components'
+import { StartStopEngine } from './index'
 
 const style = {
   container: {
@@ -16,8 +15,7 @@ const style = {
   }
 }
 
-const CarNavigation = ({ handleStartEngine }) => {
-  const { scene, action } = useContext(SceneContext)
+const CarNavigation = ({ handleStartEngine, action, scene }) => {
   const [, setInButton] = useState(true)
   const buttonRef = useRef(null)
 
@@ -38,7 +36,7 @@ const CarNavigation = ({ handleStartEngine }) => {
         />
 
         <CSSTransition
-          in={scene.isAllLightsOn || scene.steps.isOverview}
+          in={scene.isAllLightsOn || scene.isOverview}
           nodeRef={buttonRef}
           timeout={2000}
           classNames="fade"
@@ -55,7 +53,13 @@ const CarNavigation = ({ handleStartEngine }) => {
 }
 
 CarNavigation.propTypes = {
-  handleStartEngine: func.isRequired
+  handleStartEngine: func.isRequired,
+  action: shape({
+    switchLightTop: func,
+    switchLightSide: func,
+    switchLightFront: func
+  }).isRequired,
+  scene: shape({ isAllLightsOn: bool, isOverview: bool }).isRequired
 }
 
 export default CarNavigation

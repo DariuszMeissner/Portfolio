@@ -27,7 +27,7 @@ const Works = ({ closePage }) => {
       {!scene.isModalOpen ? (
         <div className="works" style={style.container}>
           <Layout styles={style.layout}>
-            <h2>Works</h2>
+            <h2>Latest works</h2>
             <Close onClick={() => closePage()} />
             <WorksContent />
           </Layout>

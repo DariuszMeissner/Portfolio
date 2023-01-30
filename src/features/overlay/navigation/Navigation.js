@@ -23,6 +23,9 @@ const style = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  buttonAbout: {
+    marginRight: '30px'
   }
 }
 
@@ -34,7 +37,11 @@ const Navigation = ({ openAboutPage, openWorksPage }) => {
       <Layout>
         <div style={style.nav}>
           <div style={style.info}>
-            <Button title="About" onClick={openAboutPage} />
+            <Button
+              title="About"
+              onClick={openAboutPage}
+              styles={style.buttonAbout}
+            />
 
             {!screen.isXS && (
               <>

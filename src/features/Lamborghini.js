@@ -8,7 +8,7 @@ import { bool, number, func } from 'prop-types'
 import * as THREE from 'three'
 import { applyProps, useFrame } from '@react-three/fiber'
 import { useGLTF, useCursor } from '@react-three/drei'
-import { useSizeScreen } from '../../hooks'
+import { useSizeScreen } from '../hooks'
 
 /*
 Author: Steven Grey (https://sketchfab.com/Steven007)
@@ -20,8 +20,7 @@ Title: Lamborghini Urus
 const Lamborghini = (props) => {
   const { scene, nodes, materials } = useGLTF('/lambo.glb')
   const [stop, setStop] = useState(false)
-  const [hovered, setHovered] = useState()
-
+  const [isHover, setIsHover] = useState(false)
   const screen = useSizeScreen()
 
   const v = new THREE.Vector3()
@@ -38,22 +37,15 @@ const Lamborghini = (props) => {
       return zoom
     }
 
-    return 20
+    return 24
   }
 
-  function showSwipeHint() {
-    props.handleCarHover(true)
+  function setCarHover(value) {
+    props.handleCarHover(value)
+    setIsHover(value)
   }
 
-  function hideSwipeHint() {
-    if (screen.isX || screen.isL) {
-      props.handleCarHover(false)
-    } else {
-      props.handleCarHover(true)
-    }
-  }
-
-  useCursor(hovered)
+  useCursor(isHover)
 
   useFrame((state) => {
     if (props.lightsOn && !stop) {
@@ -63,8 +55,8 @@ const Lamborghini = (props) => {
         0.05
       )
       state.camera.position.lerp(
-        v.set(props.zoom ? 24 : 0, props.zoom ? 1 : 0, props.zoom ? 0 : 15),
-        0.05
+        v.set(props.zoom ? 24 : 0, 0, props.zoom ? 0 : 15),
+        0.07
       )
       state.camera.lookAt(0, 0, 0)
       state.camera.updateProjectionMatrix()
@@ -128,10 +120,8 @@ const Lamborghini = (props) => {
       object={scene}
       {...props}
       position={[0, -0.5, -0.2]}
-      onPointerEnter={() => showSwipeHint()}
-      onPointerLeave={() => hideSwipeHint()}
-      onPointerOver={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
+      onPointerOver={() => setCarHover(true)}
+      onPointerOut={() => setCarHover(false)}
     />
   )
 }
@@ -141,7 +131,8 @@ Lamborghini.propTypes = {
   active: bool.isRequired,
   zoom: bool.isRequired,
   lightsOn: bool.isRequired,
-  handleCarHover: func.isRequired
+  handleCarHover: func.isRequired,
+  isCarHover: bool.isRequired
 }
 
 export default Lamborghini

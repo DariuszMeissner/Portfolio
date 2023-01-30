@@ -1,6 +1,6 @@
 import React from 'react'
 import { Lightformer } from '@react-three/drei'
-import { sceneLightsType } from '../../types'
+import { sceneLightsType } from '../types'
 
 const SceneLights = ({ scene }) => {
   return (
@@ -25,26 +25,26 @@ const SceneLights = ({ scene }) => {
       {scene.lightSide && (
         <>
           <Lightformer
-            intensity={0.5}
+            intensity={1}
             rotation-y={-Math.PI / 2}
             position={[5, 0, 0]}
-            scale={[50, 3, 1]}
+            scale={[30, 2, 1]}
           />
           <Lightformer
-            intensity={0.3}
+            intensity={1.2}
             rotation-y={-Math.PI / 2}
             position={[-5, 0, 0]}
-            scale={[50, 3, 1]}
+            scale={[30, 2, 1]}
           />
         </>
       )}
 
       {scene.lightFront && (
         <Lightformer
-          intensity={0.5}
-          rotation-y={-Math.PI / 2}
+          intensity={1}
+          rotation-y={0.3}
           position={[1, 0, 0]}
-          scale={[50, 3, 1]}
+          scale={[20, 3, 1]}
         />
       )}
     </>

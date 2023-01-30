@@ -3,7 +3,7 @@ const TECH_STACK_LIST = {
   typescript: 'Typescript',
   javascript: 'JavaScript',
   redux: 'Redux',
-  proptypes: 'Prop Types',
+  proptypes: 'NextJS',
   contextApi: 'Context Api',
   html: 'HTML',
   css: 'CSS',

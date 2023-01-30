@@ -2,6 +2,7 @@ import React, { useContext, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import SceneContext from '../../context/SceneContext'
 import { useTimeout } from '../../hooks'
+import { Button } from '../../components'
 
 const DURATION = {
   TEXT: {
@@ -16,6 +17,9 @@ const DURATION = {
     THIRD: {
       START: 11000,
       END: 14000
+    },
+    SKIP_INTRO: {
+      START: 3000
     }
   },
   ANIMATION: 2000
@@ -25,11 +29,13 @@ const IntroContent = () => {
   const welcomeTextFirstRef = useRef(null)
   const welcomeTextSecondRef = useRef(null)
   const welcomeTextThirdRef = useRef(null)
+  const skipIntroRef = useRef(null)
 
   const { action } = useContext(SceneContext)
   const [inTextFirst, setInTextFirst] = useState(false)
   const [inTextSecond, setInTextSecond] = useState(false)
   const [inTextThird, setInTextThird] = useState(false)
+  const [inSkipIntro, setInSkipIntro] = useState(false)
 
   useTimeout(() => {
     setInTextFirst(true)
@@ -60,12 +66,21 @@ const IntroContent = () => {
     showSceneSetup()
   }, DURATION.TEXT.THIRD.END)
 
+  useTimeout(() => {
+    setInSkipIntro(true)
+  }, DURATION.TEXT.SKIP_INTRO.START)
+
   function hideIntro() {
     action.setIsIntro(false)
   }
 
   function showSceneSetup() {
     action.setIsSetup(true)
+  }
+
+  function skipIntro() {
+    hideIntro()
+    showSceneSetup()
   }
 
   return (
@@ -79,7 +94,7 @@ const IntroContent = () => {
         onEnter={() => setInTextFirst(true)}
         onExited={() => setInTextFirst(false)}>
         <div ref={welcomeTextFirstRef} style={{ padding: '0 20px' }}>
-          <p>{`Everyone from us dreaming\n about something big`}</p>
+          <p>{`Everyone from us dreaming\nabout something big`}</p>
         </div>
       </CSSTransition>
 
@@ -105,9 +120,25 @@ const IntroContent = () => {
         onEnter={() => setInTextThird(true)}
         onExited={() => setInTextThird(false)}>
         <div ref={welcomeTextThirdRef} style={{ padding: '0 20px' }}>
-          <p>{`please,\n turn on all lights...`}</p>
+          <p>{`please,\nturn on all lights...`}</p>
         </div>
       </CSSTransition>
+
+      {inSkipIntro && (
+        <div
+          ref={skipIntroRef}
+          style={{ position: 'absolute', bottom: '-50%', right: '20%' }}>
+          <Button
+            title="Skip Intro"
+            onClick={() => skipIntro()}
+            styles={{
+              color: 'white',
+              padding: '10px',
+              border: '1px solid white'
+            }}
+          />
+        </div>
+      )}
     </>
   )
 }
