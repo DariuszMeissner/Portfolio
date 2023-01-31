@@ -25,7 +25,8 @@ const Button = ({ onClick, title, styles }) => {
 }
 
 Button.defaultProps = {
-  styles: {}
+  styles: {},
+  isOverview: false
 }
 
 Button.propTypes = buttonType

@@ -23,7 +23,8 @@ import {
   Logo,
   NavigationWrap,
   TechStackList,
-  Gallery3D
+  Gallery3D,
+  AudioOnOff
 } from '../features'
 import { PageContainer } from '../components'
 import { About, Works } from '.'
@@ -47,6 +48,12 @@ const audioClips = {
   }
 }
 
+const homeStyle = {
+  overflow: 'hidden',
+  position: 'relative',
+  height: '100%'
+}
+
 const Home = () => {
   const [carLightEmissive, setCarLightEmissive] = useState(
     initialState.emmisiveValue
@@ -54,6 +61,9 @@ const Home = () => {
   const { scene, action } = useContext(SceneContext)
   const [isEngineOn, setIsEngineOn] = useState(false)
   const [audio] = useState(audioClips)
+  const [isOcclude, setIsOcclude] = useState(false)
+  const [isMuted, setIsMuted] = useState(false)
+
   const screen = useSizeScreen()
 
   const intervalRef = useRef(null)
@@ -74,6 +84,16 @@ const Home = () => {
       }, initialState.delayEngineSound)
 
       setIsEngineOn(true)
+    }
+  }
+
+  function muteAudio() {
+    if (isMuted) {
+      audio.engine.on.muted = true
+      audio.engine.off.muted = true
+    } else {
+      audio.engine.on.muted = false
+      audio.engine.off.muted = false
     }
   }
 
@@ -132,14 +152,12 @@ const Home = () => {
     stopIncreaseCarLight()
   }, [carLightEmissive, scene.isStartEngine])
 
+  useEffect(() => {
+    muteAudio()
+  }, [isEngineOn, isMuted])
+
   const handleStartEngine = () => {
     startStopEngine()
-  }
-
-  const homeStyle = {
-    overflow: 'hidden',
-    position: 'relative',
-    height: '100%'
   }
 
   return (
@@ -171,11 +189,11 @@ const Home = () => {
       </Overlay>
 
       <Canvas
+        style={{ position: 'relative' }}
         flat
         gl={{
           logarithmicDepthBuffer: true,
-          antialias: false,
-          toneMapping: false
+          antialias: false
         }}
         dpr={[1, 1.5]}
         camera={{ position: [0, 0, 15], fov: 25 }}>
@@ -206,15 +224,20 @@ const Home = () => {
               roughness={1}
             />
 
-            {/* {scene.steps.isOverview && (
+            {scene.steps.isOverview && (
               <Html
-                zIndexRange={2}
+                occlude
+                onOcclude={setIsOcclude}
                 transform
-                position={[4.6, -1.2, 0]}
+                zIndexRange={1}
+                position={[4.6, screen.isXS ? -1.7 : -1.2, 0]}
                 rotation={[0, Math.PI / 2, 0]}
-                scale={0.35}>
-                <div>
-                  <p style={{ color: 'white' }}>test</p>
+                scale={screen.isXS ? 0.5 : 0.35}>
+                <div
+                  style={{
+                    transition: 'opacity 300ms ease',
+                    opacity: isOcclude ? 0 : 1
+                  }}>
                   <CarNavigation
                     handleStartEngine={handleStartEngine}
                     action={{
@@ -229,10 +252,25 @@ const Home = () => {
                   />
                 </div>
               </Html>
-            )} */}
+            )}
           </mesh>
 
-          {scene.steps.isOverview ? (
+          {scene.steps.isOverview && (
+            <mesh>
+              <Html
+                style={{
+                  position: 'absolute',
+                  right: '-50vw'
+                }}>
+                <AudioOnOff
+                  isMuted={isMuted}
+                  handleMute={() => setIsMuted((prev) => !prev)}
+                />
+              </Html>
+            </mesh>
+          )}
+
+          {scene.steps.isOverview && scene.isAllLightsOn ? (
             <ambientLight intensity={0.45} position={[3, 0, 0]} />
           ) : null}
 
@@ -278,7 +316,7 @@ const Home = () => {
         </Suspense>
       </Canvas>
 
-      <Overlay styles={{ bottom: '0px', height: '15%' }}>
+      <Overlay styles={{ bottom: '0px', height: screen.isXS ? '15%' : '10%' }}>
         {scene.steps.isOverview ? <NavigationWrap /> : null}
       </Overlay>
 

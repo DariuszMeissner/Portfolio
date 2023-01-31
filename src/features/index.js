@@ -25,6 +25,7 @@ import DeatailsDate from './works/details/DeatailsDate'
 import TechStackList from './TechStackList'
 import Gallery3D from './gallery/Gallery3D'
 import Gallery3DItem from './gallery/Gallery3DItem'
+import AudioOnOff from './AudioOnOff'
 
 export {
   // intro
@@ -42,6 +43,7 @@ export {
   EffectsColor,
   CarNavigation,
   TechStackList,
+  AudioOnOff,
   // gallery
   Gallery3D,
   Gallery3DItem,

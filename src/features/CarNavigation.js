@@ -25,14 +25,17 @@ const CarNavigation = ({ handleStartEngine, action, scene }) => {
         <Button3D
           title="light top"
           onClick={() => action.switchLightTop((prev) => !prev)}
+          isOverview={scene.isOverview}
         />
         <Button3D
           title="light side"
           onClick={() => action.switchLightSide((prev) => !prev)}
+          isOverview={scene.isOverview}
         />
         <Button3D
           title="light front"
           onClick={() => action.switchLightFront((prev) => !prev)}
+          isOverview={scene.isOverview}
         />
 
         <CSSTransition
@@ -44,7 +47,10 @@ const CarNavigation = ({ handleStartEngine, action, scene }) => {
           onEnter={() => setInButton(true)}
           onExited={() => setInButton(false)}>
           <div ref={buttonRef}>
-            <StartStopEngine handleStartEngine={handleStartEngine} />
+            <StartStopEngine
+              handleStartEngine={handleStartEngine}
+              isOverview={scene.isOverview}
+            />
           </div>
         </CSSTransition>
       </Layout>
