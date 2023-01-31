@@ -33,7 +33,8 @@ export const listsType = arrayOf(worksItemType)
 export const buttonType = {
   onClick: func.isRequired,
   title: string.isRequired,
-  styles: objectOf(string)
+  styles: objectOf(string),
+  isOverview: bool
 }
 
 export const linkType = {
