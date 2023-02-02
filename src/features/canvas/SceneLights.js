@@ -2,10 +2,10 @@ import React from 'react'
 import { Lightformer } from '@react-three/drei'
 import { sceneLightsType } from '../../types'
 
-const SceneLights = ({ scene }) => {
+const SceneLights = ({ lights }) => {
   return (
     <>
-      {scene.lightTop && (
+      {lights.top && (
         <>
           <Lightformer
             intensity={2}
@@ -22,7 +22,7 @@ const SceneLights = ({ scene }) => {
         </>
       )}
 
-      {scene.lightSide && (
+      {lights.side && (
         <>
           <Lightformer
             intensity={1}
@@ -39,7 +39,7 @@ const SceneLights = ({ scene }) => {
         </>
       )}
 
-      {scene.lightFront && (
+      {lights.front && (
         <Lightformer
           intensity={1}
           rotation-y={0.3}
@@ -52,7 +52,7 @@ const SceneLights = ({ scene }) => {
 }
 
 SceneLights.propTypes = {
-  scene: sceneLightsType.isRequired
+  lights: sceneLightsType.isRequired
 }
 
 export default SceneLights

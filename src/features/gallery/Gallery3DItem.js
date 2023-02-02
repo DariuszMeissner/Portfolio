@@ -11,9 +11,9 @@ import { worksItemType } from '../../types'
 
 const Gallery3DItem = ({
   item,
-  setIsModalOpen,
+  openModal,
   setDataProject,
-  setIsWorksPage,
+  openPageWorks,
   isZoomGallery
 }) => {
   const [isHover, setIsHover] = useState(false)
@@ -29,9 +29,9 @@ const Gallery3DItem = ({
     setIsHover(true)
   }
 
-  function openModal() {
-    setIsModalOpen(true)
-    setIsWorksPage(true)
+  function handleOpenModal() {
+    openModal()
+    openPageWorks()
     setDataProject(item)
   }
 
@@ -58,7 +58,7 @@ const Gallery3DItem = ({
         {isZoomGallery && (
           <Html transform zIndexRange={1} position={[0, 0, 0]}>
             <button
-              onClick={() => openModal()}
+              onClick={() => handleOpenModal()}
               type="button"
               style={{
                 fontSize: 1.8,
@@ -85,9 +85,9 @@ const Gallery3DItem = ({
 
 Gallery3DItem.propTypes = {
   item: worksItemType.isRequired,
-  setIsModalOpen: func.isRequired,
+  openModal: func.isRequired,
   setDataProject: func.isRequired,
-  setIsWorksPage: func.isRequired,
+  openPageWorks: func.isRequired,
   isZoomGallery: bool.isRequired
 }
 

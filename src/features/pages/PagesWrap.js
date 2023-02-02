@@ -1,44 +1,50 @@
 import React, { useContext, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { PageContainer } from '../../components'
+import { DataContext } from '../../context/DataContext'
 import { About, Works } from '../../pages'
-import SceneContext from '../../context/SceneContext'
 
 const PagesWrap = () => {
-  const { scene, action } = useContext(SceneContext)
+  const {
+    pages,
+    openPageWorks,
+    openPageAbout,
+    closePageWorks,
+    closePageAbout
+  } = useContext(DataContext)
   const aboutPageRef = useRef(null)
   const worksPageRef = useRef(null)
 
   return (
     <div className="pages-wrap">
       <CSSTransition
-        in={scene.pages.isAboutPage}
+        in={pages.isAbout}
         nodeRef={aboutPageRef}
         timeout={500}
         classNames="slide-page-up"
         unmountOnExit
-        onEnter={() => action.setIsAboutPage(true)}
-        onExited={() => action.setIsAboutPage(false)}>
+        onEnter={() => openPageAbout()}
+        onExited={() => closePageAbout()}>
         <div ref={aboutPageRef}>
           <PageContainer>
             <About
-              closePage={() => action.setIsAboutPage(false)}
-              openWorksPage={() => action.setIsWorksPage(true)}
+              closePage={() => closePageAbout()}
+              openWorksPage={() => openPageWorks()}
             />
           </PageContainer>
         </div>
       </CSSTransition>
       <CSSTransition
-        in={scene.pages.isWorksPage}
+        in={pages.isWorks}
         nodeRef={worksPageRef}
         timeout={500}
         classNames="slide-page-up"
         unmountOnExit
-        onEnter={() => action.setIsWorksPage(true)}
-        onExited={() => action.setIsWorksPage(false)}>
+        onEnter={() => openPageWorks()}
+        onExited={() => closePageWorks()}>
         <div ref={worksPageRef}>
           <PageContainer>
-            <Works closePage={() => action.setIsWorksPage(false)} />
+            <Works closePage={() => closePageWorks()} />
           </PageContainer>
         </div>
       </CSSTransition>

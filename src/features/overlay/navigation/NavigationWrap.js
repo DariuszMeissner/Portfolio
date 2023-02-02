@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { useSizeScreen, useTimeout } from '../../../hooks'
 import { Navigation, Overlay } from '../..'
-import SceneContext from '../../../context/SceneContext'
+import { DataContext } from '../../../context/DataContext'
 
 const style = {
   overlay: {
@@ -17,7 +17,7 @@ const style = {
 
 const NavigationWrap = () => {
   const [inNavigation, setInNavigation] = useState(false)
-  const { action } = useContext(SceneContext)
+  const { openPageWorks, openPageAbout } = useContext(DataContext)
   const screen = useSizeScreen()
   const navigationRef = useRef(null)
 
@@ -42,8 +42,8 @@ const NavigationWrap = () => {
         onExited={() => setInNavigation(false)}>
         <div ref={navigationRef}>
           <Navigation
-            openAboutPage={() => action.setIsAboutPage(true)}
-            openWorksPage={() => action.setIsWorksPage(true)}
+            openAboutPage={() => openPageAbout()}
+            openWorksPage={() => openPageWorks()}
           />
         </div>
       </CSSTransition>

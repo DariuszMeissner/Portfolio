@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/no-unknown-property */
 import React, { useMemo, useState } from 'react'
-import { bool, number, func, arrayOf } from 'prop-types'
+import { bool, number, arrayOf } from 'prop-types'
 import * as THREE from 'three'
 import { applyProps, useFrame } from '@react-three/fiber'
 import { useGLTF, useCursor } from '@react-three/drei'
@@ -14,14 +14,7 @@ Source: https://sketchfab.com/3d-models/lamborghini-urus-2650599973b649ddb4460ff
 Title: Lamborghini Urus
 */
 
-const Lamborghini = ({
-  handleCarHover,
-  lightsOn,
-  zoom,
-  lightEmmit,
-  rotation,
-  scale
-}) => {
+const Lamborghini = ({ lightsOn, zoom, lightEmmit, rotation, scale }) => {
   const { scene, nodes, materials } = useGLTF('/lambo.glb')
   const [stop, setStop] = useState(false)
   const [isHover, setIsHover] = useState(false)
@@ -45,7 +38,6 @@ const Lamborghini = ({
   }
 
   function setCarHover(value) {
-    handleCarHover(value)
     setIsHover(value)
   }
 
@@ -62,6 +54,7 @@ const Lamborghini = ({
       state.camera.lookAt(0, 0, 0)
       state.camera.updateProjectionMatrix()
     }
+
     if (state.camera.position.x >= 23) {
       setStop(true)
     }
@@ -142,7 +135,6 @@ Lamborghini.propTypes = {
   lightEmmit: number.isRequired,
   zoom: bool.isRequired,
   lightsOn: bool.isRequired,
-  handleCarHover: func.isRequired,
   scale: number.isRequired,
   rotation: arrayOf(number).isRequired
 }

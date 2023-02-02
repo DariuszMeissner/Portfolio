@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { WorksItem } from '..'
 import { Lists } from '../../components'
-import SceneContext from '../../context/SceneContext'
 import { useSizeScreen } from '../../hooks'
+import { listsType } from '../../types'
 
 const style = {
   display: 'grid',
@@ -10,8 +10,7 @@ const style = {
   gridRowGap: '32px'
 }
 
-const WorksContent = () => {
-  const { scene } = useContext(SceneContext)
+const WorksContent = ({ works }) => {
   const screen = useSizeScreen()
 
   const gridColumns = screen.isX || screen.isL || screen.isM ? 2 : 1
@@ -23,15 +22,19 @@ const WorksContent = () => {
     return <WorksItem item={item} key={item.id} />
   }
 
-  return scene.works ? (
+  return works.data ? (
     <Lists
-      data={scene.works.data}
+      data={works.data}
       renderItem={renderWorkItem}
       styles={{ ...style, ...styleGridColumns }}
     />
   ) : (
     <p>loading data....</p>
   )
+}
+
+WorksContent.propTypes = {
+  works: listsType.isRequired
 }
 
 export default WorksContent

@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
-import SceneContext from '../../context/SceneContext'
+import { CurrentProjectContext } from '../../context/CurrentProjectContext'
+import { DataContext } from '../../context/DataContext'
 import { useImageLoad, useTimeout } from '../../hooks'
 import { worksItemType } from '../../types'
 
@@ -40,7 +41,8 @@ const WorksItem = ({ item }) => {
   const [inItem, setInItem] = useState(false)
   const [isHover, setIsHover] = useState(false)
   const [isImage] = useImageLoad(item.thumbnail)
-  const { action } = useContext(SceneContext)
+  const { openModal } = useContext(DataContext)
+  const { saveCurrentProject } = useContext(CurrentProjectContext)
 
   const styleAnimations = {
     borderColor: isHover ? '#c11111' : 'transparent',
@@ -48,9 +50,9 @@ const WorksItem = ({ item }) => {
     transform: isHover ? 'scale(1.01)' : 'scale(1)'
   }
 
-  function openModal() {
-    action.setIsModalOpen(true)
-    action.setDataProject(item)
+  function handleOpenModal() {
+    openModal()
+    saveCurrentProject(item)
   }
 
   function delayShowingItem() {
@@ -66,7 +68,7 @@ const WorksItem = ({ item }) => {
       <div
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
-        onClick={() => openModal()}
+        onClick={() => handleOpenModal()}
         onKeyDown={() => null}
         tabIndex={0}
         role="button">

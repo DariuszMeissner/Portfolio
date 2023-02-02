@@ -1,14 +1,16 @@
-import React, { useRef, useCallback, useEffect, useContext } from 'react'
+import React, { useRef, useEffect, useContext } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { Button3D, Layout } from '../components'
 import { audio } from '../App'
 import { StartStopEngine } from './index'
-import SceneContext from '../context/SceneContext'
+import { DataContext } from '../context/DataContext'
+import { SceneLightsContext } from '../context/SceneLightsContext'
+import { SceneCarContext } from '../context/SceneCarContext'
 
-const initialState = {
-  maxEmissiveCarLight: 4,
-  delayEngineSound: 600,
-  delayCarLightsOn: 1000
+const initState = {
+  carlightEmissive: 8,
+  delayEngineSound: 1000,
+  delayCarLightsOn: 600
 }
 
 const style = {
@@ -23,100 +25,84 @@ const style = {
 }
 
 const CarNavigation = () => {
-  const { scene, action } = useContext(SceneContext)
+  const { steps, openStepOverview } = useContext(DataContext)
+  const { lights, setTopLight, setFrontLight, setSideLight } =
+    useContext(SceneLightsContext)
+  const { carState, carActions } = useContext(SceneCarContext)
+
   const buttonRef = useRef(null)
-  const intervalIncreaseLightRef = useRef(null)
 
   function turnOnEngineSound() {
-    if (!scene.isEngineOn) {
+    if (!carState.isEngineOn) {
       setTimeout(() => {
         audio.engine.on.play()
-      }, initialState.delayEngineSound)
-
-      action.setIsEngineOn(true)
+      }, initState.delayCarLightsOn)
     }
   }
 
   function turnOffEngineSound() {
-    if (scene.isEngineOn) {
+    if (carState.isEngineOn) {
       audio.engine.on.currentTime = 0
       audio.engine.on.pause()
-      action.setIsEngineOn(false)
 
       audio.engine.off.play()
     }
   }
 
-  function increaseCarLightsEmissive() {
-    if (scene.carLightEmissive === 0) {
-      const interval = setInterval(() => {
-        action.setCarLightEmissive((prev) => prev + 1)
-      }, 50)
-      intervalIncreaseLightRef.current = interval
-    }
-  }
-
   function stopEngine() {
-    action.setIsStartEngine(false)
-    action.setCarLightEmissive(0)
+    carActions.setEngineOff()
+    carActions.setCarLightEmissive(0)
     turnOffEngineSound()
   }
 
   function startEngine() {
     setTimeout(() => {
-      action.setIsStartEngine(true)
-    }, initialState.delayCarLightsOn)
+      carActions.setEngineOn()
+    }, initState.delayEngineSound)
 
-    increaseCarLightsEmissive()
+    carActions.setCarLightEmissive(initState.carlightEmissive)
     turnOnEngineSound()
   }
 
   function startStopEngine() {
-    if (scene.isStartEngine) {
+    if (carState.isEngineOn) {
       stopEngine()
     } else {
       startEngine()
     }
   }
 
-  const stopIncreaseCarLight = useCallback(() => {
-    if (
-      scene.carLightEmissive > initialState.maxEmissiveCarLight &&
-      !scene.isStartEngine
-    ) {
-      clearInterval(intervalIncreaseLightRef.current)
-    }
-  }, [scene.carLightEmissive, scene.isStartEngine])
-
-  useEffect(() => {
-    stopIncreaseCarLight()
-  }, [scene.carLightEmissive, scene.isStartEngine, stopIncreaseCarLight])
-
   const handleStartEngine = () => {
     startStopEngine()
   }
+
+  useEffect(() => {
+    if (carState.isEngineOn) {
+      openStepOverview()
+    }
+  }, [carState.isEngineOn, openStepOverview])
 
   return (
     <div className="car-navigation">
       <Layout styles={style.container}>
         <Button3D
           title="light top"
-          onClick={() => action.switchLightTop((prev) => !prev)}
-          isOverview={scene.steps.isOverview}
+          onClick={() => setTopLight()}
+          isOverview={steps.isOverview}
         />
         <Button3D
           title="light side"
-          onClick={() => action.switchLightSide((prev) => !prev)}
-          isOverview={scene.steps.isOverview}
+          onClick={() => setSideLight()}
+          isOverview={steps.isOverview}
         />
         <Button3D
           title="light front"
-          onClick={() => action.switchLightFront((prev) => !prev)}
-          isOverview={scene.steps.isOverview}
+          onClick={() => setFrontLight()}
+          isOverview={steps.isOverview}
         />
 
         <CSSTransition
-          in={scene.isAllLightsOn || scene.steps.isOverview}
+          in={lights.allIsTurnOn || steps.isOverview}
           nodeRef={buttonRef}
           timeout={2000}
           classNames="fade"
@@ -124,7 +110,7 @@ const CarNavigation = () => {
           <div ref={buttonRef}>
             <StartStopEngine
               handleStartEngine={handleStartEngine}
-              isOverview={scene.steps.isOverview}
+              isOverview={steps.isOverview}
             />
           </div>
         </CSSTransition>

@@ -8,8 +8,8 @@ import {
   NavigationWrap,
   CanvasContainer
 } from '../features'
-import SceneContext from '../context/SceneContext'
 import PagesWrap from '../features/pages/PagesWrap'
+import { DataContext } from '../context/DataContext'
 
 const style = {
   container: {
@@ -23,31 +23,33 @@ const style = {
 }
 
 const Home = () => {
-  const { scene } = useContext(SceneContext)
+  const { steps, pages, closeStepIntro, openStepSetup } =
+    useContext(DataContext)
 
   const overlayAnimations = {
-    height: !scene.steps.isOverview ? '30%' : '10%'
+    height: !steps.isOverview ? '30%' : '10%'
   }
 
   return (
     <div className="Home" style={style.container}>
-      {scene.steps.isIntro && (
+      {steps.isIntro && (
         <Intro>
-          <IntroContent />
+          <IntroContent
+            closeStepIntro={closeStepIntro}
+            openStepSetup={openStepSetup}
+          />
         </Intro>
       )}
 
       <Overlay styles={{ ...style.overlay, ...overlayAnimations }}>
-        {scene.steps.isOverview ? <Logo /> : null}
+        {steps.isOverview ? <Logo pages={pages} /> : null}
 
-        {scene.steps.isSetup && !scene.steps.isOverview ? (
-          <CarNavigation />
-        ) : null}
+        {steps.isSetup && !steps.isOverview ? <CarNavigation /> : null}
       </Overlay>
 
       <CanvasContainer />
 
-      {scene.steps.isOverview ? <NavigationWrap /> : null}
+      {steps.isOverview ? <NavigationWrap /> : null}
 
       <PagesWrap />
     </div>

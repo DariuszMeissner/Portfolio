@@ -23,19 +23,28 @@ import {
   Gallery3D,
   AudioOnOff
 } from '..'
-import SceneContext from '../../context/SceneContext'
+import { WorksContext } from '../../context/WorksContext'
 import { audio } from '../../App'
 import { useSizeScreen } from '../../hooks'
+import { CurrentProjectContext } from '../../context/CurrentProjectContext'
+import { DataContext } from '../../context/DataContext'
+import { SceneLightsContext } from '../../context/SceneLightsContext'
+import { SceneCarContext } from '../../context/SceneCarContext'
 
 const CanvasContainer = () => {
-  const { scene, action } = useContext(SceneContext)
+  const works = useContext(WorksContext)
+  const { saveCurrentProject } = useContext(CurrentProjectContext)
+  const { steps, openModal, openPageWorks } = useContext(DataContext)
+  const { lights } = useContext(SceneLightsContext)
+  const { carState, carActions } = useContext(SceneCarContext)
+
   const [isMuted, setIsMuted] = useState(false)
   const [zoom] = useState(true)
   const [isOcclude, setIsOcclude] = useState(false)
   const screen = useSizeScreen()
 
   const showGalleryTechStack =
-    scene.steps.isOverview && scene.isAllLightsOn && scene.isStartEngine
+    steps.isOverview && lights.allIsTurnOn && carState.isEngineOn
 
   const muteAudio = useCallback(() => {
     if (isMuted) {
@@ -49,7 +58,7 @@ const CanvasContainer = () => {
 
   useEffect(() => {
     muteAudio()
-  }, [scene.isEngineOn, isMuted, muteAudio])
+  }, [carState.isEngineOn, isMuted, muteAudio])
 
   return (
     <Canvas
@@ -60,15 +69,15 @@ const CanvasContainer = () => {
         antialias: false
       }}
       dpr={[1, 1.5]}
-      camera={{ position: [0, 0, 15], fov: 25 }}>
+      camera={{ position: [0, 0, 20], fov: 25 }}>
       <Suspense fallback={null}>
+        {/* car gltf */}
         <Lamborghini
           rotation={[0, 0, 0]}
           scale={0.015}
           zoom={zoom}
-          lightEmmit={scene.carLightEmissive}
-          lightsOn={scene.isStartEngine}
-          handleCarHover={action.setIsCarHover}
+          lightEmmit={carState.lightEmissive}
+          lightsOn={carState.isEngineOn}
         />
 
         {/* car's platform */}
@@ -86,7 +95,7 @@ const CanvasContainer = () => {
             roughness={1}
           />
 
-          {scene.steps.isOverview && (
+          {steps.isOverview && (
             <Html
               occlude
               onOcclude={setIsOcclude}
@@ -97,8 +106,8 @@ const CanvasContainer = () => {
               scale={screen.isXS ? 0.5 : 0.35}>
               <div
                 style={{
-                  transition: 'opacity 300ms ease',
-                  opacity: isOcclude ? 0 : 1
+                  opacity: isOcclude ? 0 : 1,
+                  transition: 'opacity 300ms ease'
                 }}>
                 {/* <CarNavigation /> */}
               </div>
@@ -106,11 +115,11 @@ const CanvasContainer = () => {
           )}
         </mesh>
 
-        {scene.steps.isOverview && (
+        {steps.isOverview && (
           <AudioOnOff isMuted={isMuted} handleMute={setIsMuted} />
         )}
 
-        {scene.steps.isOverview && scene.isAllLightsOn ? (
+        {steps.isOverview && lights.allIsTurnOn ? (
           <ambientLight intensity={0.45} position={[3, 0, 0]} />
         ) : null}
 
@@ -124,28 +133,29 @@ const CanvasContainer = () => {
           far={20}
         />
 
-        {scene.steps.isSetup && (
+        {steps.isSetup && (
           <Environment resolution={512}>
-            <SceneLights scene={scene} />
+            <SceneLights lights={lights} />
           </Environment>
         )}
 
         {showGalleryTechStack ? (
           <>
             <Gallery3D
-              setIsZoomGallery={action.setIsZoomGallery}
-              worksData={scene.works.data}
-              setIsModalOpen={action.setIsModalOpen}
-              setDataProject={action.setDataProject}
-              setIsWorksPage={action.setIsWorksPage}
-              isZoomGallery={scene.isZoomGallery}
+              works={works}
+              setDataProject={saveCurrentProject}
+              openModal={openModal}
+              openPageWorks={openPageWorks}
+              isZoomGallery={carState.isZoomGallery}
+              setZoomGalleryOff={carActions.setZoomGalleryOff}
+              setZoomGalleryOn={carActions.setZoomGalleryOn}
             />
             <TechStackList />
           </>
         ) : null}
 
         <OrbitControls
-          enabled={scene.steps.isOverview && !scene.isZoomGallery}
+          enabled={steps.isOverview && !carState.isZoomGallery}
           enablePan={false}
           enableZoom={false}
           minPolarAngle={Math.PI / 2.105}
