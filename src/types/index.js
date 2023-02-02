@@ -28,7 +28,7 @@ export const worksItemType = shape({
   rotation: arrayOf(number)
 })
 
-export const listsType = arrayOf(worksItemType)
+export const listsType = shape({ data: arrayOf(worksItemType) })
 
 export const buttonType = {
   onClick: func.isRequired,

@@ -50,7 +50,7 @@ const useSizeScreen = () => {
       isL: currSize === 'L',
       isX: currSize === 'X'
     })
-  }, [size])
+  }, [])
 
   useEffect(() => {
     window.addEventListener('resize', handleResize, true)
@@ -58,7 +58,8 @@ const useSizeScreen = () => {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [])
+  }, [handleResize])
+
   return size
 }
 

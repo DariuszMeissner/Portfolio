@@ -15,7 +15,7 @@ const useImageLoad = (path) => {
     if (path) {
       img.src = path
     }
-  }, [])
+  }, [path])
 
   return [isImage]
 }

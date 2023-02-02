@@ -1,7 +1,7 @@
-import React, { useRef, useState, useContext } from 'react'
+import React, { useRef, useState } from 'react'
+import { bool, shape } from 'prop-types'
 import { CSSTransition } from 'react-transition-group'
 import { Layout } from '../../../components'
-import SceneContext from '../../../context/SceneContext'
 import { useTimeout } from '../../../hooks'
 
 const style = {
@@ -22,17 +22,14 @@ const style = {
   }
 }
 
-const Logo = () => {
-  const { scene } = useContext(SceneContext)
+const Logo = ({ pages }) => {
   const [inLogo, setInLogo] = useState(false)
   const logoRef = useRef(null)
 
   const styleAnimations = {
-    left: scene.pages.isAboutPage || scene.pages.isWorksPage ? '50%' : 0,
+    left: pages.isAbout || pages.isWorks ? '50%' : 0,
     transform:
-      scene.pages.isAboutPage || scene.pages.isWorksPage
-        ? 'translateX(-50%)'
-        : 'translateX(0)'
+      pages.isAbout || pages.isWorks ? 'translateX(-50%)' : 'translateX(0)'
   }
 
   useTimeout(() => {
@@ -55,6 +52,10 @@ const Logo = () => {
       </CSSTransition>
     </Layout>
   )
+}
+
+Logo.propTypes = {
+  pages: shape({ isAbout: bool, isWorks: bool }).isRequired
 }
 
 export default Logo

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Close, Layout } from '../components'
-import SceneContext from '../context/SceneContext'
+import { DataContext } from '../context/DataContext'
+import { WorksContext } from '../context/WorksContext'
 import { WorksContent, WorksItemModal } from '../features'
 import { pageType } from '../types'
 
@@ -20,23 +21,22 @@ const style = {
 }
 
 const Works = ({ closePage }) => {
-  const { scene, action } = useContext(SceneContext)
+  const { isModal, closeModal } = useContext(DataContext)
+  const works = useContext(WorksContext)
 
   return (
     <>
-      {!scene.isModalOpen ? (
+      {!isModal ? (
         <div className="works" style={style.container}>
           <Layout styles={style.layout}>
             <h2>Latest works</h2>
             <Close onClick={() => closePage()} />
-            <WorksContent />
+            <WorksContent works={works} />
           </Layout>
         </div>
       ) : null}
 
-      {scene.isModalOpen ? (
-        <WorksItemModal closeModal={() => action.setIsModalOpen(false)} />
-      ) : null}
+      {isModal ? <WorksItemModal closeModal={() => closeModal()} /> : null}
     </>
   )
 }

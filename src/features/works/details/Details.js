@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import SceneContext from '../../../context/SceneContext'
 import {
   DetailsThumb,
   DetailsTitle,
@@ -9,6 +8,7 @@ import {
   DetailsTechStack,
   DeatailsDate
 } from '../..'
+import { CurrentProjectContext } from '../../../context/CurrentProjectContext'
 
 const style = {
   details: {
@@ -23,26 +23,21 @@ const style = {
 }
 
 const Details = () => {
-  const { scene } = useContext(SceneContext)
+  const { project } = useContext(CurrentProjectContext)
+
   return (
     <div className="details" style={style.details}>
-      <DetailsThumb
-        thumb={scene.dataProject.thumbnail}
-        title={scene.dataProject.title}
-      />
+      <DetailsThumb thumb={project.thumbnail} title={project.title} />
       <div style={style.text}>
-        <DetailsTitle
-          title={scene.dataProject.title}
-          subtitle={scene.dataProject.subtitle}
-        />
-        <DeatailsDate date={scene.dataProject.date} />
-        <DetailsDescription description={scene.dataProject.description} />
-        <DetailsFeatures features={scene.dataProject.features} />
-        <DetailsTechStack techStack={scene.dataProject.techStack} />
+        <DetailsTitle title={project.title} subtitle={project.subtitle} />
+        <DeatailsDate date={project.date} />
+        <DetailsDescription description={project.description} />
+        <DetailsFeatures features={project.features} />
+        <DetailsTechStack techStack={project.techStack} />
         <DetailsLinks
           links={{
-            demo: scene.dataProject.linkDemo,
-            github: scene.dataProject.linkGithub
+            demo: project.linkDemo,
+            github: project.linkGithub
           }}
         />
       </div>

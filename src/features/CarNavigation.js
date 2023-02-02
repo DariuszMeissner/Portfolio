@@ -1,8 +1,17 @@
-import React, { useState, useRef } from 'react'
-import { bool, func, shape } from 'prop-types'
+import React, { useRef, useEffect, useContext } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { Button3D, Layout } from '../components'
+import { audio } from '../App'
 import { StartStopEngine } from './index'
+import { DataContext } from '../context/DataContext'
+import { SceneLightsContext } from '../context/SceneLightsContext'
+import { SceneCarContext } from '../context/SceneCarContext'
+
+const initState = {
+  carlightEmissive: 8,
+  delayEngineSound: 1000,
+  delayCarLightsOn: 600
+}
 
 const style = {
   container: {
@@ -15,57 +24,99 @@ const style = {
   }
 }
 
-const CarNavigation = ({ handleStartEngine, action, scene }) => {
-  const [, setInButton] = useState(true)
+const CarNavigation = () => {
+  const { steps, openStepOverview } = useContext(DataContext)
+  const { lights, setTopLight, setFrontLight, setSideLight } =
+    useContext(SceneLightsContext)
+  const { carState, carActions } = useContext(SceneCarContext)
+
   const buttonRef = useRef(null)
+
+  function turnOnEngineSound() {
+    if (!carState.isEngineOn) {
+      setTimeout(() => {
+        audio.engine.on.play()
+      }, initState.delayCarLightsOn)
+    }
+  }
+
+  function turnOffEngineSound() {
+    if (carState.isEngineOn) {
+      audio.engine.on.currentTime = 0
+      audio.engine.on.pause()
+
+      audio.engine.off.play()
+    }
+  }
+
+  function stopEngine() {
+    carActions.setEngineOff()
+    carActions.setCarLightEmissive(0)
+    turnOffEngineSound()
+  }
+
+  function startEngine() {
+    setTimeout(() => {
+      carActions.setEngineOn()
+    }, initState.delayEngineSound)
+
+    carActions.setCarLightEmissive(initState.carlightEmissive)
+    turnOnEngineSound()
+  }
+
+  function startStopEngine() {
+    if (carState.isEngineOn) {
+      stopEngine()
+    } else {
+      startEngine()
+    }
+  }
+
+  const handleStartEngine = () => {
+    startStopEngine()
+  }
+
+  useEffect(() => {
+    if (carState.isEngineOn) {
+      openStepOverview()
+    }
+  }, [carState.isEngineOn, openStepOverview])
 
   return (
     <div className="car-navigation">
       <Layout styles={style.container}>
         <Button3D
           title="light top"
-          onClick={() => action.switchLightTop((prev) => !prev)}
-          isOverview={scene.isOverview}
+          onClick={() => setTopLight()}
+          isOverview={steps.isOverview}
         />
         <Button3D
           title="light side"
-          onClick={() => action.switchLightSide((prev) => !prev)}
-          isOverview={scene.isOverview}
+          onClick={() => setSideLight()}
+          isOverview={steps.isOverview}
         />
         <Button3D
           title="light front"
-          onClick={() => action.switchLightFront((prev) => !prev)}
-          isOverview={scene.isOverview}
+          onClick={() => setFrontLight()}
+          isOverview={steps.isOverview}
         />
 
         <CSSTransition
-          in={scene.isAllLightsOn || scene.isOverview}
+          in={lights.allIsTurnOn || steps.isOverview}
           nodeRef={buttonRef}
           timeout={2000}
           classNames="fade"
-          unmountOnExit
-          onEnter={() => setInButton(true)}
-          onExited={() => setInButton(false)}>
+          unmountOnExit>
           <div ref={buttonRef}>
             <StartStopEngine
               handleStartEngine={handleStartEngine}
-              isOverview={scene.isOverview}
+              isOverview={steps.isOverview}
             />
           </div>
         </CSSTransition>
       </Layout>
     </div>
   )
-}
-
-CarNavigation.propTypes = {
-  handleStartEngine: func.isRequired,
-  action: shape({
-    switchLightTop: func,
-    switchLightSide: func,
-    switchLightFront: func
-  }).isRequired,
-  scene: shape({ isAllLightsOn: bool, isOverview: bool }).isRequired
 }
 
 export default CarNavigation

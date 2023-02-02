@@ -1,6 +1,6 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import SceneContext from '../../context/SceneContext'
+import { func } from 'prop-types'
 import { useTimeout } from '../../hooks'
 import { Button } from '../../components'
 
@@ -25,13 +25,12 @@ const DURATION = {
   ANIMATION: 2000
 }
 
-const IntroContent = () => {
+const IntroContent = ({ closeStepIntro, openStepSetup }) => {
   const welcomeTextFirstRef = useRef(null)
   const welcomeTextSecondRef = useRef(null)
   const welcomeTextThirdRef = useRef(null)
   const skipIntroRef = useRef(null)
 
-  const { action } = useContext(SceneContext)
   const [inTextFirst, setInTextFirst] = useState(false)
   const [inTextSecond, setInTextSecond] = useState(false)
   const [inTextThird, setInTextThird] = useState(false)
@@ -71,11 +70,11 @@ const IntroContent = () => {
   }, DURATION.TEXT.SKIP_INTRO.START)
 
   function hideIntro() {
-    action.setIsIntro(false)
+    closeStepIntro()
   }
 
   function showSceneSetup() {
-    action.setIsSetup(true)
+    openStepSetup()
   }
 
   function skipIntro() {
@@ -141,6 +140,11 @@ const IntroContent = () => {
       )}
     </>
   )
+}
+
+IntroContent.propTypes = {
+  closeStepIntro: func.isRequired,
+  openStepSetup: func.isRequired
 }
 
 export default IntroContent

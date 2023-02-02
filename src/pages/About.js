@@ -40,6 +40,11 @@ const style = {
 const About = ({ closePage, openWorksPage }) => {
   const [isImage] = useImageLoad('./profile_cv.png')
 
+  const handleGoToWorksPage = () => {
+    closePage()
+    openWorksPage()
+  }
+
   return (
     <div className="about" style={style.container}>
       <Layout styles={style.layout}>
@@ -72,13 +77,7 @@ const About = ({ closePage, openWorksPage }) => {
 
           <div style={style.info.projects}>
             <p>To see my projects,&nbsp;</p>
-            <Button
-              title="click here"
-              onClick={() => {
-                closePage()
-                openWorksPage()
-              }}
-            />
+            <Button title="click here" onClick={() => handleGoToWorksPage()} />
           </div>
         </div>
       </Layout>

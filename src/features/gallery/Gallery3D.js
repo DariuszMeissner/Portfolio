@@ -1,20 +1,21 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
 import { useLocation, useRoute } from 'wouter'
-import { func, bool } from 'prop-types'
+import { func, bool, shape, number } from 'prop-types'
 import { listsType } from '../../types'
 import Gallery3DItem from './Gallery3DItem'
 
 const Gallery3D = ({
-  setIsZoomGallery,
-  worksData,
-  setIsModalOpen,
   setDataProject,
-  setIsWorksPage,
-  isZoomGallery
+  works,
+  openModal,
+  openPageWorks,
+  isZoomGallery,
+  setZoomGalleryOff,
+  setZoomGalleryOn
 }) => {
   const groupRef = useRef(null)
   const clickedRef = useRef(null)
@@ -23,8 +24,13 @@ const Gallery3D = ({
   const [startUseFrame, setStartUseFrame] = useState(false)
   const [isMainView, setIsMainView] = useState(true)
 
-  const q = new THREE.Quaternion()
-  const p = new THREE.Vector3()
+  const q = useMemo(() => {
+    return new THREE.Quaternion()
+  }, [])
+
+  const p = useMemo(() => {
+    return new THREE.Vector3()
+  }, [])
 
   function onClick(e) {
     e.stopPropagation()
@@ -32,7 +38,7 @@ const Gallery3D = ({
       clickedRef.current === e.object ? '/' : `/item/${e.object.name}`
     )
     setStartUseFrame(true)
-    setIsZoomGallery(true)
+    setZoomGalleryOn()
   }
 
   useEffect(() => {
@@ -50,7 +56,7 @@ const Gallery3D = ({
       p.set(0, 2, 25)
       q.identity()
     }
-  })
+  }, [params, p, q])
 
   useFrame((state, dt) => {
     if (clickedRef.current && startUseFrame && !isMainView) {
@@ -62,7 +68,7 @@ const Gallery3D = ({
       state.camera.position.lerp(p.set(25, 2, 0), 1)
 
       clickedRef.current = null
-      setIsZoomGallery(false)
+      setZoomGalleryOff()
     }
   })
 
@@ -73,13 +79,13 @@ const Gallery3D = ({
       rotation={[0, Math.PI / 2, 0]}
       onClick={(e) => onClick(e)}
       onPointerMissed={() => setLocation('/')}>
-      {worksData.map((item) => (
+      {works.data.map((item) => (
         <Gallery3DItem
           key={item.id}
           item={item}
-          setIsModalOpen={setIsModalOpen}
+          openModal={openModal}
           setDataProject={setDataProject}
-          setIsWorksPage={setIsWorksPage}
+          openPageWorks={openPageWorks}
           isZoomGallery={isZoomGallery}
         />
       ))}
@@ -88,12 +94,13 @@ const Gallery3D = ({
 }
 
 Gallery3D.propTypes = {
-  setIsZoomGallery: func.isRequired,
-  worksData: listsType.isRequired,
-  setIsModalOpen: func.isRequired,
+  works: listsType.isRequired,
   setDataProject: func.isRequired,
-  setIsWorksPage: func.isRequired,
-  isZoomGallery: bool.isRequired
+  openModal: func.isRequired,
+  openPageWorks: func.isRequired,
+  isZoomGallery: bool.isRequired,
+  setZoomGalleryOff: func.isRequired,
+  setZoomGalleryOn: func.isRequired
 }
 
 export default Gallery3D
