@@ -1,14 +1,11 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable react/no-unknown-property */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-param-reassign */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/destructuring-assignment */
-import React, { useContext, useEffect, useMemo, useState } from 'react'
-import { bool, number, func } from 'prop-types'
+import React, { useMemo, useState } from 'react'
+import { bool, number, func, arrayOf } from 'prop-types'
 import * as THREE from 'three'
 import { applyProps, useFrame } from '@react-three/fiber'
 import { useGLTF, useCursor } from '@react-three/drei'
-import { useSizeScreen } from '../hooks'
+import { useSizeScreen } from '../../hooks'
 
 /*
 Author: Steven Grey (https://sketchfab.com/Steven007)
@@ -17,7 +14,14 @@ Source: https://sketchfab.com/3d-models/lamborghini-urus-2650599973b649ddb4460ff
 Title: Lamborghini Urus
 */
 
-const Lamborghini = (props) => {
+const Lamborghini = ({
+  handleCarHover,
+  lightsOn,
+  zoom,
+  lightEmmit,
+  rotation,
+  scale
+}) => {
   const { scene, nodes, materials } = useGLTF('/lambo.glb')
   const [stop, setStop] = useState(false)
   const [isHover, setIsHover] = useState(false)
@@ -26,38 +30,35 @@ const Lamborghini = (props) => {
   const v = new THREE.Vector3()
 
   function setZoomOnScreen() {
-    let zoom
+    let newZoom
     if (screen.isXS) {
-      zoom = 40
-      return zoom
+      newZoom = 40
+      return newZoom
     }
 
     if (screen.isS) {
-      zoom = 27
-      return zoom
+      newZoom = 27
+      return newZoom
     }
 
     return 24
   }
 
   function setCarHover(value) {
-    props.handleCarHover(value)
+    handleCarHover(value)
     setIsHover(value)
   }
 
   useCursor(isHover)
 
   useFrame((state) => {
-    if (props.lightsOn && !stop) {
-      state.camera.fov = THREE.MathUtils.lerp(
-        state.camera.fov,
-        props.zoom ? setZoomOnScreen() : 42,
+    if (lightsOn && !stop) {
+      const cameraFov = THREE.MathUtils.lerp(
+        cameraFov,
+        zoom ? setZoomOnScreen() : 42,
         0.05
       )
-      state.camera.position.lerp(
-        v.set(props.zoom ? 24 : 0, 0, props.zoom ? 0 : 15),
-        0.07
-      )
+      state.camera.position.lerp(v.set(zoom ? 24 : 0, 0, zoom ? 0 : 15), 0.07)
       state.camera.lookAt(0, 0, 0)
       state.camera.updateProjectionMatrix()
     }
@@ -97,11 +98,11 @@ const Lamborghini = (props) => {
     applyProps(materials.GreyElements, { metalness: 0, color: '#292929' })
     // Make front and tail LEDs emit light
     applyProps(materials.emitbrake, {
-      emissiveIntensity: props.lightEmmit,
+      emissiveIntensity: lightEmmit,
       toneMapped: false
     })
     applyProps(materials.LightsFrontLed, {
-      emissiveIntensity: props.lightEmmit,
+      emissiveIntensity: lightEmmit,
       toneMapped: false
     })
     // Paint, from yellow to black
@@ -113,12 +114,23 @@ const Lamborghini = (props) => {
       clearcoatRoughness: 0,
       clearcoat: 1
     })
-  }, [nodes, materials, props])
+  }, [
+    nodes,
+    materials.FrameBlack,
+    materials.Chrome,
+    materials.BreakDiscs,
+    materials.TiresGum,
+    materials.GreyElements,
+    materials.emitbrake,
+    materials.LightsFrontLed,
+    lightEmmit
+  ])
 
   return (
     <primitive
       object={scene}
-      {...props}
+      rotation={rotation}
+      scale={scale}
       position={[0, -0.5, -0.2]}
       onPointerOver={() => setCarHover(true)}
       onPointerOut={() => setCarHover(false)}
@@ -128,11 +140,11 @@ const Lamborghini = (props) => {
 
 Lamborghini.propTypes = {
   lightEmmit: number.isRequired,
-  active: bool.isRequired,
   zoom: bool.isRequired,
   lightsOn: bool.isRequired,
   handleCarHover: func.isRequired,
-  isCarHover: bool.isRequired
+  scale: number.isRequired,
+  rotation: arrayOf(number).isRequired
 }
 
 export default Lamborghini

@@ -2,7 +2,16 @@ import React, { useEffect, useMemo, useState } from 'react'
 import SceneContext from './context/SceneContext'
 import { Home } from './pages'
 import { fetchWorksData } from './utils/client'
+import EngineOn from './assets/audio/lamboEngineOn.mp3'
+import EngineOff from './assets/audio/lamboEngineOff.mp3'
 import './App.scss'
+
+export const audio = {
+  engine: {
+    on: new Audio(EngineOn),
+    off: new Audio(EngineOff)
+  }
+}
 
 const App = () => {
   const [lightTop, switchLightTop] = useState(false)
@@ -20,6 +29,8 @@ const App = () => {
   const [isCarHover, setIsCarHover] = useState(false)
   const [isZoomGallery, setIsZoomGallery] = useState(false)
   const [works, setWorks] = useState(null)
+  const [carLightEmissive, setCarLightEmissive] = useState(0)
+  const [isEngineOn, setIsEngineOn] = useState(false)
 
   useEffect(() => {
     const allLightsOn = lightTop && lightSide && lightFront
@@ -37,7 +48,7 @@ const App = () => {
 
   useEffect(() => {
     fetchWorksData().then((data) => setWorks(data))
-  }, [fetchWorksData])
+  }, [])
 
   const value = useMemo(
     () => ({
@@ -52,6 +63,8 @@ const App = () => {
         isCarHover,
         isZoomGallery,
         works,
+        isEngineOn,
+        carLightEmissive,
         steps: {
           isIntro,
           isSetup,
@@ -76,7 +89,9 @@ const App = () => {
         setIsModalOpen,
         setDataProject,
         setIsCarHover,
-        setIsZoomGallery
+        setIsZoomGallery,
+        setCarLightEmissive,
+        setIsEngineOn
       }
     }),
     [
@@ -93,9 +108,13 @@ const App = () => {
       isModalOpen,
       dataProject,
       isCarHover,
-      isZoomGallery
+      isZoomGallery,
+      works,
+      carLightEmissive,
+      isEngineOn
     ]
   )
+
   return (
     <SceneContext.Provider value={value}>
       <div className="app">

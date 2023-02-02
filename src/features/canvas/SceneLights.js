@@ -1,6 +1,6 @@
 import React from 'react'
 import { Lightformer } from '@react-three/drei'
-import { sceneLightsType } from '../types'
+import { sceneLightsType } from '../../types'
 
 const SceneLights = ({ scene }) => {
   return (
