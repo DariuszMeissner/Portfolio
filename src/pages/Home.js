@@ -11,28 +11,33 @@ import {
 import SceneContext from '../context/SceneContext'
 import PagesWrap from '../features/pages/PagesWrap'
 
-const homeStyle = {
-  overflow: 'hidden',
-  position: 'relative',
-  height: '100%'
+const style = {
+  container: {
+    overflow: 'hidden',
+    position: 'relative',
+    height: '100%'
+  },
+  overlay: {
+    top: '0px'
+  }
 }
 
 const Home = () => {
   const { scene } = useContext(SceneContext)
 
+  const overlayAnimations = {
+    height: !scene.steps.isOverview ? '30%' : '10%'
+  }
+
   return (
-    <div className="Home" style={homeStyle}>
+    <div className="Home" style={style.container}>
       {scene.steps.isIntro && (
         <Intro>
           <IntroContent />
         </Intro>
       )}
 
-      <Overlay
-        styles={{
-          top: '0px',
-          height: !scene.steps.isOverview ? '30%' : '10%'
-        }}>
+      <Overlay styles={{ ...style.overlay, ...overlayAnimations }}>
         {scene.steps.isOverview ? <Logo /> : null}
 
         {scene.steps.isSetup && !scene.steps.isOverview ? (

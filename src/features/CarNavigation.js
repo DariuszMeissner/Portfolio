@@ -6,11 +6,7 @@ import { StartStopEngine } from './index'
 import SceneContext from '../context/SceneContext'
 
 const initialState = {
-  emmisiveValue: 0,
   maxEmissiveCarLight: 4,
-  maxEmissiveSceneLight: 0.3,
-  sceneBg: 'black',
-  surfaceColor: '#212121',
   delayEngineSound: 600,
   delayCarLightsOn: 1000
 }
