@@ -3,13 +3,15 @@ import {
   Intro,
   IntroContent,
   Overlay,
-  CarNavigation,
+  CarNavigationSetupStep,
   Logo,
   NavigationWrap,
-  CanvasContainer
+  CanvasContainer,
+  LightsButtonsOverviewStep
 } from '../features'
 import PagesWrap from '../features/pages/PagesWrap'
 import { DataContext } from '../context/DataContext'
+import { SceneLightsContext } from '../context/SceneLightsContext'
 
 const style = {
   container: {
@@ -18,17 +20,20 @@ const style = {
     height: '100%'
   },
   overlay: {
-    top: '0px'
+    top: '0px',
+    height: '22%'
+  },
+  lightsButtons: {
+    display: 'flex',
+    justifyContent: 'center'
   }
 }
 
 const Home = () => {
   const { steps, pages, closeStepIntro, openStepSetup } =
     useContext(DataContext)
-
-  const overlayAnimations = {
-    height: !steps.isOverview ? '30%' : '10%'
-  }
+  const { setTopLight, setSideLight, setFrontLight } =
+    useContext(SceneLightsContext)
 
   return (
     <div className="Home" style={style.container}>
@@ -41,10 +46,19 @@ const Home = () => {
         </Intro>
       )}
 
-      <Overlay styles={{ ...style.overlay, ...overlayAnimations }}>
-        {steps.isOverview ? <Logo pages={pages} /> : null}
+      <Overlay styles={style.overlay}>
+        {steps.isOverview ? (
+          <>
+            <Logo pages={pages} />
 
-        {steps.isSetup && !steps.isOverview ? <CarNavigation /> : null}
+            <LightsButtonsOverviewStep
+              isOverview={steps.isOverview}
+              actions={{ setTopLight, setSideLight, setFrontLight }}
+            />
+          </>
+        ) : null}
+
+        {steps.isSetup && !steps.isOverview ? <CarNavigationSetupStep /> : null}
       </Overlay>
 
       <CanvasContainer />

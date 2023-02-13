@@ -1,11 +1,11 @@
-/* eslint-disable no-use-before-define */
 /* eslint-disable react/no-unknown-property */
 import React, { useMemo, useState } from 'react'
-import { bool, number, arrayOf } from 'prop-types'
+import { bool, number } from 'prop-types'
 import * as THREE from 'three'
 import { applyProps, useFrame } from '@react-three/fiber'
 import { useGLTF, useCursor } from '@react-three/drei'
 import { useSizeScreen } from '../../hooks'
+import SETTINGS from '../../utils/settings'
 
 /*
 Author: Steven Grey (https://sketchfab.com/Steven007)
@@ -14,49 +14,31 @@ Source: https://sketchfab.com/3d-models/lamborghini-urus-2650599973b649ddb4460ff
 Title: Lamborghini Urus
 */
 
-const Lamborghini = ({ lightsOn, zoom, lightEmmit, rotation, scale }) => {
+const Lamborghini = ({ lightsOn, zoom, lightEmmit }) => {
   const { scene, nodes, materials } = useGLTF('/lambo.glb')
-  const [stop, setStop] = useState(false)
-  const [isHover, setIsHover] = useState(false)
+  const [stopZoom, setStopZoom] = useState(false)
+  const [isCarHover, setIsCarHover] = useState(false)
   const screen = useSizeScreen()
 
   const v = new THREE.Vector3()
 
-  function setZoomOnScreen() {
-    let newZoom
-    if (screen.isXS) {
-      newZoom = 40
-      return newZoom
-    }
+  const valueZoomOnScreenSize = screen.isXS ? 33 : 28
+  const valueOfStopZoom = screen.isXS ? 32 : 27
 
-    if (screen.isS) {
-      newZoom = 27
-      return newZoom
-    }
-
-    return 24
-  }
-
-  function setCarHover(value) {
-    setIsHover(value)
-  }
-
-  useCursor(isHover)
+  useCursor(isCarHover)
 
   useFrame((state) => {
-    if (lightsOn && !stop) {
-      const cameraFov = THREE.MathUtils.lerp(
-        cameraFov,
-        zoom ? setZoomOnScreen() : 42,
-        0.05
+    if (lightsOn && !stopZoom) {
+      state.camera.position.lerp(
+        v.set(zoom ? valueZoomOnScreenSize : 0, 0, zoom ? 0 : 15),
+        0.07
       )
-      state.camera.position.lerp(v.set(zoom ? 24 : 0, 0, zoom ? 0 : 15), 0.07)
       state.camera.lookAt(0, 0, 0)
       state.camera.updateProjectionMatrix()
     }
 
-    if (state.camera.position.x >= 23) {
-      setStop(true)
+    if (state.camera.position.x >= valueOfStopZoom) {
+      setStopZoom(true)
     }
   })
 
@@ -122,11 +104,10 @@ const Lamborghini = ({ lightsOn, zoom, lightEmmit, rotation, scale }) => {
   return (
     <primitive
       object={scene}
-      rotation={rotation}
-      scale={scale}
-      position={[0, -0.5, -0.2]}
-      onPointerOver={() => setCarHover(true)}
-      onPointerOut={() => setCarHover(false)}
+      scale={SETTINGS.car.scale}
+      position={SETTINGS.car.position}
+      onPointerOver={() => setIsCarHover(true)}
+      onPointerOut={() => setIsCarHover(false)}
     />
   )
 }
@@ -134,9 +115,7 @@ const Lamborghini = ({ lightsOn, zoom, lightEmmit, rotation, scale }) => {
 Lamborghini.propTypes = {
   lightEmmit: number.isRequired,
   zoom: bool.isRequired,
-  lightsOn: bool.isRequired,
-  scale: number.isRequired,
-  rotation: arrayOf(number).isRequired
+  lightsOn: bool.isRequired
 }
 
 export default Lamborghini

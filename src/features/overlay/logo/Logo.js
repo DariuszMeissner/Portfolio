@@ -34,7 +34,7 @@ const Logo = ({ pages }) => {
 
   useTimeout(() => {
     setInLogo(true)
-  }, 500)
+  }, 900)
 
   return (
     <Layout styles={style.layout}>

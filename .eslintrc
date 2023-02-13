@@ -11,6 +11,9 @@
     "browser": true,
     "node": true
   },
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
   "settings": {
     "import/extensions": [
       "error",
