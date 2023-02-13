@@ -5,15 +5,14 @@ const style = {
   buttonPosition: {
     border: 'none',
     outline: '5px solid gray',
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     borderRadius: '50%',
-    cursor: 'pointer',
-    marginLeft: 40
+    cursor: 'pointer'
   },
   button: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 14,
     letterSpacing: 1,
     textTransform: 'uppercase',
     display: 'flex',

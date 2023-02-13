@@ -1,12 +1,12 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import React, { useEffect, useRef, useState, useMemo } from 'react'
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
 import { useLocation, useRoute } from 'wouter'
-import { func, bool, shape, number } from 'prop-types'
+import { func, bool } from 'prop-types'
 import { listsType } from '../../types'
 import Gallery3DItem from './Gallery3DItem'
+import SETTINGS from '../../utils/settings'
 
 const Gallery3D = ({
   setDataProject,
@@ -23,6 +23,7 @@ const Gallery3D = ({
   const [, setLocation] = useLocation()
   const [startUseFrame, setStartUseFrame] = useState(false)
   const [isMainView, setIsMainView] = useState(true)
+  const [isShowed, setIsShowed] = useState(true)
 
   const q = useMemo(() => {
     return new THREE.Quaternion()
@@ -32,7 +33,7 @@ const Gallery3D = ({
     return new THREE.Vector3()
   }, [])
 
-  function onClick(e) {
+  function onClickOnProject(e) {
     e.stopPropagation()
     setLocation(
       clickedRef.current === e.object ? '/' : `/item/${e.object.name}`
@@ -41,9 +42,17 @@ const Gallery3D = ({
     setZoomGalleryOn()
   }
 
+  function hideGallery3DWhenBehind(param) {
+    if (param.camera.position.x <= 3.1) {
+      setIsShowed(false)
+    } else {
+      setIsShowed(true)
+    }
+  }
+
   useEffect(() => {
     if (params) {
-      clickedRef.current = groupRef.current.getObjectByName(params.id)
+      clickedRef.current = groupRef.current.getObjectByName(params?.id)
     }
 
     if (clickedRef.current && params) {
@@ -53,31 +62,39 @@ const Gallery3D = ({
       setIsMainView(false)
     } else {
       setIsMainView(true)
-      p.set(0, 2, 25)
+      p.set(0, 2, 28)
       q.identity()
     }
   }, [params, p, q])
 
-  useFrame((state, dt) => {
+  function zoomIn(state, dt) {
     if (clickedRef.current && startUseFrame && !isMainView) {
       state.camera.position.lerp(p, 0.4, dt)
       state.camera.quaternion.slerp(q, 0.4, dt)
     }
+  }
 
+  function zoomOut(state) {
     if (clickedRef.current && startUseFrame && isMainView) {
-      state.camera.position.lerp(p.set(25, 2, 0), 1)
+      state.camera.position.lerp(p.set(28, 2, 0), 1)
 
       clickedRef.current = null
       setZoomGalleryOff()
     }
+  }
+
+  useFrame((state, dt) => {
+    zoomIn(state, dt)
+    zoomOut(state)
+    hideGallery3DWhenBehind(state)
   })
 
-  return (
+  return isShowed ? (
     <group
       ref={groupRef}
-      position={[-6, 1, 0]}
-      rotation={[0, Math.PI / 2, 0]}
-      onClick={(e) => onClick(e)}
+      position={SETTINGS.gallery3D.position}
+      rotation={SETTINGS.gallery3D.rotation}
+      onClick={(e) => onClickOnProject(e)}
       onPointerMissed={() => setLocation('/')}>
       {works.data.map((item) => (
         <Gallery3DItem
@@ -90,7 +107,7 @@ const Gallery3D = ({
         />
       ))}
     </group>
-  )
+  ) : null
 }
 
 Gallery3D.propTypes = {

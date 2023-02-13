@@ -1,43 +1,47 @@
 import React from 'react'
 import { bool, func } from 'prop-types'
-import { Html } from '@react-three/drei'
 
 const style = {
-  cursor: 'pointer',
-  background: 'white',
-  fontSize: 14,
-  padding: '5px 10px',
-  border: 'none'
+  container: {
+    position: 'absolute',
+    right: 0,
+    top: '10vh',
+    zIndex: 5
+  },
+  button: {
+    cursor: 'pointer',
+    background: 'white',
+    fontSize: 14,
+    padding: '5px 10px',
+    border: 'none'
+  },
+  subtitle: {
+    fontSize: 12
+  }
 }
 
-const AudioOnOff = ({ isMuted, handleMute }) => {
+const AudioOnOff = ({ isMuted, setMuteAudio }) => {
   const styleAnimation = {
     background: isMuted ? '#f8a7a7' : 'white',
     transition: 'background 300ms ease'
   }
 
   return (
-    <mesh>
-      <Html
-        zIndexRange={1}
-        style={{
-          position: 'absolute',
-          right: '-50vw'
-        }}>
-        <button
-          type="button"
-          onClick={() => handleMute((prev) => !prev)}
-          style={{ ...style, ...styleAnimation }}>
-          {isMuted ? 'Audio Off' : 'Audio On'}
-        </button>
-      </Html>
-    </mesh>
+    <div style={style.container}>
+      <button
+        type="button"
+        onClick={() => setMuteAudio()}
+        style={{ ...style.button, ...styleAnimation }}>
+        <span>{isMuted ? 'Audio Off' : 'Audio On'}</span>
+        <div style={style.subtitle}>click to&nbsp;{isMuted ? 'On' : 'Off'}</div>
+      </button>
+    </div>
   )
 }
 
 AudioOnOff.propTypes = {
   isMuted: bool.isRequired,
-  handleMute: func.isRequired
+  setMuteAudio: func.isRequired
 }
 
 export default AudioOnOff

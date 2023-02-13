@@ -17,7 +17,7 @@ const Gallery3DItem = ({
   isZoomGallery
 }) => {
   const [isHover, setIsHover] = useState(false)
-  const name = getUuid(item.thumbnail)
+  const name = getUuid(item.title)
 
   const colorMap = useLoader(TextureLoader, item.thumbnail)
 

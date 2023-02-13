@@ -9,7 +9,7 @@ import NavigationWrap from './overlay/navigation/NavigationWrap'
 import Logo from './overlay/logo/Logo'
 import Lamborghini from './canvas/Lamborghini'
 import EffectsColor from './canvas/EffectsColor'
-import CarNavigation from './CarNavigation'
+import CarNavigationSetupStep from './CarNavigationSetupStep'
 import WorksItem from './works/WorksItem'
 import WorksContent from './works/WorksContent'
 import WorksItemModal from './works/WorksItemModal'
@@ -27,6 +27,8 @@ import Gallery3D from './gallery/Gallery3D'
 import Gallery3DItem from './gallery/Gallery3DItem'
 import AudioOnOff from './canvas/AudioOnOff'
 import CanvasContainer from './canvas/CanvasContainer'
+import LightsButtons from './LightsButtons'
+import LightsButtonsOverviewStep from './overlay/LightsButtonsOverviewStep'
 
 export {
   CanvasContainer,
@@ -40,10 +42,12 @@ export {
   Logo,
   // scene
   StartStopEngine,
+  LightsButtons,
+  LightsButtonsOverviewStep,
   SceneLights,
   Lamborghini,
   EffectsColor,
-  CarNavigation,
+  CarNavigationSetupStep,
   TechStackList,
   AudioOnOff,
   // gallery

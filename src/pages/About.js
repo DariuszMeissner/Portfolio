@@ -1,6 +1,6 @@
 import React from 'react'
 import { Close, Link, Layout, Button } from '../components'
-import { useImageLoad } from '../hooks'
+import { useImageLoad, useSizeScreen } from '../hooks'
 import { pageType } from '../types'
 
 const style = {
@@ -12,24 +12,23 @@ const style = {
   },
   layout: {
     maxWidth: '1200px',
-    padding: '40px 20px',
-    display: 'flex'
+    padding: '50px 20px',
+    display: 'flex',
+    flexWrap: 'wrap'
   },
   info: {
     container: {
-      padding: 10,
-      paddingLeft: 40
+      padding: 10
     },
     image: {
       width: 'auto',
-      height: 300
+      paddingRight: 40
     },
     subtitle: {
       marginBottom: 40
     },
     cv: {
-      display: 'flex',
-      marginBottom: 40
+      display: 'flex'
     },
     projects: {
       display: 'flex'
@@ -39,6 +38,16 @@ const style = {
 
 const About = ({ closePage, openWorksPage }) => {
   const [isImage] = useImageLoad('./profile_cv.png')
+  const screen = useSizeScreen()
+
+  const styleOnXS = {
+    image: {
+      height: screen.isXS || screen.isS ? 150 : 300
+    },
+    cv: {
+      marginBottom: screen.isXS || screen.isS ? 20 : 40
+    }
+  }
 
   const handleGoToWorksPage = () => {
     closePage()
@@ -54,7 +63,7 @@ const About = ({ closePage, openWorksPage }) => {
           <img
             src="./profile_cv.png"
             alt="profile_image"
-            style={style.info.image}
+            style={{ ...style.info.image, ...styleOnXS.image }}
           />
         ) : (
           <span>loading image...</span>
@@ -67,7 +76,7 @@ const About = ({ closePage, openWorksPage }) => {
           <p>I like builde something by code with library React.</p>
           <p>{`I'm interesting web development, games, ux/ui design and computer graphics.`}</p>
 
-          <div style={style.info.cv}>
+          <div style={{ ...style.info.cv, ...styleOnXS.cv }}>
             <p>If you want to read about me more,&nbsp;</p>
             <Link
               href="https://www.linkedin.com/in/dariusz-robert-meissner/"

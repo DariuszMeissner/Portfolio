@@ -1,39 +1,75 @@
-import React, { createContext, useMemo, useReducer, useCallback } from 'react'
+import React, {
+  createContext,
+  useMemo,
+  useReducer,
+  useCallback,
+  useEffect
+} from 'react'
 import { node } from 'prop-types'
+import EngineOn from '../assets/audio/lamboEngineOn.mp3'
+import EngineOnLoop from '../assets/audio/lamboEngineOnLoop.mp3'
+import EngineOff from '../assets/audio/lamboEngineOff.mp3'
 
 export const actions = {
   LIGHT_EMISSIVE: 'LIGHT_EMISSIVE',
   ZOOM_GALLERY_ON: 'ZOOM_GALLERY_ON',
   ZOOM_GALLERY_OFF: 'ZOOM_GALLERY_OFF',
   ENGINE_OFF: 'ENGINE_OFF',
-  ENGINE_ON: 'ENGINE_ON'
+  ENGINE_ON: 'ENGINE_ON',
+  MUTE: 'MUTE',
+  START_STOP_ENGINE: 'START_STOP_ENGINE'
 }
 
 const SCENE_CAR_INITIAL_STATE = {
   lightEmissive: 0,
   isZoomGallery: false,
-  isEngineOn: false
+  isEngineOn: false,
+  isMuted: false,
+  isClickedStartButton: null
+}
+
+export const audio = {
+  engine: {
+    on: new Audio(EngineOn),
+    onLoop: new Audio(EngineOnLoop),
+    off: new Audio(EngineOff)
+  }
 }
 
 const SceneCarContext = createContext()
 
 const sceneCarReducer = (state, action) => {
   switch (action.type) {
-    case actions.LIGHT_EMISSIVE: {
+    case actions.START_STOP_ENGINE: {
       return {
         ...state,
-        lightEmissive: state.lightEmissive + action.payload
+        isClickedStartButton: !state.isClickedStartButton
       }
     }
     case actions.ENGINE_ON: {
+      if (!state.isEngineOn) {
+        audio.engine.on.play()
+      }
+
       return {
         ...state,
+        lightEmissive: 8,
         isEngineOn: true
       }
     }
     case actions.ENGINE_OFF: {
+      if (state.isEngineOn) {
+        audio.engine.on.currentTime = 0
+        audio.engine.on.pause()
+
+        audio.engine.onLoop.currentTime = 0
+        audio.engine.onLoop.pause()
+
+        audio.engine.off.play()
+      }
       return {
         ...state,
+        lightEmissive: 0,
         isEngineOn: false
       }
     }
@@ -49,6 +85,21 @@ const sceneCarReducer = (state, action) => {
         isZoomGallery: false
       }
     }
+    case actions.MUTE: {
+      if (state.isMuted) {
+        audio.engine.on.muted = false
+        audio.engine.onLoop.muted = false
+        audio.engine.off.muted = false
+      } else {
+        audio.engine.on.muted = true
+        audio.engine.onLoop.muted = true
+        audio.engine.off.muted = true
+      }
+      return {
+        ...state,
+        isMuted: !state.isMuted
+      }
+    }
     default:
       return state
   }
@@ -56,6 +107,27 @@ const sceneCarReducer = (state, action) => {
 
 const SceneCarContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(sceneCarReducer, SCENE_CAR_INITIAL_STATE)
+
+  function startLoop() {
+    audio.engine.onLoop.play()
+    audio.engine.onLoop.loop = true
+  }
+
+  useEffect(() => {
+    if (state.isClickedStartButton) {
+      dispatch({ type: actions.ENGINE_ON })
+    } else {
+      dispatch({ type: actions.ENGINE_OFF })
+    }
+  }, [state.isClickedStartButton])
+
+  useEffect(() => {
+    audio.engine.on.addEventListener('ended', () => startLoop())
+
+    return () => {
+      audio.engine.on.removeEventListener('ended', () => startLoop())
+    }
+  }, [])
 
   const setCarLightEmissive = useCallback((value) => {
     dispatch({ type: actions.LIGHT_EMISSIVE, payload: value })
@@ -77,6 +149,14 @@ const SceneCarContextProvider = ({ children }) => {
     dispatch({ type: actions.ENGINE_OFF })
   }, [])
 
+  const setMuteAudio = useCallback(() => {
+    dispatch({ type: actions.MUTE })
+  }, [])
+
+  const startStopEngine = useCallback(() => {
+    dispatch({ type: actions.START_STOP_ENGINE })
+  }, [])
+
   const contextValue = useMemo(
     () => ({
       carState: {
@@ -87,16 +167,20 @@ const SceneCarContextProvider = ({ children }) => {
         setZoomGalleryOn,
         setZoomGalleryOff,
         setEngineOn,
-        setEngineOff
+        setEngineOff,
+        setMuteAudio,
+        startStopEngine
       }
     }),
     [
       setCarLightEmissive,
       setEngineOff,
       setEngineOn,
+      setMuteAudio,
       setZoomGalleryOff,
       setZoomGalleryOn,
-      state
+      state,
+      startStopEngine
     ]
   )
 
