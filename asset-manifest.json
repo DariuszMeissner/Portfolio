@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/Portfolio/static/css/main.d23a7977.css",
+    "main.js": "/Portfolio/static/js/main.af0e403e.js",
+    "static/media/lamboEngineOn.mp3": "/Portfolio/static/media/lamboEngineOn.f7d39e4a3976457b0004.mp3",
+    "static/media/lamboEngineOnLoop.mp3": "/Portfolio/static/media/lamboEngineOnLoop.5626f582ea42db6d2bee.mp3",
+    "static/media/caveat-v17-latin-600.svg": "/Portfolio/static/media/caveat-v17-latin-600.5713ca875c0ef1e28a8e.svg",
+    "static/media/caveat-v17-latin-600.ttf": "/Portfolio/static/media/caveat-v17-latin-600.540087c0843aef7080e1.ttf",
+    "static/media/ubuntu-v20-latin-300.ttf": "/Portfolio/static/media/ubuntu-v20-latin-300.f938da9eef5873561e82.ttf",
+    "static/media/quicksand-v30-latin-regular.svg": "/Portfolio/static/media/quicksand-v30-latin-regular.0657548d61d10de5c9dd.svg",
+    "static/media/ubuntu-v20-latin-regular.ttf": "/Portfolio/static/media/ubuntu-v20-latin-regular.254e551b53a2ccebe384.ttf",
+    "static/media/ubuntu-v20-latin-300.svg": "/Portfolio/static/media/ubuntu-v20-latin-300.64a7c2f3fb73ee4d3296.svg",
+    "static/media/ubuntu-v20-latin-regular.svg": "/Portfolio/static/media/ubuntu-v20-latin-regular.f00252d5cc9aed7459bd.svg",
+    "static/media/caveat-v17-latin-600.woff": "/Portfolio/static/media/caveat-v17-latin-600.73c6091fce0b9624ce7b.woff",
+    "static/media/caveat-v17-latin-600.eot": "/Portfolio/static/media/caveat-v17-latin-600.8a46eaa1084f4f2c1b80.eot",
+    "static/media/caveat-v17-latin-600.woff2": "/Portfolio/static/media/caveat-v17-latin-600.6a29f50da3c3d26a604a.woff2",
+    "static/media/ubuntu-v20-latin-300.woff": "/Portfolio/static/media/ubuntu-v20-latin-300.22bdf3cf17e38c65bd0c.woff",
+    "static/media/ubuntu-v20-latin-regular.woff": "/Portfolio/static/media/ubuntu-v20-latin-regular.6a317272decf6d247038.woff",
+    "static/media/ubuntu-v20-latin-300.woff2": "/Portfolio/static/media/ubuntu-v20-latin-300.3a51f6c263fa234cd08c.woff2",
+    "static/media/lamboEngineOff.mp3": "/Portfolio/static/media/lamboEngineOff.63459c9b1ca01013ee20.mp3",
+    "static/media/ubuntu-v20-latin-300.eot": "/Portfolio/static/media/ubuntu-v20-latin-300.d372883b58498a54e3c6.eot",
+    "static/media/ubuntu-v20-latin-regular.woff2": "/Portfolio/static/media/ubuntu-v20-latin-regular.2f02effe392a63dc07a5.woff2",
+    "static/media/ubuntu-v20-latin-regular.eot": "/Portfolio/static/media/ubuntu-v20-latin-regular.5fa0d860656d0e40c086.eot",
+    "static/media/quicksand-v30-latin-regular.ttf": "/Portfolio/static/media/quicksand-v30-latin-regular.79d63d7f5e00e4ee7e65.ttf",
+    "static/media/quicksand-v30-latin-regular.woff": "/Portfolio/static/media/quicksand-v30-latin-regular.93407d2bd8362bcdd29f.woff",
+    "static/media/quicksand-v30-latin-regular.eot": "/Portfolio/static/media/quicksand-v30-latin-regular.02610ae9e00af06fc7fc.eot",
+    "static/media/quicksand-v30-latin-regular.woff2": "/Portfolio/static/media/quicksand-v30-latin-regular.cef2e5802d843cf31dba.woff2",
+    "index.html": "/Portfolio/index.html",
+    "main.d23a7977.css.map": "/Portfolio/static/css/main.d23a7977.css.map",
+    "main.af0e403e.js.map": "/Portfolio/static/js/main.af0e403e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d23a7977.css",
+    "static/js/main.af0e403e.js"
+  ]
+}
