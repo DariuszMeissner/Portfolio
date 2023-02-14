@@ -2,20 +2,20 @@
   "data": [
     {
       "id": 2,
-      "thumbnail": "Portfolio/images/thumbnails/store-thumbnail.png",
+      "thumbnail": "images/thumbnails/store-thumbnail.png",
       "images": [
-        "Portfolio/images/react-store/store1.png",
-        "Portfolio/images/react-store/store2.png",
-        "Portfolio/images/react-store/store3.png",
-        "Portfolio/images/react-store/store4.png",
-        "Portfolio/images/react-store/store5.png",
-        "Portfolio/images/react-store/store6.png",
-        "Portfolio/images/react-store/store7.png",
-        "Portfolio/images/react-store/store8.png",
-        "Portfolio/images/react-store/store9.png",
-        "Portfolio/images/react-store/store10.png",
-        "Portfolio/images/react-store/store11.png",
-        "Portfolio/images/react-store/store12.png"
+        "images/react-store/store1.png",
+        "images/react-store/store2.png",
+        "images/react-store/store3.png",
+        "images/react-store/store4.png",
+        "images/react-store/store5.png",
+        "images/react-store/store6.png",
+        "images/react-store/store7.png",
+        "images/react-store/store8.png",
+        "images/react-store/store9.png",
+        "images/react-store/store10.png",
+        "images/react-store/store11.png",
+        "images/react-store/store12.png"
       ],
       "linkDemo": "https://dariuszmeissner.github.io/React-Store-theme/",
       "linkGithub": "https://github.com/DariuszMeissner/React-Store-theme",
@@ -59,14 +59,14 @@
     },
     {
       "id": 3,
-      "thumbnail": "Portfolio/images/thumbnails/speedClick-thumbnail.png",
+      "thumbnail": "images/thumbnails/speedClick-thumbnail.png",
       "images": [
-        "Portfolio/images/speed-click/speedClick1.png",
-        "Portfolio/images/speed-click/speedClick2.png",
-        "Portfolio/images/speed-click/speedClick3.png",
-        "Portfolio/images/speed-click/speedClick4.png",
-        "Portfolio/images/speed-click/speedClick5.png",
-        "Portfolio/images/speed-click/speedClick6.png"
+        "images/speed-click/speedClick1.png",
+        "images/speed-click/speedClick2.png",
+        "images/speed-click/speedClick3.png",
+        "images/speed-click/speedClick4.png",
+        "images/speed-click/speedClick5.png",
+        "images/speed-click/speedClick6.png"
       ],
       "linkDemo": "https://dariuszmeissner.github.io/SpeedClick-React/",
       "linkGithub": "https://github.com/DariuszMeissner/SpeedClick-React",
@@ -88,7 +88,7 @@
     },
     {
       "id": 4,
-      "thumbnail": "Portfolio/images/thumbnails/textEditor-thumbnail.png",
+      "thumbnail": "images/thumbnails/textEditor-thumbnail.png",
       "images": [""],
       "linkDemo": "https://dariuszmeissner.github.io/Online-text-editor/",
       "linkGithub": "https://github.com/DariuszMeissner/Online-text-editor",
@@ -118,14 +118,14 @@
     },
     {
       "id": 5,
-      "thumbnail": "Portfolio/images/thumbnails/meal-planner-thumbnail.png",
+      "thumbnail": "images/thumbnails/meal-planner-thumbnail.png",
       "images": [
-        "Portfolio/images/meal-planner/meal-planner1.png",
-        "Portfolio/images/meal-planner/meal-planner2.png",
-        "Portfolio/images/meal-planner/meal-planner3.png",
-        "Portfolio/images/meal-planner/meal-planner4.png",
-        "Portfolio/images/meal-planner/meal-planner5.png",
-        "Portfolio/images/meal-planner/meal-planner6.png"
+        "images/meal-planner/meal-planner1.png",
+        "images/meal-planner/meal-planner2.png",
+        "images/meal-planner/meal-planner3.png",
+        "images/meal-planner/meal-planner4.png",
+        "images/meal-planner/meal-planner5.png",
+        "images/meal-planner/meal-planner6.png"
       ],
       "linkDemo": "https://dariuszmeissner.github.io/Meal-Planner-App-JS/app.html",
       "linkGithub": "https://github.com/DariuszMeissner/Meal-Planner-App-JS",
@@ -153,15 +153,15 @@
     },
     {
       "id": 6,
-      "thumbnail": "Portfolio/images/thumbnails/bestshop-thumbnail.png",
+      "thumbnail": "images/thumbnails/bestshop-thumbnail.png",
       "images": [
-        "Portfolio/images/bestshop/bestshop-layout1.jpg",
-        "Portfolio/images/bestshop/bestshop-layout2.jpg",
-        "Portfolio/images/bestshop/bestshop-layout3.jpg",
-        "Portfolio/images/bestshop/bestshop-layout4.jpg",
-        "Portfolio/images/bestshop/bestshop-layout5.jpg",
-        "Portfolio/images/bestshop/bestshop-layout6.jpg",
-        "Portfolio/images/bestshop/bestshop-layout7.jpg"
+        "images/bestshop/bestshop-layout1.jpg",
+        "images/bestshop/bestshop-layout2.jpg",
+        "images/bestshop/bestshop-layout3.jpg",
+        "images/bestshop/bestshop-layout4.jpg",
+        "images/bestshop/bestshop-layout5.jpg",
+        "images/bestshop/bestshop-layout6.jpg",
+        "images/bestshop/bestshop-layout7.jpg"
       ],
       "linkDemo": "https://dariuszmeissner.github.io/BestShop-web-app/",
       "linkGithub": "https://github.com/DariuszMeissner/BestShop-web-app",
