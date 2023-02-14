@@ -1,13 +1,16 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { useLoader } from '@react-three/fiber'
-import * as THREE from 'three'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
-import { useCursor, Image, Html, Text3D, Center, Text } from '@react-three/drei'
+import { useCursor, Html, Text3D, Center } from '@react-three/drei'
 import getUuid from 'uuid-by-string'
 import { bool, func } from 'prop-types'
 import { worksItemType } from '../../types'
+
+const style = {
+  moreButon: { fontSize: 1.8, cursor: 'pointer', border: 'none', padding: 2 },
+  hintToZoom: { fontSize: 4, cursor: 'pointer', border: 'none' }
+}
 
 const Gallery3DItem = ({
   item,
@@ -17,7 +20,7 @@ const Gallery3DItem = ({
   isZoomGallery
 }) => {
   const [isHover, setIsHover] = useState(false)
-  const name = getUuid(item.title)
+  const nameItem = getUuid(item.title)
 
   const colorMap = useLoader(TextureLoader, item.thumbnail)
 
@@ -40,7 +43,7 @@ const Gallery3DItem = ({
   return (
     <group position={item.position} rotation={item.rotation}>
       <mesh
-        name={name}
+        name={nameItem}
         onPointerOver={(e) => onPointerOver(e)}
         onPointerOut={() => setIsHover(false)}
         scale={setScaleOnHover}
@@ -60,12 +63,7 @@ const Gallery3DItem = ({
             <button
               onClick={() => handleOpenModal()}
               type="button"
-              style={{
-                fontSize: 1.8,
-                cursor: 'pointer',
-                border: 'none',
-                padding: 2
-              }}>
+              style={style.moreButon}>
               See more
             </button>
           </Html>
@@ -73,9 +71,7 @@ const Gallery3DItem = ({
 
         {isHover && !isZoomGallery && (
           <Html transform zIndexRange={1} position={[0, 0, 0]}>
-            <div style={{ fontSize: 4, cursor: 'pointer', border: 'none' }}>
-              Click to zoom
-            </div>
+            <div style={style.hintToZoom}>Click to zoom</div>
           </Html>
         )}
       </mesh>

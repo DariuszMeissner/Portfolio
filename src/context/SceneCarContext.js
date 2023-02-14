@@ -113,13 +113,17 @@ const SceneCarContextProvider = ({ children }) => {
     audio.engine.onLoop.loop = true
   }
 
-  useEffect(() => {
+  const detectAndStartStopEngine = useCallback(() => {
     if (state.isClickedStartButton) {
       dispatch({ type: actions.ENGINE_ON })
     } else {
       dispatch({ type: actions.ENGINE_OFF })
     }
   }, [state.isClickedStartButton])
+
+  useEffect(() => {
+    detectAndStartStopEngine()
+  }, [detectAndStartStopEngine, state.isClickedStartButton])
 
   useEffect(() => {
     audio.engine.on.addEventListener('ended', () => startLoop())

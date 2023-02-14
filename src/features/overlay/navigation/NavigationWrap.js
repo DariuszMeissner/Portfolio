@@ -47,13 +47,18 @@ const NavigationWrap = () => {
         onEnter={() => setInNavigation(true)}
         onExited={() => setInNavigation(false)}>
         <div ref={navigationRef}>
-          <div
-            style={{ ...style.buttonStartStop, ...styleButtonStartStopScreen }}>
-            <StartStopEngine
-              handleStartEngine={carActions.startStopEngine}
-              isOverview={steps.isOverview}
-            />
-          </div>
+          {!carState.isZoomGallery && (
+            <div
+              style={{
+                ...style.buttonStartStop,
+                ...styleButtonStartStopScreen
+              }}>
+              <StartStopEngine
+                handleStartEngine={carActions.startStopEngine}
+                isOverview={steps.isOverview}
+              />
+            </div>
+          )}
 
           <Navigation
             openAboutPage={() => openPageAbout()}
