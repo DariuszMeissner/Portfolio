@@ -6,6 +6,7 @@ import { TECH_STACK_LIST } from '../../utils'
 const TechStackList = () => {
   return (
     <>
+      {/* on right */}
       <Text3D
         font="./fonts/Open Sans_Regular.json"
         scale={0.16}
@@ -50,6 +51,8 @@ const TechStackList = () => {
         {TECH_STACK_LIST.html}
         <meshStandardMaterial color="white" />
       </Text3D>
+      {/* on right */}
+
       {/* center */}
       <Text3D
         font="./fonts/Open Sans_Regular.json"
@@ -59,7 +62,9 @@ const TechStackList = () => {
         SWIPE CAR
         <meshStandardMaterial color="white" />
       </Text3D>
+      {/* center */}
 
+      {/* on left */}
       <Text3D
         font="./fonts/Open Sans_Regular.json"
         scale={0.16}
@@ -111,6 +116,24 @@ const TechStackList = () => {
         position={[-2.3, -1.9, -4]}
         rotation={[0, 22.7, 0]}>
         {TECH_STACK_LIST.reactRouter}
+        <meshStandardMaterial color="white" />
+      </Text3D>
+
+      <Text3D
+        font="./fonts/Open Sans_Regular.json"
+        scale={0.16}
+        position={[-3.75, -1.9, -2.6]}
+        rotation={[0, 23.1, 0]}>
+        {TECH_STACK_LIST.hooks}
+        <meshStandardMaterial color="white" />
+      </Text3D>
+
+      <Text3D
+        font="./fonts/Open Sans_Regular.json"
+        scale={0.16}
+        position={[-4.55, -1.9, -0.7]}
+        rotation={[0, 23.55, 0]}>
+        {TECH_STACK_LIST.customHooks}
         <meshStandardMaterial color="white" />
       </Text3D>
     </>

@@ -27,7 +27,7 @@ const Lamborghini = ({ lightsOn, zoom, lightEmmit }) => {
 
   useCursor(isCarHover)
 
-  useFrame((state) => {
+  function moveCameraWhenLightsOn(state) {
     if (lightsOn && !stopZoom) {
       state.camera.position.lerp(
         v.set(zoom ? valueZoomOnScreenSize : 0, 0, zoom ? 0 : 15),
@@ -36,10 +36,17 @@ const Lamborghini = ({ lightsOn, zoom, lightEmmit }) => {
       state.camera.lookAt(0, 0, 0)
       state.camera.updateProjectionMatrix()
     }
+  }
 
+  function stopCameraMoving(state) {
     if (state.camera.position.x >= valueOfStopZoom) {
       setStopZoom(true)
     }
+  }
+
+  useFrame((state) => {
+    moveCameraWhenLightsOn(state)
+    stopCameraMoving(state)
   })
 
   useMemo(() => {

@@ -12,6 +12,7 @@ import {
 import PagesWrap from '../features/pages/PagesWrap'
 import { DataContext } from '../context/DataContext'
 import { SceneLightsContext } from '../context/SceneLightsContext'
+import { SceneCarContext } from '../context/SceneCarContext'
 
 const style = {
   container: {
@@ -34,6 +35,7 @@ const Home = () => {
     useContext(DataContext)
   const { setTopLight, setSideLight, setFrontLight } =
     useContext(SceneLightsContext)
+  const { carState } = useContext(SceneCarContext)
 
   return (
     <div className="Home" style={style.container}>
@@ -51,10 +53,12 @@ const Home = () => {
           <>
             <Logo pages={pages} />
 
-            <LightsButtonsOverviewStep
-              isOverview={steps.isOverview}
-              actions={{ setTopLight, setSideLight, setFrontLight }}
-            />
+            {!carState.isZoomGallery && (
+              <LightsButtonsOverviewStep
+                isOverview={steps.isOverview}
+                actions={{ setTopLight, setSideLight, setFrontLight }}
+              />
+            )}
           </>
         ) : null}
 

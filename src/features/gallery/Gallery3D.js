@@ -23,7 +23,7 @@ const Gallery3D = ({
   const [, setLocation] = useLocation()
   const [startUseFrame, setStartUseFrame] = useState(false)
   const [isMainView, setIsMainView] = useState(true)
-  const [isShowed, setIsShowed] = useState(true)
+  const [isShowedGallery, setIsShowedGallery] = useState(true)
 
   const q = useMemo(() => {
     return new THREE.Quaternion()
@@ -33,7 +33,7 @@ const Gallery3D = ({
     return new THREE.Vector3()
   }, [])
 
-  function onClickOnProject(e) {
+  function onClickOnProjectSaveCurrentData(e) {
     e.stopPropagation()
     setLocation(
       clickedRef.current === e.object ? '/' : `/item/${e.object.name}`
@@ -42,11 +42,11 @@ const Gallery3D = ({
     setZoomGalleryOn()
   }
 
-  function hideGallery3DWhenBehind(param) {
+  function hideGallery3DWhenCameraBehind(param) {
     if (param.camera.position.x <= 3.1) {
-      setIsShowed(false)
+      setIsShowedGallery(false)
     } else {
-      setIsShowed(true)
+      setIsShowedGallery(true)
     }
   }
 
@@ -67,14 +67,14 @@ const Gallery3D = ({
     }
   }, [params, p, q])
 
-  function zoomIn(state, dt) {
+  function zoomInCamera(state, dt) {
     if (clickedRef.current && startUseFrame && !isMainView) {
       state.camera.position.lerp(p, 0.4, dt)
       state.camera.quaternion.slerp(q, 0.4, dt)
     }
   }
 
-  function zoomOut(state) {
+  function zoomOutCamera(state) {
     if (clickedRef.current && startUseFrame && isMainView) {
       state.camera.position.lerp(p.set(28, 2, 0), 1)
 
@@ -84,17 +84,17 @@ const Gallery3D = ({
   }
 
   useFrame((state, dt) => {
-    zoomIn(state, dt)
-    zoomOut(state)
-    hideGallery3DWhenBehind(state)
+    zoomInCamera(state, dt)
+    zoomOutCamera(state)
+    hideGallery3DWhenCameraBehind(state)
   })
 
-  return isShowed ? (
+  return isShowedGallery ? (
     <group
       ref={groupRef}
       position={SETTINGS.gallery3D.position}
       rotation={SETTINGS.gallery3D.rotation}
-      onClick={(e) => onClickOnProject(e)}
+      onClick={(e) => onClickOnProjectSaveCurrentData(e)}
       onPointerMissed={() => setLocation('/')}>
       {works.data.map((item) => (
         <Gallery3DItem
