@@ -10,8 +10,9 @@ const SETTINGS = {
   },
   animations: {
     inTime: {
+      carNavigationSetupStep: 2000,
       overviewStep: 800,
-      logo: 2000,
+      logo: 3800,
       navigation: 2600,
       lightButtonOverviewStep: 3000
     }

@@ -21,6 +21,10 @@ import { SceneLightsContext } from '../../context/SceneLightsContext'
 import { SceneCarContext } from '../../context/SceneCarContext'
 import SETTINGS from '../../utils/settings'
 
+const style = {
+  canvas: { position: 'relative' }
+}
+
 const CanvasContainer = () => {
   const works = useContext(WorksContext)
   const { saveCurrentProject } = useContext(CurrentProjectContext)
@@ -35,7 +39,7 @@ const CanvasContainer = () => {
 
   return (
     <Canvas
-      style={{ position: 'relative' }}
+      style={style.canvas}
       flat
       gl={{
         logarithmicDepthBuffer: true,
@@ -89,6 +93,8 @@ const CanvasContainer = () => {
             <Environment resolution={512}>
               <SceneLights lights={lights} />
             </Environment>
+
+            <EffectsColor />
           </>
         ) : null}
 
@@ -114,8 +120,6 @@ const CanvasContainer = () => {
           minPolarAngle={SETTINGS.orbitControls.minPolarAngle}
           maxPolarAngle={SETTINGS.orbitControls.maxPolarAngle}
         />
-
-        <EffectsColor />
       </Suspense>
     </Canvas>
   )

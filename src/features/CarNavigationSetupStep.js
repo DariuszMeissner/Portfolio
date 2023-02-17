@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useContext, useCallback } from 'react'
+import React, {
+  useRef,
+  useEffect,
+  useContext,
+  useCallback,
+  useState
+} from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { Layout } from '../components'
 import { LightsButtons, StartStopEngine } from './index'
@@ -6,6 +12,7 @@ import { DataContext } from '../context/DataContext'
 import { SceneLightsContext } from '../context/SceneLightsContext'
 import { SceneCarContext } from '../context/SceneCarContext'
 import SETTINGS from '../utils/settings'
+import { useTimeout } from '../hooks'
 
 const style = {
   container: {
@@ -27,6 +34,13 @@ const CarNavigation = () => {
   const { lights, setTopLight, setFrontLight, setSideLight } =
     useContext(SceneLightsContext)
   const { carState, carActions } = useContext(SceneCarContext)
+
+  const [inCarNavigation, setInCarNavigation] = useState(false)
+
+  const styleContainerAnimation = {
+    opacity: inCarNavigation ? '1' : '0',
+    transition: 'opacity 500ms ease-out'
+  }
 
   const buttonRef = useRef(null)
 
@@ -50,9 +64,13 @@ const CarNavigation = () => {
     goToStepOverview()
   }, [carState.isEngineOn, goToStepOverview, openStepOverview])
 
+  useTimeout(() => {
+    setInCarNavigation(true)
+  }, SETTINGS.animations.inTime.carNavigationSetupStep)
+
   return (
     <div className="car-navigation">
-      <Layout styles={style.container}>
+      <Layout styles={{ ...style.container, ...styleContainerAnimation }}>
         <LightsButtons
           isOverview={steps.isOverview}
           actions={{ setTopLight, setSideLight, setFrontLight }}

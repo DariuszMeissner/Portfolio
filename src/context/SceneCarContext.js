@@ -36,6 +36,8 @@ export const audio = {
   }
 }
 
+const AUDIO_VOLUME_DOWN = 0.4
+
 const SceneCarContext = createContext()
 
 const sceneCarReducer = (state, action) => {
@@ -51,7 +53,7 @@ const sceneCarReducer = (state, action) => {
       audio.engine.on.volume = 1
 
       setTimeout(() => {
-        audio.engine.on.volume = 0.2
+        audio.engine.on.volume = AUDIO_VOLUME_DOWN
       }, 8000)
 
       return {
@@ -114,7 +116,7 @@ const SceneCarContextProvider = ({ children }) => {
 
   function startLoop() {
     audio.engine.onLoop.play()
-    audio.engine.on.volume = 0.2
+    audio.engine.on.volume = AUDIO_VOLUME_DOWN
     audio.engine.onLoop.loop = true
   }
 
