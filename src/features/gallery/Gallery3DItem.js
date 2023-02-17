@@ -8,7 +8,13 @@ import { bool, func } from 'prop-types'
 import { worksItemType } from '../../types'
 
 const style = {
-  moreButon: { fontSize: 1.8, cursor: 'pointer', border: 'none', padding: 2 },
+  moreButon: {
+    fontSize: 2,
+    verticalAlign: 'bottom',
+    cursor: 'pointer',
+    border: 'none',
+    padding: 2
+  },
   hintToZoom: { fontSize: 4, cursor: 'pointer', border: 'none' }
 }
 
