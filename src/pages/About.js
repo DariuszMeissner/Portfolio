@@ -2,6 +2,7 @@ import React from 'react'
 import { Close, Link, Layout, Button } from '../components'
 import { useImageLoad, useSizeScreen } from '../hooks'
 import { pageType } from '../types'
+import CV_PDF from '../assets/DariuszMeissner_CV.pdf'
 
 const style = {
   container: {
@@ -76,10 +77,7 @@ const About = ({ closePage, openWorksPage }) => {
 
           <div style={style.info.cv}>
             <p>If you want to read about me more,&nbsp;</p>
-            <Link
-              href="https://www.linkedin.com/in/dariusz-robert-meissner/"
-              title="My CV."
-            />
+            <Link href={CV_PDF} title="My CV." />
           </div>
 
           <div style={style.info.projects}>

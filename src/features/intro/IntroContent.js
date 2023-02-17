@@ -25,6 +25,24 @@ const DURATION = {
   ANIMATION: 2000
 }
 
+const style = {
+  introText: {
+    padding: '0 20px'
+  },
+  skipIntro: {
+    container: {
+      position: 'absolute',
+      bottom: '-50%',
+      right: '20%'
+    },
+    button: {
+      color: 'white',
+      padding: '10px',
+      border: '1px solid white'
+    }
+  }
+}
+
 const IntroContent = ({ closeStepIntro, openStepSetup }) => {
   const welcomeTextFirstRef = useRef(null)
   const welcomeTextSecondRef = useRef(null)
@@ -35,6 +53,19 @@ const IntroContent = ({ closeStepIntro, openStepSetup }) => {
   const [inTextSecond, setInTextSecond] = useState(false)
   const [inTextThird, setInTextThird] = useState(false)
   const [inSkipIntro, setInSkipIntro] = useState(false)
+
+  function hideIntro() {
+    closeStepIntro()
+  }
+
+  function showSceneSetup() {
+    openStepSetup()
+  }
+
+  function skipIntro() {
+    hideIntro()
+    showSceneSetup()
+  }
 
   useTimeout(() => {
     setInTextFirst(true)
@@ -59,28 +90,13 @@ const IntroContent = ({ closeStepIntro, openStepSetup }) => {
   useTimeout(() => {
     setInTextThird(false)
 
-    // eslint-disable-next-line no-use-before-define
     hideIntro()
-    // eslint-disable-next-line no-use-before-define
     showSceneSetup()
   }, DURATION.TEXT.THIRD.END)
 
   useTimeout(() => {
     setInSkipIntro(true)
   }, DURATION.TEXT.SKIP_INTRO.START)
-
-  function hideIntro() {
-    closeStepIntro()
-  }
-
-  function showSceneSetup() {
-    openStepSetup()
-  }
-
-  function skipIntro() {
-    hideIntro()
-    showSceneSetup()
-  }
 
   return (
     <>
@@ -92,7 +108,7 @@ const IntroContent = ({ closeStepIntro, openStepSetup }) => {
         unmountOnExit
         onEnter={() => setInTextFirst(true)}
         onExited={() => setInTextFirst(false)}>
-        <div ref={welcomeTextFirstRef} style={{ padding: '0 20px' }}>
+        <div ref={welcomeTextFirstRef} style={style.introText}>
           <p>{`Everyone from us dreaming\nabout something big`}</p>
         </div>
       </CSSTransition>
@@ -105,7 +121,7 @@ const IntroContent = ({ closeStepIntro, openStepSetup }) => {
         unmountOnExit
         onEnter={() => setInTextSecond(true)}
         onExited={() => setInTextSecond(false)}>
-        <div ref={welcomeTextSecondRef} style={{ padding: '0 20px' }}>
+        <div ref={welcomeTextSecondRef} style={style.introText}>
           <p>{`but sometimes we only got\nsubstitute`}</p>
         </div>
       </CSSTransition>
@@ -118,23 +134,17 @@ const IntroContent = ({ closeStepIntro, openStepSetup }) => {
         unmountOnExit
         onEnter={() => setInTextThird(true)}
         onExited={() => setInTextThird(false)}>
-        <div ref={welcomeTextThirdRef} style={{ padding: '0 20px' }}>
+        <div ref={welcomeTextThirdRef} style={style.introText}>
           <p>{`please,\nturn on all lights...`}</p>
         </div>
       </CSSTransition>
 
       {inSkipIntro && (
-        <div
-          ref={skipIntroRef}
-          style={{ position: 'absolute', bottom: '-50%', right: '20%' }}>
+        <div ref={skipIntroRef} style={style.skipIntro.container}>
           <Button
             title="Skip Intro"
             onClick={() => skipIntro()}
-            styles={{
-              color: 'white',
-              padding: '10px',
-              border: '1px solid white'
-            }}
+            styles={style.skipIntro.button}
           />
         </div>
       )}
