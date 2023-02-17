@@ -47,9 +47,12 @@ const sceneCarReducer = (state, action) => {
       }
     }
     case actions.ENGINE_ON: {
-      if (!state.isEngineOn) {
-        audio.engine.on.play()
-      }
+      audio.engine.on.play()
+      audio.engine.on.volume = 1
+
+      setTimeout(() => {
+        audio.engine.on.volume = 0.2
+      }, 8000)
 
       return {
         ...state,
@@ -67,6 +70,7 @@ const sceneCarReducer = (state, action) => {
 
         audio.engine.off.play()
       }
+
       return {
         ...state,
         lightEmissive: 0,
@@ -110,6 +114,7 @@ const SceneCarContextProvider = ({ children }) => {
 
   function startLoop() {
     audio.engine.onLoop.play()
+    audio.engine.on.volume = 0.2
     audio.engine.onLoop.loop = true
   }
 
