@@ -3,6 +3,7 @@ import { bool, shape } from 'prop-types'
 import { CSSTransition } from 'react-transition-group'
 import { Layout } from '../../../components'
 import { useTimeout } from '../../../hooks'
+import SETTINGS from '../../../utils/settings'
 
 const style = {
   container: {
@@ -34,7 +35,7 @@ const Logo = ({ pages }) => {
 
   useTimeout(() => {
     setInLogo(true)
-  }, 900)
+  }, SETTINGS.animations.inTime.logo)
 
   return (
     <Layout styles={style.layout}>

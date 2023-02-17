@@ -7,6 +7,14 @@ const SETTINGS = {
   orbitControls: {
     minPolarAngle: Math.PI / 2.105,
     maxPolarAngle: Math.PI / 2.105
+  },
+  animations: {
+    inTime: {
+      overviewStep: 800,
+      logo: 2000,
+      navigation: 2600,
+      lightButtonOverviewStep: 3000
+    }
   }
 }
 

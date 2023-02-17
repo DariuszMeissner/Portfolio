@@ -5,6 +5,7 @@ import { LightsButtons, StartStopEngine } from './index'
 import { DataContext } from '../context/DataContext'
 import { SceneLightsContext } from '../context/SceneLightsContext'
 import { SceneCarContext } from '../context/SceneCarContext'
+import SETTINGS from '../utils/settings'
 
 const style = {
   container: {
@@ -33,11 +34,17 @@ const CarNavigation = () => {
     carActions.startStopEngine()
   }
 
+  const delayInStepOverview = useCallback(() => {
+    setTimeout(() => {
+      openStepOverview()
+    }, SETTINGS.animations.inTime.overviewStep)
+  }, [openStepOverview])
+
   const goToStepOverview = useCallback(() => {
     if (carState.isEngineOn) {
-      openStepOverview()
+      delayInStepOverview()
     }
-  }, [carState.isEngineOn, openStepOverview])
+  }, [carState.isEngineOn, delayInStepOverview])
 
   useEffect(() => {
     goToStepOverview()
