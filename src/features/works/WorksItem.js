@@ -75,14 +75,16 @@ const WorksItem = ({ item }) => {
         {/* thumbnail */}
         <div style={style.imageContainer}>
           {isImage ? (
-            <img src={item.thumbnail} alt={item.title} style={style.image} />
+            <>
+              <img src={item.thumbnail} alt={item.title} style={style.image} />
+              <div style={style.infoBar}>
+                <span>{item.title}</span>
+                <span>{item.tag}</span>
+              </div>
+            </>
           ) : (
             <span>loading image...</span>
           )}
-          <div style={style.infoBar}>
-            <span>{item.title}</span>
-            <span>{item.tag}</span>
-          </div>
         </div>
       </div>
     </li>

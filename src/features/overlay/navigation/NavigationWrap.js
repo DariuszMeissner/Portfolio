@@ -68,10 +68,12 @@ const NavigationWrap = () => {
         </div>
       </CSSTransition>
 
-      <AudioOnOff
-        isMuted={carState.isMuted}
-        setMuteAudio={carActions.setMuteAudio}
-      />
+      {carState.isEngineOn && (
+        <AudioOnOff
+          isMuted={carState.isMuted}
+          setMuteAudio={carActions.setMuteAudio}
+        />
+      )}
     </Overlay>
   )
 }
