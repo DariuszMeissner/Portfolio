@@ -48,7 +48,8 @@ const CanvasContainer = () => {
         <Lamborghini
           zoom={zoom}
           lightEmmit={carState.lightEmissive}
-          lightsOn={carState.isEngineOn}
+          isEngineOn={carState.isEngineOn}
+          isOverview={steps.isOverview}
         />
 
         {/* car's platform */}

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { bool, func, shape } from 'prop-types'
 import { LightsButtons } from '..'
 import { useSizeScreen, useTimeout } from '../../hooks'
+import SETTINGS from '../../utils/settings'
 
 const style = {
   lightsButtons: {
@@ -20,7 +21,7 @@ const LightsButtonsOverviewStep = ({ isOverview, actions }) => {
 
   useTimeout(() => {
     setInLightsButtons(true)
-  }, 2000)
+  }, SETTINGS.animations.inTime.lightButtonOverviewStep)
 
   return inLightsButtons ? (
     <div style={{ ...style.lightsButtons, ...styleLightsButtonsScreen }}>

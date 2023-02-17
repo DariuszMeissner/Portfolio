@@ -14,7 +14,7 @@ Source: https://sketchfab.com/3d-models/lamborghini-urus-2650599973b649ddb4460ff
 Title: Lamborghini Urus
 */
 
-const Lamborghini = ({ lightsOn, zoom, lightEmmit }) => {
+const Lamborghini = ({ isEngineOn, zoom, lightEmmit, isOverview }) => {
   const { scene, nodes, materials } = useGLTF('/lambo.glb')
   const [stopZoom, setStopZoom] = useState(false)
   const [isCarHover, setIsCarHover] = useState(false)
@@ -28,7 +28,7 @@ const Lamborghini = ({ lightsOn, zoom, lightEmmit }) => {
   useCursor(isCarHover)
 
   function moveCameraWhenLightsOn(state) {
-    if (lightsOn && !stopZoom) {
+    if (isEngineOn && isOverview && !stopZoom) {
       state.camera.position.lerp(
         v.set(zoom ? valueZoomOnScreenSize : 0, 0, zoom ? 0 : 15),
         0.07
@@ -122,7 +122,8 @@ const Lamborghini = ({ lightsOn, zoom, lightEmmit }) => {
 Lamborghini.propTypes = {
   lightEmmit: number.isRequired,
   zoom: bool.isRequired,
-  lightsOn: bool.isRequired
+  isEngineOn: bool.isRequired,
+  isOverview: bool.isRequired
 }
 
 export default Lamborghini

@@ -4,6 +4,7 @@ import { useSizeScreen, useTimeout } from '../../../hooks'
 import { Navigation, Overlay, StartStopEngine, AudioOnOff } from '../..'
 import { DataContext } from '../../../context/DataContext'
 import { SceneCarContext } from '../../../context/SceneCarContext'
+import SETTINGS from '../../../utils/settings'
 
 const style = {
   overlay: {
@@ -33,7 +34,7 @@ const NavigationWrap = () => {
 
   useTimeout(() => {
     setInNavigation(true)
-  }, 1500)
+  }, SETTINGS.animations.inTime.navigation)
 
   return (
     <Overlay styles={{ ...style.overlay }}>
