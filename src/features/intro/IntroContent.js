@@ -32,7 +32,7 @@ const style = {
   skipIntro: {
     container: {
       position: 'absolute',
-      bottom: '-50%',
+      bottom: '20%',
       right: '20%'
     },
     button: {
