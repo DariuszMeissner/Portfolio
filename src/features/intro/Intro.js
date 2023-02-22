@@ -4,18 +4,24 @@ import { node } from 'prop-types'
 const style = {
   position: 'absolute',
   zIndex: 2,
-  top: '50%',
-  left: '50%',
-  fontSize: 40,
-  transform: 'translate(-50%, -50%)',
-  color: 'white',
-  textAlign: 'center',
+  top: 0,
+  height: '100vh',
+  width: '100%',
   maxWwidth: 400,
-  width: '100%'
+  color: 'white',
+  fontSize: 40,
+  textAlign: 'center',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
 }
 
 const Intro = ({ children }) => {
-  return <div style={style}>{children}</div>
+  return (
+    <div className="intro" style={style}>
+      {children}
+    </div>
+  )
 }
 
 Intro.propTypes = {
