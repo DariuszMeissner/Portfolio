@@ -20,12 +20,20 @@ const style = {
     bottom: '0px',
     left: '50%',
     transform: 'translateX(-50%)',
-    display: 'flex',
     alignItems: 'center',
     zIndex: '3'
   },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   button: {
     marginLeft: 40
+  },
+  hint: {
+    color: 'white',
+    textAlign: 'center'
   }
 }
 
@@ -71,23 +79,31 @@ const CarNavigation = () => {
   return (
     <div className="car-navigation">
       <Layout styles={{ ...style.container, ...styleContainerAnimation }}>
-        <LightsButtons
-          isOverview={steps.isOverview}
-          actions={{ setTopLight, setSideLight, setFrontLight }}
-        />
-        <CSSTransition
-          in={lights.allIsTurnOn || steps.isOverview}
-          nodeRef={buttonRef}
-          timeout={2000}
-          classNames="fade"
-          unmountOnExit>
-          <div ref={buttonRef} style={style.button}>
-            <StartStopEngine
-              handleStartEngine={handleStartEngine}
-              isOverview={steps.isOverview}
-            />
-          </div>
-        </CSSTransition>
+        <div style={style.buttons}>
+          <LightsButtons
+            isOverview={steps.isOverview}
+            actions={{ setTopLight, setSideLight, setFrontLight }}
+          />
+          <CSSTransition
+            in={lights.allIsTurnOn || steps.isOverview}
+            nodeRef={buttonRef}
+            timeout={2000}
+            classNames="fade"
+            unmountOnExit>
+            <div ref={buttonRef} style={style.button}>
+              <StartStopEngine
+                handleStartEngine={handleStartEngine}
+                isOverview={steps.isOverview}
+              />
+            </div>
+          </CSSTransition>
+        </div>
+
+        <p style={style.hint}>
+          {!lights.allIsTurnOn
+            ? 'Turn on the lights to see next step'
+            : 'now, Start the engine'}
+        </p>
       </Layout>
     </div>
   )

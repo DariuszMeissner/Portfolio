@@ -22,7 +22,7 @@ const style = {
   },
   overlay: {
     top: '0px',
-    height: '22%'
+    height: '28%'
   },
   lightsButtons: {
     display: 'flex',

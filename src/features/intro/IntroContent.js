@@ -109,7 +109,7 @@ const IntroContent = ({ closeStepIntro, openStepSetup }) => {
         onEnter={() => setInTextFirst(true)}
         onExited={() => setInTextFirst(false)}>
         <div ref={welcomeTextFirstRef} style={style.introText}>
-          <p>{`Everyone from us dreaming\nabout something big`}</p>
+          <p>Everyone dreams about something big</p>
         </div>
       </CSSTransition>
 
@@ -122,7 +122,7 @@ const IntroContent = ({ closeStepIntro, openStepSetup }) => {
         onEnter={() => setInTextSecond(true)}
         onExited={() => setInTextSecond(false)}>
         <div ref={welcomeTextSecondRef} style={style.introText}>
-          <p>{`but sometimes we only got\nsubstitute`}</p>
+          <p>but sometimes we only get substitute</p>
         </div>
       </CSSTransition>
 
@@ -135,7 +135,7 @@ const IntroContent = ({ closeStepIntro, openStepSetup }) => {
         onEnter={() => setInTextThird(true)}
         onExited={() => setInTextThird(false)}>
         <div ref={welcomeTextThirdRef} style={style.introText}>
-          <p>{`please,\nturn on all lights...`}</p>
+          <p>please, turn on the lights...</p>
         </div>
       </CSSTransition>
 

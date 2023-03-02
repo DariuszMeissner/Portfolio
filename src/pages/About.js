@@ -71,12 +71,12 @@ const About = ({ closePage, openWorksPage }) => {
         {/* info */}
         <div style={style.info.container}>
           <h2>{`I'm Dariusz Meissner`}</h2>
-          <h3 style={style.info.subtitle}>{`I'm Front-End Developer`}</h3>
-          <p>I like builde something by code with library React.</p>
-          <p>{`I'm interesting web development, games, ux/ui design and computer graphics.`}</p>
+          <h3 style={style.info.subtitle}>{`I'm a Front-End Developer`}</h3>
+          <p>I like to build with code using library React.</p>
+          <p>{`I'm interested in web development, games, ux/ui design and computer graphics.`}</p>
 
           <div style={style.info.cv}>
-            <p>If you want to read about me more,&nbsp;</p>
+            <p>If you want to known more about me check out&nbsp;</p>
             <Link href={CV_PDF} title="My CV." />
           </div>
 
